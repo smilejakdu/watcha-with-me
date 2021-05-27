@@ -43,8 +43,8 @@ class SchedulerView(View):
             "id"         : scheduler['id'],
             "start_date" : scheduler['start_date'],
             "end_date"   : scheduler['end_date'],
-            "text"       : scheduler['text'],
-            "email"      :User.objects.get(id=scheduler['user_id']).email
+            "text"       : f"-{User.objects.get(id=scheduler['user_id']).email}- \n {scheduler['text']}",
+            "eamil"      : User.objects.get(id=scheduler['user_id']).email
         }for scheduler in schedulers]
 
         return JsonResponse({"data" : list(scheduler_data)} , status = 200)
@@ -54,12 +54,18 @@ class SchedulerView(View):
         data      = json.loads(request.body)
         scheduler = Scheduler.objects.get(user_id = request.user.id ,
                                           id      = data["id"])
+        regex = '-[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}-$'
+        for text in data["text"].split():
+            if re.search(regex, text):
+                continue
+            print(text)
+        
         try:
-            scheduler.update(
-                start_date = data["start_date"],
-                end_date   = data["end_date"],
-                text       = data["text"],
-            )
+            scheduler.start_date = data["start_date"]
+            scheduler.end_date   = data["end_date"]
+            scheduler.text       += data["text"]
+            # scheduler.save()
+
             return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
 
         except KeyError:

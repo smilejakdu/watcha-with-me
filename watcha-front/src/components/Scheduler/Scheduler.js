@@ -106,7 +106,7 @@ class Scheduler extends Component {
         this.initSchedulerEvents();
 
         const { events } = this.props;
-        scheduler.init(this.schedulerContainer, new Date(2020, 5, 10));
+        scheduler.init(this.schedulerContainer, new Date(2021, 5, 10));
         scheduler.clearAll();
         scheduler.parse(events);
     }
