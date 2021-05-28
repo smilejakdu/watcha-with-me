@@ -1,116 +1,93 @@
 import produce from "../utils/produce";
 
 export const initialState = {
-    mainPosts: [],
-    singlePost: null,
-    imagePaths: [],
+    mainScheduler: [],
     hasMorePosts: true,
 
-    LOAD_BOARD_REQUEST: false,
-    LOAD_BOARD_DONE: false,
-    LOAD_BOARD_FAILURE: null,
+    loadSchedulerLoading: false,
+    loadSchedulerDone: false,
+    loadSchedulerError: null,
 
-    likePostLoading: false,
-    likePostDone: false,
-    likePostError: null,
-    unlikePostLoading: false,
-    unlikePostDone: false,
-    unlikePostError: null,
+    addSchedulerLoading: false,
+    addSchedulerDone: false,
+    addSchedulerError: null,
 
-    removePostLoading: false,
-    removePostDone: false,
-    removePostError: null,
-    addCommentLoading: false,
-    addCommentDone: false,
-    addCommentError: null,
-    uploadImagesLoading: false,
-    uploadImagesDone: false,
-    uploadImagesError: null,
-    retweetLoading: false,
-    retweetDone: false,
-    retweetError: null,
+    removeSchedulerLoading: false,
+    removeSchedulerDone: false,
+    removeSchedulerError: null,
+
+    updateSchedulerLoading: false,
+    updateSchedulerDone: false,
+    updateSchedulerError: null,
 };
+export const LOAD_SCHEDULER_REQUEST = "LOAD_SCHEDULER_REQUEST";
+export const LOAD_SCHEDULER_SUCCESS = "LOAD_SCHEDULER_SUCCESS";
+export const LOAD_SCHEDULER_FAILURE = "LOAD_SCHEDULER_FAILURE";
 
-export const LIKE_POST_REQUEST = "LIKE_POST_REQUEST";
-export const LIKE_POST_SUCCESS = "LIKE_POST_SUCCESS";
-export const LIKE_POST_FAILURE = "LIKE_POST_FAILURE";
+export const ADD_SCHEDULER_REQUEST = "ADD_COMMENT_REQUEST";
+export const ADD_SCHEDULER_SUCCESS = "ADD_COMMENT_SUCCESS";
+export const ADD_SCHEDULER_FAILURE = "ADD_COMMENT_FAILURE";
 
-export const UNLIKE_POST_REQUEST = "UNLIKE_POST_REQUEST";
-export const UNLIKE_POST_SUCCESS = "UNLIKE_POST_SUCCESS";
-export const UNLIKE_POST_FAILURE = "UNLIKE_POST_FAILURE";
+export const REMOVE_SCHEDULER_REQUEST = "REMOVE_SCHEDULER_REQUEST";
+export const REMOVE_SCHEDULER_SUCCESS = "REMOVE_SCHEDULER_SUCCESS";
+export const REMOVE_SCHEDULER_FAILURE = "REMOVE_SCHEDULER_FAILURE";
 
-export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
-export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
-export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
+export const UPDATE_SCHEDULER_REQUEST = "UPDATE_SCHEDULER_REQUEST";
+export const UPDATE_SCHEDULER_SUCCESS = "UPDATE_SCHEDULER_SUCCESS";
+export const UPDATE_SCHEDULER_FAILURE = "UPDATE_SCHEDULER_FAILURE";
 
-export const REMOVE_COMMENT_REQUEST = "REMOVE_COMMENT_REQUEST";
-export const REMOVE_COMMENT_SUCCESS = "REMOVE_COMMENT_SUCCESS";
-export const REMOVE_COMMENT_FAILURE = "REMOVE_COMMENT_FAILURE";
-
-export const UPDATE_COMMENT_REQUEST = "UPDATE_COMMENT_REQUEST";
-export const UPDATE_COMMENT_SUCCESS = "UPDATE_COMMENT_SUCCESS";
-export const UPDATE_COMMENT_FAILURE = "UPDATE_COMMENT_FAILURE";
-
-export const addComment = (data) => ({ type: ADD_COMMENT_REQUEST, data });
+export const addScheduler = (data) => ({ type: ADD_SCHEDULER_REQUEST, data });
 
 const reducer = (state = initialState, action) =>
     produce(state, (draft) => {
         switch (action.type) {
-            case LIKE_POST_REQUEST:
-                draft.likePostLoading = true;
-                draft.likePostDone = false;
-                draft.likePostError = null;
+            case LOAD_SCHEDULER_REQUEST:
+                draft.loadSchedulerLoading = true;
+                draft.loadSchedulerDone = false;
+                draft.loadSchedulerError = null;
                 break;
-            case LIKE_POST_SUCCESS: {
-                const post = draft.mainPosts.find(
-                    (v) => v.id === action.data.PostId
-                );
-                post.Likers.push({ id: action.data.UserId });
-                draft.likePostLoading = false;
-                draft.likePostDone = true;
+            case LOAD_SCHEDULER_SUCCESS:
+                draft.loadSchedulerLoading = false;
+                draft.loadSchedulerDone = true;
+                draft.mainScheduler = draft.mainScheduler.concat(action.data);
                 break;
-            }
-            case LIKE_POST_FAILURE:
-                draft.likePostLoading = false;
-                draft.likePostError = action.error;
+            case LOAD_SCHEDULER_FAILURE:
+                draft.loadSchedulerLoading = false;
+                draft.loadSchedulerError = action.error;
                 break;
-            case UNLIKE_POST_REQUEST:
-                draft.unlikePostLoading = true;
-                draft.unlikePostDone = false;
-                draft.unlikePostError = null;
+            case ADD_SCHEDULER_REQUEST:
+                draft.addSchedulerLoading = true;
+                draft.addSchedulerDone = false;
+                draft.addSchedulerError = null;
                 break;
-            case UNLIKE_POST_SUCCESS: {
-                const post = draft.mainPosts.find(
-                    (v) => v.id === action.data.PostId
-                );
-                post.Likers = post.Likers.filter(
-                    (v) => v.id !== action.data.UserId
-                );
-                draft.unlikePostLoading = false;
-                draft.unlikePostDone = true;
-                break;
-            }
-            case UNLIKE_POST_FAILURE:
-                draft.unlikePostLoading = false;
-                draft.unlikePostError = action.error;
-                break;
-            case ADD_COMMENT_REQUEST:
-                draft.addCommentLoading = true;
-                draft.addCommentDone = false;
-                draft.addCommentError = null;
-                break;
-            case ADD_COMMENT_SUCCESS: {
-                const post = draft.mainPosts.find(
+            case ADD_SCHEDULER_SUCCESS: {
+                const post = draft.mainScheduler.find(
                     (v) => v.id === action.data.PostId
                 );
                 post.Comments.unshift(action.data);
-                draft.addCommentLoading = false;
-                draft.addCommentDone = true;
+                draft.addSchedulerLoading = false;
+                draft.addSchedulerDone = true;
                 break;
             }
-            case ADD_COMMENT_FAILURE:
-                draft.addCommentLoading = false;
-                draft.addCommentError = action.error;
+            case ADD_SCHEDULER_FAILURE:
+                draft.addSchedulerLoading = false;
+                draft.addSchedulerError = action.error;
+                break;
+            case REMOVE_SCHEDULER_REQUEST:
+                draft.removeSchedulerLoading = true;
+                draft.removePostDone = false;
+                draft.removeSchedulerError = null;
+                break;
+            case REMOVE_SCHEDULER_SUCCESS:
+                draft.removeSchedulerLoading = false;
+                draft.removePostDone = true;
+                draft.mainScheduler = draft.mainScheduler.filter(
+                    (v) => v.id !== action.data.PostId
+                );
+                break;
+            case REMOVE_SCHEDULER_FAILURE:
+                draft.removeSchedulerLoading = false;
+                draft.removeSchedulerError = action.error;
                 break;
             default:
                 break;

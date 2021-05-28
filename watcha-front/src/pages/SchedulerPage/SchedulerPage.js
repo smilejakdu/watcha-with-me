@@ -1,26 +1,24 @@
-import React , {useState , useEffect} from "react";
+import React , {useState , useEffect , useCallback} from "react";
 import { Body, BodyCenter, SchedulerContainer } from "./SchedulerPage.style";
 import Scheduler from "../../components/Scheduler/Scheduler"
 import axios from "axios";
 import { backUrl } from "../../config/config";
- 
+import { useSelector, useDispatch } from "react-redux";
+import {LOAD_SCHEDULER_REQUEST} from "../../reducers/scheduler"
+
 const WithmePage = () => {
+    const dispatch  = useDispatch();
+    const { mainScheduler } = useSelector((state) => state.scheduler);
     const [data , setData] = useState([]);
 
     useEffect(() =>{
-        console.log("start withmepage");
-        axios.get(`${backUrl}/scheduler`)
-        .then((res) =>{
-            console.log("res : " , res);
-            let {
-                data : {data} 
-            } = res;
-            setData(data);
-        })
-        .catch((error) =>{
-            console.log("error :" , error);
-        })
+        dispatch({
+            type:LOAD_SCHEDULER_REQUEST,
+        });
     },[])
+    useEffect(()=>{
+        console.log(mainScheduler);
+    })
 
     return (
         <Body>

@@ -1,42 +1,46 @@
 import axios from "axios";
 import { all, fork, put, takeLatest, throttle, call } from "redux-saga/effects";
 
+import {backUrl} from "../config/config"
+
 import {
+    LOAD_SCHEDULER_REQUEST,
+    LOAD_SCHEDULER_SUCCESS,
+    LOAD_SCHEDULER_FAILURE,
     ADD_COMMENT_REQUEST,
     ADD_COMMENT_SUCCESS,
     ADD_COMMENT_FAILURE,
-} from "../reducers/board";
+} from "../reducers/scheduler";
 
-function addCommentAPI(data) {
-    console.log(data);
-    return;
-    // return axios.post(``,data)
+function loadSchedulerAPI() {
+    return axios.get(`${backUrl}/scheduler`);
 }
 
-function* addComment(action) {
+function* loadScheduler(action) {
     try {
-        const result = yield call(addCommentAPI, action.data);
+        const result = yield call(loadSchedulerAPI);
+        console.log("result : ", result);
+        let {data : {data}} = result;
         yield put({
-            type: ADD_COMMENT_SUCCESS,
-            data: result.data,
+            type: LOAD_SCHEDULER_SUCCESS,
+            data: data,
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        console.error(err);
         yield put({
-            type: ADD_COMMENT_FAILURE,
-            error: error.response.data,
+            type: LOAD_SCHEDULER_FAILURE,
+            error: err.response.data,
         });
     }
 }
 
-function* watchLoadBoard() {
-    yield takeLatest(ADD_COMMENT_REQUEST, addComment);
-}
-
-function* watchAddComment() {
-    yield takeLatest(ADD_COMMENT_REQUEST, addComment);
+function* watchLoadScheduler() {
+    yield throttle(5000,LOAD_SCHEDULER_REQUEST, loadScheduler);
 }
 
 export default function* boardSaga() {
-    yield all([fork(watchLoadBoard), fork(watchAddComment)]);
+    yield all(
+        [
+         fork(watchLoadScheduler),
+        ]);
 }
