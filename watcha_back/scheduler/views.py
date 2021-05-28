@@ -9,6 +9,7 @@ from users.utils import login_check
 from .models import Scheduler
 from django.http import JsonResponse
 from users.utils import login_check
+
 import datetime
 
 
@@ -63,7 +64,7 @@ class SchedulerView(View):
         try:
             scheduler.start_date = data["start_date"]
             scheduler.end_date   = data["end_date"]
-            scheduler.text       += data["text"]
+            scheduler.text      += data["text"]
             # scheduler.save()
 
             return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
