@@ -8,23 +8,25 @@ import {LOAD_SCHEDULER_REQUEST} from "../../reducers/scheduler"
 
 const WithmePage = () => {
     const dispatch  = useDispatch();
-    const { mainScheduler } = useSelector((state) => state.scheduler);
-    const [data , setData] = useState([]);
+    const { loadSchedulerLoading, mainScheduler } = useSelector(
+        (state) => state.scheduler
+    );
 
     useEffect(() =>{
         dispatch({
             type:LOAD_SCHEDULER_REQUEST,
         });
     },[])
-    useEffect(()=>{
+
+    useEffect(() => {
         console.log(mainScheduler);
-    })
+    }, [loadSchedulerLoading]);
 
     return (
         <Body>
             <BodyCenter>
                 <SchedulerContainer>
-                    <Scheduler events={data} />
+                    <Scheduler />
                 </SchedulerContainer>
             </BodyCenter>
         </Body>
