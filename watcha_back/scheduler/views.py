@@ -9,7 +9,7 @@ from users.utils import login_check
 from .models import Scheduler
 from django.http import JsonResponse
 from users.utils import login_check
-
+from collections import deque
 import datetime
 
 
@@ -17,12 +17,13 @@ class SchedulerView(View):
     @login_check
     def post(self , request):
         data = json.loads(request.body)
-
+        user_email = User.objects.get(id=request.user.id).email
+        user_email = user_email[:user_email.index('@')]
         try:
             Scheduler(
                 start_date = data['start_date'],
                 end_date   = data['end_date'],
-                text       = data['text'],
+                text       = f"-{user_email}-\n{data['text']}",
                 user_id    = User.objects.get(id = request.user.id).id
             ).save()
 
@@ -44,7 +45,7 @@ class SchedulerView(View):
             "id"         : scheduler['id'],
             "start_date" : scheduler['start_date'],
             "end_date"   : scheduler['end_date'],
-            "text"       : f"-{User.objects.get(id=scheduler['user_id']).email}- \n {scheduler['text']}",
+            "text"       : scheduler['text'],
             "eamil"      : User.objects.get(id=scheduler['user_id']).email
         }for scheduler in schedulers]
 
@@ -55,7 +56,9 @@ class SchedulerView(View):
         data      = json.loads(request.body)
         scheduler = Scheduler.objects.get(user_id = request.user.id ,
                                           id      = data["id"])
+
         regex = '-[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}-$'
+
         for text in data["text"].split():
             if re.search(regex, text):
                 continue
@@ -64,8 +67,8 @@ class SchedulerView(View):
         try:
             scheduler.start_date = data["start_date"]
             scheduler.end_date   = data["end_date"]
-            scheduler.text      += data["text"]
-            # scheduler.save()
+            scheduler.text       = data["text"]
+            scheduler.save()
 
             return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
 
@@ -78,5 +81,17 @@ class SchedulerView(View):
 
     @login_check
     def delete(self , request):
+        data      = json.loads(request.body)
+        scheduler = Scheduler.objects.get(user_id = request.user.id ,
+                                          id      = data["id"])
+        try:
+            scheduler.delete()
+            return JsonResponse({"message": "DELETE_SUCCESS"},status = 200)
+        except KeyError:
+            return JsonResponse({"message": "KEY_ERROR"},status = 400)
+        except ValueError:
+            return JsonResponse({"message": "KEY_ERROR"}, status = 400)
+        except Exception as e:
+            return JsonResponse({"message": e},status = 400)
         return
 

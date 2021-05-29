@@ -7,20 +7,19 @@ import {
     LOAD_SCHEDULER_REQUEST,
     LOAD_SCHEDULER_SUCCESS,
     LOAD_SCHEDULER_FAILURE,
-    ADD_COMMENT_REQUEST,
-    ADD_COMMENT_SUCCESS,
-    ADD_COMMENT_FAILURE,
 } from "../reducers/scheduler";
 
 function loadSchedulerAPI() {
-    return axios.get(`${backUrl}/scheduler`);
+    return axios.get("/scheduler");
 }
 
-function* loadScheduler(action) {
+function* loadScheduler() {
     try {
         const result = yield call(loadSchedulerAPI);
-        console.log("result : ", result);
-        let {data : {data}} = result;
+        let {
+            data :{data}
+        } = result;
+        console.log("data 3 : ", data);
         yield put({
             type: LOAD_SCHEDULER_SUCCESS,
             data: data,

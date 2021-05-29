@@ -6,31 +6,28 @@ import { backUrl } from "../../config/config";
 import { useSelector, useDispatch } from "react-redux";
 import {LOAD_SCHEDULER_REQUEST} from "../../reducers/scheduler"
 
-const WithmePage = () => {
-    const dispatch  = useDispatch();
-    const { loadSchedulerLoading, mainScheduler } = useSelector(
-        (state) => state.scheduler
-    );
-
-    useEffect(() =>{
-        dispatch({
-            type:LOAD_SCHEDULER_REQUEST,
-        });
-    },[])
+const SchedulerPage = () => {
+    const [data , setData] = useState([]);
 
     useEffect(() => {
-        console.log(mainScheduler);
-    }, [loadSchedulerLoading]);
+        axios.get("/scheduler")
+        .then((res) =>{
+            setData(res.data)
+        })
+        .catch((error) =>{
+            console.log("error : " , error);
+        })
+    },[])
 
     return (
         <Body>
             <BodyCenter>
                 <SchedulerContainer>
-                    <Scheduler />
+                    <Scheduler events={data} />
                 </SchedulerContainer>
             </BodyCenter>
         </Body>
     );
 };
 
-export default WithmePage;
+export default SchedulerPage;

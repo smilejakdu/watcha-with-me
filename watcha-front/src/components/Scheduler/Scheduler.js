@@ -9,8 +9,34 @@ import { useSelector, useDispatch } from "react-redux";
 const scheduler = window.scheduler;
 
 const Scheduler = ({ events }) => {
+    console.log("events : ", events);
     const [data, setData] = useState([]);
     const schedulerContainer = useRef(null);
+
+    useEffect(() => {
+        scheduler.skin = "material";
+        scheduler.config.header = [
+            "day",
+            "week",
+            "month",
+            "date",
+            "prev",
+            "today",
+            "next",
+        ];
+
+        scheduler.config.hour_date = "%g:%i %A";
+        scheduler.xy.scale_width = 70;
+
+        initSchedulerEvents();
+        let today = new Date();
+        scheduler.init(schedulerContainer.current, new Date(today.getFullYear(),
+                                                            today.getMonth(),
+                                                            today.getDate()));
+        scheduler.clearAll();
+        scheduler.parse(events);
+
+    },[events]);
 
     const initSchedulerEvents = () => {
         if (scheduler._$initialized) {
@@ -32,7 +58,7 @@ const Scheduler = ({ events }) => {
                 .then((res) => {
                     console.log(res.json);
                 })
-                .then((res) => this.handleGet());
+                .then((res) => handleGet());
         });
 
         scheduler.attachEvent("onEventChanged", (id, ev) => {
@@ -48,7 +74,7 @@ const Scheduler = ({ events }) => {
                     Authorization: `${localStorage.getItem("token")}`,
                 },
             })
-                .then((res) => this.handleGet())
+                .then((res) => handleGet())
                 .catch((error) => console.log(error));
         });
 
@@ -59,6 +85,9 @@ const Scheduler = ({ events }) => {
                 body: JSON.stringify({
                     id: id,
                 }),
+                headers: {
+                    Authorization: `${localStorage.getItem("token")}`,
+                },
             })
                 .then((res) => console.log(res))
                 .then((res) => {
@@ -81,27 +110,6 @@ const Scheduler = ({ events }) => {
                 console.log("error : ", error);
             });
     };
-
-    useEffect(() => {
-        scheduler.skin = "material";
-        scheduler.config.header = [
-            "day",
-            "week",
-            "month",
-            "date",
-            "prev",
-            "today",
-            "next",
-        ];
-        scheduler.config.hour_date = "%g:%i %A";
-        scheduler.xy.scale_width = 70;
-
-        initSchedulerEvents();
-
-        scheduler.init(schedulerContainer.current, new Date(2021, 5, 10));
-        scheduler.clearAll();
-        scheduler.parse(events);
-    }, []);
 
     return <SchedulerBody ref={schedulerContainer}></SchedulerBody>;
 };
