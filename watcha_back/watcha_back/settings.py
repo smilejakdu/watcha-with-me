@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'users',
     'scheduler',
+    'board'
 ]
 
 MIDDLEWARE = [
