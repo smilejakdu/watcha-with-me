@@ -11,7 +11,6 @@ const BodyCenter = styled.div`
     margin: 0 auto;
     font-size: 28px;
     width: 60%;
-    border:1px solid red;
 `;
 
 export { Body, BodyCenter };

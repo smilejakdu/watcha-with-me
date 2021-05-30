@@ -8,6 +8,8 @@ const BoardPage = () => {
         <Body>
             <BodyCenter>
                 <BoardForm />
+            </BodyCenter>
+            <BodyCenter>
                 <BoardInfo />
             </BodyCenter>
         </Body>
