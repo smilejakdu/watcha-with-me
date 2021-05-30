@@ -77,6 +77,7 @@ const reducer = (state = initialState, action) =>
             case LOAD_BOARD_SUCCESS:
                 draft.loadBoardLoading = false;
                 draft.loadBoardDone = true;
+                console.log("action.data : " , action.data);
                 draft.mainBoards = draft.mainBoards.concat(action.data);
                 break;
             case LOAD_BOARD_FAILURE:

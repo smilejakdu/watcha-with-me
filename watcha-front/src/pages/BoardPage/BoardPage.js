@@ -1,14 +1,14 @@
 import React from "react";
 import { Body, BodyCenter } from "./BoardPage.style";
-import BoardComponent from "../../components/Board/Board"
 import BoardForm from "../../components/BoardForm/BoardForm";
+import BoardInfo from "../../components/BoardInfo/BoardInfo";
 
 const BoardPage = () => {
     return (
         <Body>
             <BodyCenter>
-                <BoardForm/>
-                <BoardComponent/>
+                <BoardForm />
+                <BoardInfo />
             </BodyCenter>
         </Body>
     );

@@ -15,13 +15,13 @@ function* loadProducts(action) {
     try {
         const result = yield call(loadProductsAPI);
         // yield delay(1000);
+        console.log("result :" , result);
         const {
-            data: { product_content },
+            data: { board_content },
         } = result;
-
         yield put({
             type: LOAD_BOARD_SUCCESS,
-            data: product_content,
+            data: board_content,
         });
     } catch (error) {
         console.log(error);
@@ -31,10 +31,10 @@ function* loadProducts(action) {
         });
     }
 }
+
 function* watchLoadProducts() {
     yield takeLatest(LOAD_BOARD_REQUEST, loadProducts);
 }
-
 
 export default function* boardSaga() {
     yield all([

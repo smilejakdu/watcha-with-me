@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BoardBox, BoardTextArea } from "./BoardForm.style";
 import { Button } from "react-bootstrap";
+import useInput from "../../hooks/useInput"
+import {addBoard} from "../../reducers/board"
+import { useDispatch, useSelector } from "react-redux";
 
-const BoardForm = ({ onPost }) => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+const BoardForm = () => {
+    const dispatch = useDispatch();
+    const [title, onChangeTitle] = useInput("");
+    const [content, onChangeContent] = useInput("");
 
-    const handleClick = useCallback(
-        (e) => {
-            e.preventDefault();
-            onPost(title, content);
-            setTitle("");
-            setContent("");
-        },
-        [title, content]
-    );
+    const handleClick = useCallback(() => {
+        console.log(title , content);
+        dispatch(addBoard({title , content}));
+    },[title, content]);
 
     return (
         <BoardBox>
@@ -26,7 +25,7 @@ const BoardForm = ({ onPost }) => {
                             name="title"
                             value={title}
                             minRows={2}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={onChangeTitle}
                             placeholder="TITLE"
                             required
                         />
@@ -36,7 +35,7 @@ const BoardForm = ({ onPost }) => {
                             type="text"
                             name="content"
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            onChange={onChangeContent}
                             required
                             placeholder="CONTENT"
                         />
