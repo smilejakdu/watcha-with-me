@@ -1,6 +1,6 @@
 from django.urls import path
-from users.views import KakaoSignInView
+from .views      import BoardView
 
 urlpatterns = [
-    path('signin', KakaoSignInView.as_view()),
+    path('', BoardView.as_view()),
 ]
