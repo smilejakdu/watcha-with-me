@@ -2,44 +2,42 @@ import axios from "axios";
 import { all, fork, put, takeLatest, throttle, call } from "redux-saga/effects";
 
 import {
-    ADD_COMMENT_REQUEST,
-    ADD_COMMENT_SUCCESS,
-    ADD_COMMENT_FAILURE,
+    LOAD_BOARD_REQUEST,
+    LOAD_BOARD_SUCCESS,
+    LOAD_BOARD_FAILURE,
 } from "../reducers/board";
 
-function addCommentAPI(data) {
-    console.log(data);
-    return;
-    // return axios.post(``,data)
+function loadProductsAPI() {
+    return axios.get("dummy/board_body.json");
 }
 
-function* addComment(action) {
+function* loadProducts(action) {
     try {
-        const result = yield call(addCommentAPI, action.data);
+        const result = yield call(loadProductsAPI);
+        // yield delay(1000);
+        const {
+            data: { product_content },
+        } = result;
+
         yield put({
-            type: ADD_COMMENT_SUCCESS,
-            data: result.data,
+            type: LOAD_BOARD_SUCCESS,
+            data: product_content,
         });
     } catch (error) {
         console.log(error);
         yield put({
-            type: ADD_COMMENT_FAILURE,
+            type: LOAD_BOARD_FAILURE,
             error: error.response.data,
         });
     }
 }
-
-function* watchLoadBoard() {
-    yield takeLatest(ADD_COMMENT_REQUEST, addComment);
+function* watchLoadProducts() {
+    yield takeLatest(LOAD_BOARD_REQUEST, loadProducts);
 }
 
-function* watchAddComment() {
-    yield takeLatest(ADD_COMMENT_REQUEST, addComment);
-}
 
 export default function* boardSaga() {
     yield all([
-         fork(watchLoadBoard),
-         fork(watchAddComment)
+         fork(watchLoadProducts),
         ]);
 }

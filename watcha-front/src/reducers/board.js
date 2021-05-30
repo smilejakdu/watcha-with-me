@@ -1,116 +1,105 @@
 import produce from "../utils/produce";
 
 export const initialState = {
-    mainPosts: [],
-    singlePost: null,
-    imagePaths: [],
-    hasMorePosts: true,
+    mainBoards: [],
+    // board
+    loadBoardLoading: false,
+    loadBoardDone: false,
+    loadBoardError: null,
 
-    LOAD_BOARD_REQUEST: false,
-    LOAD_BOARD_DONE: false,
-    LOAD_BOARD_FAILURE: null,
+    addBoardLoading: false,
+    addBoardDone: false,
+    addBoardError: null,
 
-    likePostLoading: false,
-    likePostDone: false,
-    likePostError: null,
-    unlikePostLoading: false,
-    unlikePostDone: false,
-    unlikePostError: null,
+    removeBoardLoading: false,
+    removeBoardDone: false,
+    removeBoardError: null,
 
-    removePostLoading: false,
-    removePostDone: false,
-    removePostError: null,
-    addCommentLoading: false,
-    addCommentDone: false,
-    addCommentError: null,
-    uploadImagesLoading: false,
-    uploadImagesDone: false,
-    uploadImagesError: null,
-    retweetLoading: false,
-    retweetDone: false,
-    retweetError: null,
+    updateBoardLoading: false,
+    updateBoardDone: false,
+    updateBoardError: null,
+
+    // review
+    addReviewLoading: false,
+    addReviewDone: false,
+    addReviewError: null,
+
+    removeReviewLoading: false,
+    removeReviewDone: false,
+    removeReviewError: null,
+
+    updateReviewLoading: false,
+    updateReviewDone: false,
+    updateReviewError: null,
 };
 
-export const LIKE_POST_REQUEST = "LIKE_POST_REQUEST";
-export const LIKE_POST_SUCCESS = "LIKE_POST_SUCCESS";
-export const LIKE_POST_FAILURE = "LIKE_POST_FAILURE";
+// board
+export const LOAD_BOARD_REQUEST = "LOAD_BOARD_REQUEST";
+export const LOAD_BOARD_SUCCESS = "LOAD_BOARD_SUCCESS";
+export const LOAD_BOARD_FAILURE = "LOAD_BOARD_FAILURE";
 
-export const UNLIKE_POST_REQUEST = "UNLIKE_POST_REQUEST";
-export const UNLIKE_POST_SUCCESS = "UNLIKE_POST_SUCCESS";
-export const UNLIKE_POST_FAILURE = "UNLIKE_POST_FAILURE";
+export const ADD_BOARD_REQUEST = "ADD_BOARD_REQUEST";
+export const ADD_BOARD_SUCCESS = "ADD_BOARD_SUCCESS";
+export const ADD_BOARD_FAILURE = "ADD_REVIEW_FAILURE";
 
-export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
-export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
-export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
+export const REMOVE_BOARD_REQUEST = "REMOVE_BOARD_REQUEST";
+export const REMOVE_BOARD_SUCCESS = "REMOVE_BOARD_SUCCESS";
+export const REMOVE_BOARD_FAILURE = "REMOVE_BOARD_FAILURE";
 
-export const REMOVE_COMMENT_REQUEST = "REMOVE_COMMENT_REQUEST";
-export const REMOVE_COMMENT_SUCCESS = "REMOVE_COMMENT_SUCCESS";
-export const REMOVE_COMMENT_FAILURE = "REMOVE_COMMENT_FAILURE";
+export const UPDATE_BOARD_REQUEST = "UPDATE_BOARD_REQUEST";
+export const UPDATE_BOARD_SUCCESS = "UPDATE_BOARD_SUCCESS";
+export const UPDATE_BOARD_FAILURE = "UPDATE_BOARD_FAILURE";
 
-export const UPDATE_COMMENT_REQUEST = "UPDATE_COMMENT_REQUEST";
-export const UPDATE_COMMENT_SUCCESS = "UPDATE_COMMENT_SUCCESS";
-export const UPDATE_COMMENT_FAILURE = "UPDATE_COMMENT_FAILURE";
+// review
+export const ADD_REVIEW_REQUEST = "ADD_REVIEW_REQUEST";
+export const ADD_REVIEW_SUCCESS = "ADD_REVIEW_SUCCESS";
+export const ADD_REVIEW_FAILURE = "ADD_REVIEW_FAILURE";
 
-export const addComment = (data) => ({ type: ADD_COMMENT_REQUEST, data });
+export const REMOVE_REVIEW_REQUEST = "REMOVE_REVIEW_REQUEST";
+export const REMOVE_REVIEW_SUCCESS = "REMOVE_REVIEW_SUCCESS";
+export const REMOVE_REVIEW_FAILURE = "REMOVE_REVIEW_FAILURE";
+
+export const UPDATE_REVIEW_REQUEST = "UPDATE_REVIEW_REQUEST";
+export const UPDATE_REVIEW_SUCCESS = "UPDATE_REVIEW_SUCCESS";
+export const UPDATE_REVIEW_FAILURE = "UPDATE_REVIEW_FAILURE";
+
+export const addBoard = (data) => ({ type: ADD_BOARD_REQUEST, data });
+export const addReview = (data) => ({ type: ADD_REVIEW_REQUEST, data });
 
 const reducer = (state = initialState, action) =>
     produce(state, (draft) => {
         switch (action.type) {
-            case LIKE_POST_REQUEST:
-                draft.likePostLoading = true;
-                draft.likePostDone = false;
-                draft.likePostError = null;
+            case LOAD_BOARD_REQUEST:
+                draft.loadBoardLoading = true;
+                draft.loadBoardDone = false;
+                draft.loadBoardError = null;
                 break;
-            case LIKE_POST_SUCCESS: {
-                const post = draft.mainPosts.find(
-                    (v) => v.id === action.data.PostId
+            case LOAD_BOARD_SUCCESS:
+                draft.loadBoardLoading = false;
+                draft.loadBoardDone = true;
+                draft.mainBoards = draft.mainBoards.concat(action.data);
+                break;
+            case LOAD_BOARD_FAILURE:
+                draft.loadBoardLoading = false;
+                draft.loadBoardError = action.error;
+                break;
+            case ADD_REVIEW_REQUEST:
+                draft.addReviewLoading = true;
+                draft.addReviewDone = false;
+                draft.addReviewError = null;
+                break;
+            case ADD_REVIEW_SUCCESS: {
+                const board = draft.mainBoards.find(
+                    (v) => v.id === action.data.BoardId
                 );
-                post.Likers.push({ id: action.data.UserId });
-                draft.likePostLoading = false;
-                draft.likePostDone = true;
+                board.Reviews.unshift(action.data);
+                draft.addReviewLoading = false;
+                draft.addReviewDone = true;
                 break;
             }
-            case LIKE_POST_FAILURE:
-                draft.likePostLoading = false;
-                draft.likePostError = action.error;
-                break;
-            case UNLIKE_POST_REQUEST:
-                draft.unlikePostLoading = true;
-                draft.unlikePostDone = false;
-                draft.unlikePostError = null;
-                break;
-            case UNLIKE_POST_SUCCESS: {
-                const post = draft.mainPosts.find(
-                    (v) => v.id === action.data.PostId
-                );
-                post.Likers = post.Likers.filter(
-                    (v) => v.id !== action.data.UserId
-                );
-                draft.unlikePostLoading = false;
-                draft.unlikePostDone = true;
-                break;
-            }
-            case UNLIKE_POST_FAILURE:
-                draft.unlikePostLoading = false;
-                draft.unlikePostError = action.error;
-                break;
-            case ADD_COMMENT_REQUEST:
-                draft.addCommentLoading = true;
-                draft.addCommentDone = false;
-                draft.addCommentError = null;
-                break;
-            case ADD_COMMENT_SUCCESS: {
-                const post = draft.mainPosts.find(
-                    (v) => v.id === action.data.PostId
-                );
-                post.Comments.unshift(action.data);
-                draft.addCommentLoading = false;
-                draft.addCommentDone = true;
-                break;
-            }
-            case ADD_COMMENT_FAILURE:
-                draft.addCommentLoading = false;
-                draft.addCommentError = action.error;
+            case ADD_REVIEW_FAILURE:
+                draft.addReviewLoading = false;
+                draft.addReviewError = action.error;
                 break;
             default:
                 break;
