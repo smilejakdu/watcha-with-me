@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    HashRouter,
+    Route,
+    Switch,
+} from "react-router-dom";
 import Layout from "./Layouts/Layout";
 import BoardPage from "./pages/BoardPage/BoardPage";
+import DetailBoardPage from "./pages/DetailBoardPage/DetailBoardPage";
 import SchedulerPage from "./pages/SchedulerPage/SchedulerPage";
 
 const App = () => {
@@ -19,6 +25,11 @@ const App = () => {
                           exact="exact"
                           path="/board"
                           component={BoardPage}
+                      />
+                      <Route
+                          exact="exact"
+                          path="/detailboard"
+                          component={DetailBoardPage}
                       />
                       <Route
                           render={({ location }) => (

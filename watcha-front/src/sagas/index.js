@@ -5,7 +5,7 @@ import boardSaga from "./board";
 import schedulerSaga from "./scheduler";
 import {backUrl} from "../config/config"
 
-// axios.defaults.baseURL = backUrl;
+axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {

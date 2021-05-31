@@ -2,18 +2,34 @@ import React, { useState, useEffect, useCallback } from "react";
 import { BoardBox, BoardTextArea } from "./BoardForm.style";
 import { Button } from "react-bootstrap";
 import useInput from "../../hooks/useInput"
-import {addBoard} from "../../reducers/board"
+import {addBoard , ADD_BOARD_REQUEST} from "../../reducers/board"
 import { useDispatch, useSelector } from "react-redux";
 
 const BoardForm = () => {
     const dispatch = useDispatch();
-    const [title, onChangeTitle] = useInput("");
-    const [content, onChangeContent] = useInput("");
+    const {addBoardDone} = useSelector((state)=>state.board);
+    const [title, onChangeTitle , setTitle] = useInput("");
+    const [content, onChangeContent , setContent] = useInput("");
 
-    const handleClick = useCallback(() => {
-        console.log(title , content);
-        dispatch(addBoard({title , content}));
-    },[title, content]);
+    useEffect(() => {
+        if (addBoardDone) {
+            setTitle("");
+            setContent("");
+        }
+    }, [addBoardDone]);
+
+    const onSubmit = useCallback(() => {
+        if (!title || !title.trim()) {
+            return alert("제목을 작성하세요.");
+        }
+        if (!content || !content.trim()) {
+            return alert("내용을 작성하세요.");
+        }
+        return dispatch({
+            type: ADD_BOARD_REQUEST,
+            data : {title : title , content : content}
+        });
+    }, [title, content]);
 
     return (
         <BoardBox>
@@ -44,7 +60,7 @@ const BoardForm = () => {
                         <Button
                             type="submit"
                             variant="dark"
-                            onClick={handleClick}
+                            onClick={onSubmit}
                         >
                             Button
                         </Button>

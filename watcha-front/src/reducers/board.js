@@ -2,6 +2,8 @@ import produce from "../utils/produce";
 
 export const initialState = {
     mainBoards: [],
+    detailBoards: [],
+    loadingModal : false,
     // board
     loadBoardLoading: false,
     loadBoardDone: false,
@@ -19,6 +21,23 @@ export const initialState = {
     updateBoardDone: false,
     updateBoardError: null,
 
+    // detail board
+    loadDetailBoardLoading: false,
+    loadDetailBoardDone: false,
+    loadDetailBoardError: null,
+
+    addDetailBoardLoading: false,
+    addDetailBoardDone: false,
+    addDetailBoardError: null,
+
+    removeDetailBoardLoading: false,
+    removeDetailBoardDone: false,
+    removeDetailBoardError: null,
+
+    updateDetailBoardLoading: false,
+    updateDetailBoardDone: false,
+    updateDetailBoardError: null,
+
     // review
     addReviewLoading: false,
     addReviewDone: false,
@@ -31,12 +50,22 @@ export const initialState = {
     updateReviewLoading: false,
     updateReviewDone: false,
     updateReviewError: null,
+
+    // loadingModal
+
+    loadModalLoading: false,
+    loadModalDone: false,
+    loadModalError: null,
 };
 
 // board
 export const LOAD_BOARD_REQUEST = "LOAD_BOARD_REQUEST";
 export const LOAD_BOARD_SUCCESS = "LOAD_BOARD_SUCCESS";
 export const LOAD_BOARD_FAILURE = "LOAD_BOARD_FAILURE";
+
+export const LOAD_DETAIL_BOARD_REQUEST = "LOAD_DETAIL_BOARD_REQUEST";
+export const LOAD_DETAIL_BOARD_SUCCESS = "LOAD_DETAIL_BOARD_SUCCESS";
+export const LOAD_DETAIL_BOARD_FAILURE = "LOAD_DETAIL_BOARD_FAILURE";
 
 export const ADD_BOARD_REQUEST = "ADD_BOARD_REQUEST";
 export const ADD_BOARD_SUCCESS = "ADD_BOARD_SUCCESS";
@@ -73,16 +102,88 @@ const reducer = (state = initialState, action) =>
                 draft.loadBoardLoading = true;
                 draft.loadBoardDone = false;
                 draft.loadBoardError = null;
+                draft.detailBoards = [];
                 break;
             case LOAD_BOARD_SUCCESS:
                 draft.loadBoardLoading = false;
                 draft.loadBoardDone = true;
-                console.log("action.data : " , action.data);
-                draft.mainBoards = draft.mainBoards.concat(action.data);
+                console.log("action.data : ", action.data);
+                // draft.mainBoards = draft.mainBoards.concat(action.data);
+                // 위에대로 하면 데이터가 계속 쌓이게 됨.
+                draft.mainBoards = action.data;
                 break;
             case LOAD_BOARD_FAILURE:
                 draft.loadBoardLoading = false;
                 draft.loadBoardError = action.error;
+                break;
+            case LOAD_DETAIL_BOARD_REQUEST:
+                draft.loadDetailBoardLoading = true;
+                draft.loadDetailBoardDone = false;
+                draft.loadingModal = true;
+                draft.loadDetailBoardError = null;
+                break;
+            case LOAD_DETAIL_BOARD_SUCCESS:
+                draft.loadDetailBoardLoading = false;
+                draft.loadDetailBoardDone = true;
+                draft.loadingModal = false;
+                // draft.mainBoards = draft.mainBoards.concat(action.data);
+                draft.detailBoards = action.data;
+                break;
+            case LOAD_DETAIL_BOARD_FAILURE:
+                draft.loadDetailBoardLoading = false;
+                draft.loadingModal = false;
+                draft.loadDetailBoardError = action.error;
+                break;
+            case ADD_BOARD_REQUEST:
+                draft.addBoardLoading = true;
+                draft.addBoardDone = false;
+                draft.addBoardError = null;
+                break;
+            case ADD_BOARD_SUCCESS:
+                draft.addBoardLoading = false;
+                draft.addBoardDone = true;
+                alert("add_board_success : ", action.data);
+                draft.mainBoards.unshift(action.data);
+                // draft.imagePaths = [];
+                break;
+            case ADD_BOARD_FAILURE:
+                draft.addBoardLoading = false;
+                draft.addBoardError = action.error;
+                break;
+            case UPDATE_BOARD_REQUEST:
+                draft.updateBoardLoading = true;
+                draft.updateBoardDone = false;
+                draft.updateBoardError = null;
+                break;
+            case UPDATE_BOARD_SUCCESS:
+                draft.updateBoardLoading = false;
+                draft.updateBoardDone = true;
+                draft.mainBoards.find(
+                    (v) => v.id === action.data.BoardId
+                ).content = action.data.content;
+                draft.mainBoards.find(
+                    (v) => v.id === action.data.BoardId
+                ).title = action.data.title;
+                break;
+            case UPDATE_BOARD_FAILURE:
+                draft.updateBoardLoading = false;
+                draft.updateBoardError = action.error;
+                break;
+            case REMOVE_BOARD_REQUEST:
+                draft.removeBoardLoading = true;
+                draft.removeBoardDone = false;
+                draft.removeBoardError = null;
+                break;
+            case REMOVE_BOARD_SUCCESS:
+                draft.removeBoardLoading = false;
+                draft.removeBoardDone = true;
+                draft.mainBoards = draft.mainBoards.filter(
+                    (v) => v.id !== action.data.BoardId
+                );
+                break;
+            case REMOVE_BOARD_FAILURE:
+                draft.removeBoardLoading = false;
+                draft.removeBoardError = action.error;
                 break;
             case ADD_REVIEW_REQUEST:
                 draft.addReviewLoading = true;

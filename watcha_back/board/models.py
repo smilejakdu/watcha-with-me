@@ -4,6 +4,7 @@ from users.models import User
 class Board(models.Model):
     title   = models.CharField(max_length=200)
     content = models.CharField(max_length=250)
+    email   = models.CharField(max_length=200)
     user    = models.ForeignKey(User , on_delete=models.CASCADE)
 
     class Meta:
