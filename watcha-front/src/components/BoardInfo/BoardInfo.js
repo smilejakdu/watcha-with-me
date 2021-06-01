@@ -43,6 +43,4 @@ const BoardInfo = ({board}) => {
     );
 };
 
-
-
 export default BoardInfo;

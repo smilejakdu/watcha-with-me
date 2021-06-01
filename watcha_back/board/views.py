@@ -74,6 +74,7 @@ class BoardView(View):
     @login_check
     def delete(self, request):
         data  = json.loads(request.body)
+        print("back delete board : " , data)
         try:
             board = Board.objects.get(user_id = request.user.id ,
                                       id      = data['id'])

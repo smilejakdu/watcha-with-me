@@ -2,33 +2,31 @@ import React,{ useState, useEffect, useCallback} from 'react'
 import {
     Body,
     BodyCenter,
-    DetailBoardContainer,
-    SpinnerBorder
 } from "./DetailBoardPage.style";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, Card,InputGroup , FormControl , Spinner } from "react-bootstrap";
-import useInput from "../../hooks/useInput"
+import { useSelector , useDispatch} from "react-redux";
+import { Card, Spinner , Button } from "react-bootstrap";
 import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
+import {REMOVE_BOARD_REQUEST} from "../../reducers/board"
 
 const DetailBoardPage=()=> {
     const dispatch = useDispatch();
-    const [spinner, setSpinner] = useState(true);
     const [reviewData , setReviewData] = useState();
     const { detailBoards } = useSelector((state) => state.board);
 
     useEffect(() => {
-        console.log("detail useEffect : ", detailBoards);
-        console.log("detail useEffect : ", detailBoards.title);
-        console.log("detail useEffect3 : ", detailBoards.reviews);
-
         setReviewData(detailBoards.reviews);
-        setSpinner(false);
     }, [detailBoards]);
 
-    useEffect(() => {
-        console.log("detailBoards29 : " , reviewData);
-    },[detailBoards])
+    const BoardRemoveOnClick = (id) =>{
+        return dispatch({
+            type : REMOVE_BOARD_REQUEST,
+            data : id
+        })
+    }
+
+    // const BoardRemoveOnClick = useCallback((id)=>{
+    // })
 
     return (
         <Body>
@@ -41,13 +39,23 @@ const DetailBoardPage=()=> {
                                 <p> {detailBoards.content} </p>
                                 <footer className="blockquote-footer">
                                     {detailBoards.email}
+                                    <Button
+                                        variant="dark"
+                                        style={{
+                                            position: "absolute",
+                                            right: 0,
+                                            marginRight: "10px",
+                                        }}
+                                        onClick={() =>BoardRemoveOnClick(detailBoards.id)}
+                                    >
+                                        remove
+                                    </Button>
                                 </footer>
                             </blockquote>
                         </Card.Body>
                     </Card>
                     <ReviewForm />
                     <ReviewInfo review_data={reviewData} />
-           
                 </BodyCenter>
             ) : (
                 <center>

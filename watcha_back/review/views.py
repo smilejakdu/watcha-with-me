@@ -14,10 +14,6 @@ from django.http import JsonResponse
 from users.utils import login_check
 
 
-#content = models.TextField()
-#board   = models.ForeignKey(Board , on_delete=models.CASCADE)
-#user    = models.ForeignKey(User , on_delete=models.CASCADE)
-
 class ReviewView(View):
     @login_check
     def post(self, request):
@@ -28,6 +24,7 @@ class ReviewView(View):
         try:
             Review(
                 content  = data['content'],
+                email    = User.objects.get(id = request.user.id).email.split('@')[0],
                 board_id = Board.objects.get(id=data['board_id'],user_id=data['user_id']).id,
                 user_id  = request.user.id,
             ).save()

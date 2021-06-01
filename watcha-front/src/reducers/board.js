@@ -107,7 +107,6 @@ const reducer = (state = initialState, action) =>
             case LOAD_BOARD_SUCCESS:
                 draft.loadBoardLoading = false;
                 draft.loadBoardDone = true;
-                console.log("action.data : ", action.data);
                 // draft.mainBoards = draft.mainBoards.concat(action.data);
                 // 위에대로 하면 데이터가 계속 쌓이게 됨.
                 draft.mainBoards = action.data;
@@ -124,7 +123,6 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                console.log("action data detail board : " ,action.data );
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -139,7 +137,6 @@ const reducer = (state = initialState, action) =>
             case ADD_BOARD_SUCCESS:
                 draft.addBoardLoading = false;
                 draft.addBoardDone = true;
-                alert("add_board_success : ", action.data);
                 draft.mainBoards.unshift(action.data);
                 // draft.imagePaths = [];
                 break;
@@ -174,8 +171,9 @@ const reducer = (state = initialState, action) =>
             case REMOVE_BOARD_SUCCESS:
                 draft.removeBoardLoading = false;
                 draft.removeBoardDone = true;
+                console.log("reducer board : ", action.data);
                 draft.mainBoards = draft.mainBoards.filter(
-                    (v) => v.id !== action.data.BoardId
+                    (v) => v.id !== action.data.id
                 );
                 break;
             case REMOVE_BOARD_FAILURE:

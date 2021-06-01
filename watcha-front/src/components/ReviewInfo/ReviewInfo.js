@@ -12,16 +12,13 @@ const ReviewInfo = ({ review_data }) => {
         <>
             {review_data &&
                 review_data.map((review) => (
-                    <Card>
+                    <Card style={{marginTop:"20px"}}>
                         {/* <Card.Header>{review}</Card.Header> */}
                         <Card.Body>
                             <blockquote className="blockquote mb-0">
                                 <p> {review.content}</p>
                                 <footer className="blockquote-footer">
-                                    Someone famous in{" "}
-                                    <cite title="Source Title">
-                                        Source Title
-                                    </cite>
+                                    {review.email}
                                 </footer>
                             </blockquote>
                         </Card.Body>
