@@ -91,8 +91,24 @@ class BoardView(View):
 
 class DetailBoardView(View):
     def get(self, request ,board_id):
-        print("detailbaord view : " , board_id)
-        # detailbaord view :  2
-        board  = Board.objects.filter(id = board_id).values()
+        try:
+            board = Board.objects.prefetch_related("review_set").get(id=board_id)
 
-        return JsonResponse({"data":list(board)},status = 200)
+            board_data = {
+                'id'      : board.id,
+                'title'   : board.title,
+                'content' : board.content,
+                'email'   : board.email,
+                'reviews' : list(board.review_set.all().values())
+            }
+
+            return JsonResponse({ "data" : board_data },status = 200)
+
+        except TypeError:
+            return JsonResponse({"message":"INVALID_TYPE"},status = 400)
+
+        except ValueError:
+            return JsonResponse({"message":"VALUE_ERROR"},status = 400)
+
+        except Exception as e:
+            return JsonResponse({"message":e},status = 400)

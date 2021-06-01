@@ -8,16 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 const BoardPage = () => {
-    const dispatch = useDispatch();
-    const { mainBoards, loadBoardLoading } = useSelector(
-        (state) => state.board
-    );
-    useEffect(() => {
-        dispatch({
-            type: LOAD_BOARD_REQUEST,
-        });
-    }, []);
-
     return (
         <Body>
             <BodyCenter>

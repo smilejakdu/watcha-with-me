@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { LOAD_DETAIL_BOARD_REQUEST } from "../../reducers/board";
 import {CardContainer} from "./BoardInfo.style"
 import {useHistory} from "react-router-dom"
-
+import { LOAD_BOARD_REQUEST } from "../../reducers/board";
 const BoardInfo = ({board}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { mainBoards, loadBoardLoading } = useSelector((state) => state.board);
 
-    // useEffect(() => {
-    //     dispatch({
-    //         type: LOAD_BOARD_REQUEST,
-    //     });
-    // }, []);
+    useEffect(() => {
+        dispatch({
+            type: LOAD_BOARD_REQUEST,
+        });
+    }, []);
 
     const detailBoardClick = (id)=>{
         dispatch({

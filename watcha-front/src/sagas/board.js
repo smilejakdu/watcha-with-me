@@ -43,7 +43,6 @@ function* loadDetailBoards(action) {
     console.log("action 43 : " , action);
     try {
         const result = yield call(loadDetailBoardsAPI,action.data);
-        console.log("result : " , result);
         let {
             data: { data },
         } = result;

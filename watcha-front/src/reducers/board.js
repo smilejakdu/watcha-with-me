@@ -119,19 +119,16 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_REQUEST:
                 draft.loadDetailBoardLoading = true;
                 draft.loadDetailBoardDone = false;
-                draft.loadingModal = true;
                 draft.loadDetailBoardError = null;
                 break;
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                draft.loadingModal = false;
-                // draft.mainBoards = draft.mainBoards.concat(action.data);
+                console.log("action data detail board : " ,action.data );
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
                 draft.loadDetailBoardLoading = false;
-                draft.loadingModal = false;
                 draft.loadDetailBoardError = action.error;
                 break;
             case ADD_BOARD_REQUEST:
@@ -191,9 +188,7 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewError = null;
                 break;
             case ADD_REVIEW_SUCCESS: {
-                const board = draft.mainBoards.find(
-                    (v) => v.id === action.data.BoardId
-                );
+                const board = draft.mainBoards.find((v) => v.id === action.data.BoardId);
                 board.Reviews.unshift(action.data);
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;

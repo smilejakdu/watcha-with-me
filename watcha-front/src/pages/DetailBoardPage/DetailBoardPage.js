@@ -6,49 +6,76 @@ import {
     SpinnerBorder
 } from "./DetailBoardPage.style";
 import { useSelector, useDispatch } from "react-redux";
-import {LOAD_DETAIL_BOARD_REQUEST} from "../../reducers/board"
-import { Button, Card,Form , Spinner } from "react-bootstrap";
+import { Button, Card,InputGroup , FormControl , Spinner } from "react-bootstrap";
+import useInput from "../../hooks/useInput"
 
 const DetailBoardPage=()=> {
     const dispatch = useDispatch();
-    const [spinner ,setSpinner] = useState(false);
+     const [spinner, setSpinner] = useState(true);
     const { detailBoards } = useSelector((state) => state.board);
+    const [text, onChangeText, setText] = useInput("");
 
     useEffect(() => {
-        console.log("detailBoards : ", detailBoards);
-        setSpinner()
+        console.log("detail useEffect : ", detailBoards);
+        setSpinner(false);
     }, [detailBoards]);
+
+    const ReviewOnClick =()=>{
+        alert("click")
+        console.log("text : " , text);
+        setText("")
+    }
+
+    const onKeyPress = (e)=>{
+        if(e.key =="Enter"){
+            ReviewOnClick();
+        }
+    }
 
     return (
         <Body>
             <BodyCenter>
-                {detailBoards.length > 0 
-                   ? detailBoards.map((board) => (
+                {spinner ? (
+                    <SpinnerBorder style={{ margin: "auto auto" }}>
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    </SpinnerBorder>
+                ) : (
+                    <div>
                         <Card>
-                            <Card.Header>{board.title}</Card.Header>
+                            <Card.Header>{detailBoards.title}</Card.Header>
                             <Card.Body>
                                 <blockquote className="blockquote mb-0">
-                                    <p> {board.content} </p>
+                                    <p> {detailBoards.content} </p>
                                     <footer className="blockquote-footer">
-                                        {board.email}
+                                        {detailBoards.email}
                                     </footer>
                                 </blockquote>
                             </Card.Body>
                         </Card>
-                    ))
-                    :<SpinnerBorder style={{margin:"auto auto"}}>
-                      <Spinner animation="border" role="status">
-                         <span className="sr-only">Loading...</span>
-                      </Spinner>
-                    </SpinnerBorder>
-                }
-                {detailBoards.length > 0 && (
-                    <Form style={{ margin: "20px" }}>
-                        <Form.Group controlId="formGroupEmail">
-                            <Form.Label>Write</Form.Label>
-                            <Form.Control type="email" placeholder="Content" />
-                        </Form.Group>
-                    </Form>
+                        <InputGroup
+                            className="mb-3"
+                            style={{ marginTop: "30px" }}
+                        >
+                            <FormControl
+                                placeholder="write content"
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                value={text}
+                                onChange={onChangeText}
+                                onKeyPress={onKeyPress}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    variant="outline-secondary"
+                                    onClick={ReviewOnClick}
+                                >
+                                    Button
+                                </Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </div>
                 )}
             </BodyCenter>
         </Body>
