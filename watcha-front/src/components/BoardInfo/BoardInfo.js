@@ -36,7 +36,6 @@ const BoardInfo = ({board}) => {
                         <Card.Text>
                             {board.content}
                         </Card.Text>
-                        <Button variant="dark">Button</Button>
                     </Card.Body>
                 </Card>
             ))}
