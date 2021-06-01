@@ -8,9 +8,11 @@ import { Card, Spinner , Button } from "react-bootstrap";
 import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
 import {REMOVE_BOARD_REQUEST} from "../../reducers/board"
+import {useHistory} from 'react-router-dom'
 
 const DetailBoardPage=()=> {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [reviewData , setReviewData] = useState();
     const { detailBoards } = useSelector((state) => state.board);
 
@@ -19,14 +21,11 @@ const DetailBoardPage=()=> {
     }, [detailBoards]);
 
     const BoardRemoveOnClick = (id) =>{
-        return dispatch({
+        dispatch({
             type : REMOVE_BOARD_REQUEST,
             data : id
         })
     }
-
-    // const BoardRemoveOnClick = useCallback((id)=>{
-    // })
 
     return (
         <Body>

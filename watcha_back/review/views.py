@@ -4,10 +4,10 @@ import bcrypt
 import re
 import datetime
 
-from django.views  import View
-from .models       import Review
-from users.models  import User
-from review.models import Review
+from django.views import View
+from .models      import Review
+from users.models import User
+from board.models import Board
 
 from users.utils import login_check
 from django.http import JsonResponse
@@ -18,14 +18,14 @@ class ReviewView(View):
     @login_check
     def post(self, request):
         data = json.loads(request.body)
-
+        print("review  data : " , data)
         if len(data['content']) == 0:
             return JsonResponse({"message":"DOESNOT_CONTENT"}, status = 400)
         try:
             Review(
                 content  = data['content'],
                 email    = User.objects.get(id = request.user.id).email.split('@')[0],
-                board_id = Board.objects.get(id=data['board_id'],user_id=data['user_id']).id,
+                board_id = Board.objects.get(id = data['board_id']).id,
                 user_id  = request.user.id,
             ).save()
             return JsonResponse({"message":"SUCCESS"},status = 200)

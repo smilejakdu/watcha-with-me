@@ -11,6 +11,9 @@ import {
     ADD_BOARD_REQUEST,
     ADD_BOARD_SUCCESS,
     ADD_BOARD_FAILURE,
+    ADD_REVIEW_REQUEST,
+    ADD_REVIEW_SUCCESS,
+    ADD_REVIEW_FAILURE,
     REMOVE_BOARD_REQUEST,
     REMOVE_BOARD_SUCCESS,
     REMOVE_BOARD_FAILURE,
@@ -86,9 +89,35 @@ function* addBoard(action) {
     }
 }
 
+function addReviewAPI(data) {
+    console.log("board review  : " , data);
+    return axios.post("/review", data, {
+        headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+        },
+    });
+}
+
+function* addReview(action) {
+    try {
+        const result = yield call(addReviewAPI, action.data);
+        alert(result);
+        yield put({
+            type: ADD_REVIEW_SUCCESS,
+            data: result.data,
+        });
+    } catch (err) {
+        console.error(err);
+        yield put({
+            type: ADD_REVIEW_FAILURE,
+            error: err.response.data,
+        });
+    }
+}
+
 function removeBoardAPI(data) {
-    console.log("board data : " , data);
-    alert(data);
+    console.log("board data : " , data); // 여기까지는 정확하게 찍힌다. 
+    // axios.delete 에서 back 에 전달이 안된다. 이유가 뭘까 ??
     return axios.delete("/board/", data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -127,6 +156,10 @@ function* watchAddBoard() {
     yield takeLatest(ADD_BOARD_REQUEST, addBoard);
 }
 
+function* watchAddReview() {
+    yield takeLatest(ADD_REVIEW_REQUEST, addReview);
+}
+
 function* watchRemoveBoard() {
     yield takeLatest(REMOVE_BOARD_REQUEST, removeBoard);
 }
@@ -136,6 +169,7 @@ export default function* boardSaga() {
         fork(watchLoadBoard),
         fork(watchLoadDetailBoard),
         fork(watchAddBoard),
+        fork(watchAddReview),
         fork(watchRemoveBoard),
     ]);
 }

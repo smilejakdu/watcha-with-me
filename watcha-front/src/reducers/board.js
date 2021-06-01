@@ -123,6 +123,7 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
+                console.log("action detail board : " , action.data);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -167,11 +168,12 @@ const reducer = (state = initialState, action) =>
                 draft.removeBoardLoading = true;
                 draft.removeBoardDone = false;
                 draft.removeBoardError = null;
+                console.log("reducers remove board request");
                 break;
             case REMOVE_BOARD_SUCCESS:
                 draft.removeBoardLoading = false;
                 draft.removeBoardDone = true;
-                console.log("reducer board : ", action.data);
+                console.log("reducer remove board success : ", action.data);
                 draft.mainBoards = draft.mainBoards.filter(
                     (v) => v.id !== action.data.id
                 );
