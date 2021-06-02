@@ -3,46 +3,35 @@ import {
     ModalBody,
     ModalOverlay,
     ModalButtonWrap,
-    KaKaoBtn,
-    KaKaoDiv,
     WhachaLogoImg,
     Input,
     LoginRegisterBtn,
 } from "./Modal.style";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { backUrl, KakaoJsKey } from "../../config/config";
+import { backUrl } from "../../config/config";
 import logo from "../../utils/images/watchalogo.png";
 
 const Modal = ({ isOpen, close, textData }) => {
     const [text, setText] = useState(textData);
-    const [username, setUserName] = useState("");
+    const [nickname, setNickname] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRePassword] = useState("");
 
-    //  const dispatch = useDispatch();
-
     const onClickBtn = useCallback(() => {
+        console.log("일단버튼클릭");
+        console.log("text : " , text);
         if (text === "login") {
             let data = {
-                username: username,
+                nickname: nickname,
                 password: password,
             };
-            axios
-                .post("/accounts/login/", data)
+            axios.post("/users/signin", data)
                 .then((res) => {
-                    let {
-                        data: { data: jwtToken },
+                    let { 
+                        data:{access} 
                     } = res;
-                    //  dispatch(
-                    //      getUserToken({
-                    //          userToken: jwtToken,
-                    //          userName: username,
-                    //          isLoggedIn: true,
-                    //      })
-                    //  );
-                    localStorage.setItem("token", jwtToken);
-                    setUserName("");
+                    localStorage.setItem("token", access);
+                    setNickname("");
                     setPassword("");
                     close();
                 })
@@ -52,18 +41,17 @@ const Modal = ({ isOpen, close, textData }) => {
                 });
         } else if (text === "signup") {
             let data = {
-                username: username,
+                nickname: nickname,
                 password: password,
                 repassword: repassword,
             };
-            axios
-                .post("/accounts/signup/", data)
+            axios.post("/users/signup", data)
                 .then((res) => {
                     console.log(res);
-                    setUserName("");
+                    setNickname("");
                     setPassword("");
                     setRePassword("");
-                    close();
+                    setText("login");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -95,11 +83,11 @@ const Modal = ({ isOpen, close, textData }) => {
                                         <div>
                                             <Input
                                                 type="text"
-                                                placeholder="username"
+                                                placeholder="nickname"
                                                 onChange={(e) =>
-                                                    setUserName(e.target.value)
+                                                    setNickname(e.target.value)
                                                 }
-                                                value={username}
+                                                value={nickname}
                                                 onKeyPress={handleKeyPress}
                                                 required
                                             />
@@ -122,11 +110,11 @@ const Modal = ({ isOpen, close, textData }) => {
                                         <div>
                                             <Input
                                                 type="text"
-                                                placeholder="username"
+                                                placeholder="nickname"
                                                 onChange={(e) =>
-                                                    setUserName(e.target.value)
+                                                    setNickname(e.target.value)
                                                 }
-                                                value={username}
+                                                value={nickname}
                                                 onKeyPress={handleKeyPress}
                                                 required
                                             />

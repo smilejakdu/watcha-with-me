@@ -2,12 +2,13 @@ import os
 import json
 import re
 import jwt
+import bcrypt
 import users.utils
 import requests
 
 from django.views            import View
 from users.models            import User
-from django.http             import JsonResponse
+from django.http             import JsonResponse , HttpResponse
 from watcha_back.my_settings import SECRET
 from django.core.validators  import validate_email
 from django.core.exceptions  import ValidationError
@@ -45,6 +46,7 @@ class KakaoSignInView(View):
 class SignUpView(View):
     def post(self , request):
         data = json.loads(request.body)
+        print(data)
 
         try:
             for d in data:
@@ -58,11 +60,11 @@ class SignUpView(View):
                 return JsonResponse({"message":"SHORT_PASSWORD"} , status = 400)
 
             User(
-                email    = data['nickname'],
+                nickname    = data['nickname'],
                 password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             ).save()
 
-            return HttpResponse(status = 200)
+            return JsonResponse({"message" : "SUCCESS_SIGNUP"},status = 200)
 
         except KeyError:
             return JsonResponse({"message" : "INVALID_KEY"},status = 400)
@@ -83,8 +85,8 @@ class SignInView(View):
                                   user.password.encode('utf-8')):
 
                     token = jwt.encode({'nickname': data['nickname']},
-                                           SECRET_KEY['secret'],
-                                           algorithm=ALGORITHM).decode()
+                                           SECRET['secret'],
+                                           algorithm = SECRET['algorithm']).decode()
 
                     return JsonResponse({'access': token}, status=200, content_type="application/json")
 
@@ -109,7 +111,7 @@ class TokenCheckView(View):
     def get(self , request):
         auth_token   = request.headers.get('Authorization', None)
         payload      = jwt.decode(auth_token,
-                                  SECRET_KEY['secret'],
+                                  SECRET['secret'],
                                   algorithms = ALGORITHM)
 
         user         = User.objects.get(nickname = payload["nickname"])
