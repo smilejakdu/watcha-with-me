@@ -60,35 +60,41 @@ const DetailBoardPage=()=> {
          }
     };
 
-    const color_list = [
-        "primary",
-        "secondary",
-        "success",
-        "danger",
-        "warning",
-        "info",
-        "light",
-        "dark",
+    const text_color_list = [
+        "#ff6600",
+        "#ffe500",
+        "#99ff00",
+        "#001AFF",
+        "#8C00FF",
+        "#000",
+        "#008444",
+        "#CC00FF",
     ];
 
     return (
         <Body>
             {reviewData ? (
                 <BodyCenter>
-                    <Card
-                        bg={
-                            color_list[
-                                Math.floor(Math.random() * color_list.length)
-                            ]
-                        }
-                    >
-                        <Card.Header>{detailBoards.nickname}</Card.Header>
+                    <Card style={{border:"none"}}>
+                        <Card.Header
+                            style={{
+                                color: `${
+                                    text_color_list[
+                                        Math.floor(
+                                            Math.random() *
+                                                text_color_list.length
+                                        )
+                                    ]
+                                }`,
+                                border: "none",
+                            }}
+                        >
+                            {detailBoards.nickname}
+                        </Card.Header>
                         <Card.Body>
                             <blockquote className="blockquote mb-0">
                                 <p> - {detailBoards.title} - </p>
-                                <footer>
-                                    {detailBoards.content}
-                                </footer>
+                                <footer>{detailBoards.content}</footer>
                             </blockquote>
                         </Card.Body>
                     </Card>

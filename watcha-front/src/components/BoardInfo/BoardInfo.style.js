@@ -3,8 +3,6 @@ import palette from "../../utils/palette";
 import { Button, Card } from "react-bootstrap";
 
 const CardContainer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
 
     @media (max-width: 1500px) {
         grid-template-columns: 1fr 1fr;
@@ -17,4 +15,4 @@ const CardContainer = styled.div`
     }
 `;
 
-export {CardContainer}
+export { CardContainer };

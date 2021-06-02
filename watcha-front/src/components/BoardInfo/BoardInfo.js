@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LOAD_DETAIL_BOARD_REQUEST } from "../../reducers/board";
-import {CardContainer} from "./BoardInfo.style"
+import { CardContainer, CardBorder } from "./BoardInfo.style";
 import {useHistory} from "react-router-dom"
 import { LOAD_BOARD_REQUEST, REMOVE_BOARD_REQUEST } from "../../reducers/board";
 
@@ -39,23 +39,37 @@ const BoardInfo = ({board}) => {
         "warning",
         "info",
         "light",
-        "dark",
     ];
+
+    const text_color_list = [
+        "#ff6600",
+        "#ffe500",
+        "#99ff00",
+        "#001AFF",
+        "#8C00FF",
+        "#000",
+        "#008444",
+        "#CC00FF",
+    ]
+
+ ;
     return (
         <CardContainer>
             {mainBoards.length > 0 &&
                 mainBoards.map((board) => (
-                    <Card
-                        style={{ margin: "20px" }}
-                        bg={color_list[Math.floor(Math.random() *color_list.length)]}
-                        // text={variant=== "light" ? "dark" : "white"}
-                        style={{ width: "18rem" }}
-                        className="mb-2"
-                    >
-                        <Card.Header>{board.nickname}</Card.Header>
+                    <Card style={{ margin: "20px", border: "none" }}>
+                        <Card.Header
+                            style={{
+                                // color: `${text_color_list[Math.floor(
+                                //             Math.random() * text_color_list.length)]}`,
+                                color: `${text_color_list[board.id % text_color_list.length]}`,
+                                border: "none",
+                            }}
+                        >
+                            {board.nickname}
+                        </Card.Header>
                         <Card.Body
                             style={{
-                                width: "18rem",
                                 margin: "20px",
                                 cursor: "pointer",
                             }}
@@ -65,13 +79,14 @@ const BoardInfo = ({board}) => {
                             <Card.Text>{board.content}</Card.Text>
                         </Card.Body>
                         <Button
-                            variant="dark"
                             style={{
                                 position: "absolute",
                                 right: 0,
                                 bottom: 0,
+                                border:"none",
                                 marginRight: "10px",
                                 marginBottom: "10px",
+                                background: `${text_color_list[board.id % text_color_list.length]}`,
                             }}
                             onClick={() => BoardRemoveOnClick(board.id)}
                         >
