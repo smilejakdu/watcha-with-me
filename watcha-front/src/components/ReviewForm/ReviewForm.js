@@ -7,8 +7,11 @@ import {
     Spinner,
 } from "react-bootstrap";
 import useInput from "../../hooks/useInput"
+import {useDispatch , useSelector} from "react-redux";
+import {ADD_REVIEW_REQUEST} from "../../reducers/board"
 
 const ReviewForm=()=> {
+    const dispatch = useDispatch();
     const [text, onChangeText, setText] = useInput("");
 
     const ReviewOnClick = () => {
@@ -34,7 +37,7 @@ const ReviewForm=()=> {
                     onKeyPress={onKeyPress}
                 />
                 <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={ReviewOnClick}>
+                    <Button variant="outline-secondary" onClick={()=>ReviewOnClick()}>
                         Button
                     </Button>
                 </InputGroup.Append>

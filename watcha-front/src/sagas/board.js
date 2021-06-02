@@ -92,6 +92,7 @@ function* addBoard(action) {
 }
 
 function addReviewAPI(data) {
+    console.log("review data : " , data);
     return axios.post("/review", data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -100,6 +101,7 @@ function addReviewAPI(data) {
 }
 
 function* addReview(action) {
+    console.log("add review action : " , action);
     try {
         const result = yield call(addReviewAPI, action.data);
         alert(result);

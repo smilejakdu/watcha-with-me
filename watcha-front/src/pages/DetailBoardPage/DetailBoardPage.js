@@ -4,21 +4,24 @@ import {
     BodyCenter,
 } from "./DetailBoardPage.style";
 import { useSelector , useDispatch} from "react-redux";
-import { Card, Spinner , Button } from "react-bootstrap";
+import { Card, Spinner , Button , InputGroup , FormControl } from "react-bootstrap";
 import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
 import {
     LOAD_DETAIL_BOARD_REQUEST,
+    ADD_REVIEW_REQUEST,
     REMOVE_BOARD_REQUEST,
     REMOVE_REVIEW_REQUEST,
 } from "../../reducers/board";
 import { useHistory, useLocation } from "react-router-dom";
+import useInput from "../../hooks/useInput"
 
-const DetailBoardPage=({id})=> {
+const DetailBoardPage=()=> {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
     console.log("location : " , location.state);
+    const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
     const { detailBoards } = useSelector((state) => state.board);
@@ -42,6 +45,22 @@ const DetailBoardPage=({id})=> {
         });
     }
 
+    const ReviewOnClick = () => {
+        alert("click");
+        dispatch({
+            type: ADD_REVIEW_REQUEST,
+            data: { content: text, board_id: detailId },
+        });
+        setText("");
+        window.location.reload(); // 별로 좋아보이진 않는다 강제로 새로고침해서 데이터 받아옴
+    };
+
+    const onKeyPress = (e) => {
+         if (e.key == "Enter") {
+             ReviewOnClick();
+         }
+    };
+
     return (
         <Body>
             {reviewData ? (
@@ -57,7 +76,24 @@ const DetailBoardPage=({id})=> {
                             </blockquote>
                         </Card.Body>
                     </Card>
-                    <ReviewForm />
+                    <InputGroup className="mb-3" style={{ marginTop: "30px" }}>
+                        <FormControl
+                            placeholder="write content"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                            value={text}
+                            onChange={onChangeText}
+                            onKeyPress={onKeyPress}
+                        />
+                        <InputGroup.Append>
+                            <Button
+                                variant="outline-secondary"
+                                onClick={ReviewOnClick}
+                            >
+                                Button
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
                     <ReviewInfo review_data={reviewData} />
                 </BodyCenter>
             ) : (
