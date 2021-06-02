@@ -60,13 +60,19 @@ class BoardView(View):
             return JsonResponse({"message":e},status = 400)
 
     def get(self , request):
-#        data = json.loads(request.body)
-        try:
-            boards = (Board.
-                     objects.
-                     all().values())
 
-            return JsonResponse({"data" : list(boards)} , status = 200)
+        try:
+            boards     = Board.objects.prefetch_related('review_set').all()
+
+            board_data = [{
+                'id'      : board.id,
+                'title'   : board.title,
+                'content' : board.content,
+                'email'   : board.email,
+                'reviews' : list(board.review_set.all().values())
+            }for board in boards]
+
+            return JsonResponse({"data" : list(board_data)} , status = 200)
 
         except Exception as e:
             return JsonResponse({"message":e},status = 400)
@@ -74,7 +80,6 @@ class BoardView(View):
     @login_check
     def delete(self, request):
         data = json.loads(request.body)
-        print("back delete board : " , data)
 
         try:
             board = Board.objects.get(user_id = request.user.id ,

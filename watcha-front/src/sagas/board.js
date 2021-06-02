@@ -117,9 +117,9 @@ function* addReview(action) {
 }
 
 function removeBoardAPI(data) {
-    console.log("board data : " , data); // 여기까지는 정확하게 찍힌다. 
+    console.log("board data : ", data); // 여기까지는 정확하게 찍힌다.
     // axios.delete 에서 back 에 전달이 안된다. 이유가 뭘까 ??
-    return axios.delete("/board/" , {
+    return axios.delete("/board/", {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
         },
