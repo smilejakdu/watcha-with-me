@@ -22,7 +22,8 @@ def login_check(func):
                 return JsonResponse({"message" : "TOKEN_DOES_NOT_EXIST"}, status=403)
 
             decode       = jwt.decode(token, key, algorithm = algorithm)
-            user         = User.objects.get(id = decode['user'])
+            print(decode)
+            user         = User.objects.get(nickname = decode['nickname'])
             request.user = user
 
         except jwt.DecodeError:

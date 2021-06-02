@@ -52,6 +52,7 @@ class SignUpView(View):
             for d in data:
                 if not data[d]:
                     return JsonResponse({"message":f"doesnot_{d}"} , status = 400)
+            # 특수 문자 회원가입 금지 , 띄어쓰기 있는거 금지 
 
             if User.objects.filter(nickname = data['nickname']).exists():
                 return JsonResponse({"message" : "EXISTS_NICKNAME"} , status = 400)
@@ -60,7 +61,7 @@ class SignUpView(View):
                 return JsonResponse({"message":"SHORT_PASSWORD"} , status = 400)
 
             User(
-                nickname    = data['nickname'],
+                nickname = data['nickname'],
                 password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             ).save()
 
@@ -114,7 +115,7 @@ class TokenCheckView(View):
                                   SECRET['secret'],
                                   algorithms = ALGORITHM)
 
-        user         = User.objects.get(nickname = payload["nickname"])
+        user         = User.objects.get(id = payload["id"])
 
         return JsonResponse({"data" : f"{user.nickname}" } , status = 200)
 

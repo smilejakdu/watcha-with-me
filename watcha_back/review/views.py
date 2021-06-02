@@ -18,16 +18,17 @@ class ReviewView(View):
     @login_check
     def post(self, request):
         data = json.loads(request.body)
-        print("review  data : " , data)
+
         if len(data['content']) == 0:
             return JsonResponse({"message":"DOESNOT_CONTENT"}, status = 400)
         try:
             Review(
                 content  = data['content'],
-                email    = User.objects.get(id = request.user.id).email.split('@')[0],
+                nickname = User.objects.get(id = request.user.id).nickname,
                 board_id = Board.objects.get(id = data['board_id']).id,
                 user_id  = request.user.id,
             ).save()
+
             return JsonResponse({"message":"SUCCESS"},status = 200)
         except TypeError:
             return JsonResponse({"message":"INVALID_TYPE"},status = 400)

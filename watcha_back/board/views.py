@@ -15,16 +15,14 @@ from users.utils   import login_check
 class BoardView(View):
     @login_check
     def post(self , request):
-        data = json.loads(request.body)
-        user_email = User.objects.get(id=request.user.id).email
-        user_email = user_email[:user_email.index('@')]
+        data     = json.loads(request.body)
 
         try:
             Board(
-                title   = data['title'],
-                content = data['content'],
-                email   = user_email,
-                user_id = request.user.id
+                title    = data['title'],
+                content  = data['content'],
+                nickname = User.objects.get(id=request.user.id).nickname,
+                user_id  = request.user.id
             ).save()
 
             return JsonResponse({"message" : "SUCCESS_POST"} , status = 200)
@@ -64,11 +62,11 @@ class BoardView(View):
             boards     = Board.objects.prefetch_related('review_set').all().order_by('-created_at')
 
             board_data = [{
-                'id'      : board.id,
-                'title'   : board.title,
-                'content' : board.content,
-                'email'   : board.email,
-                'reviews' : list(board.review_set.all().values().order_by('-created_at'))
+                'id'       : board.id,
+                'title'    : board.title,
+                'content'  : board.content,
+                'nickname' : board.nickname,
+                'reviews'  : list(board.review_set.all().values().order_by('-created_at'))
             }for board in boards]
 
             return JsonResponse({"data" : list(board_data)} , status = 200)
@@ -101,11 +99,11 @@ class DetailBoardView(View):
             board = Board.objects.prefetch_related("review_set").get(id=board_id)
 
             board_data = {
-                'id'      : board.id,
-                'title'   : board.title,
-                'content' : board.content,
-                'email'   : board.email,
-                'reviews' : list(board.review_set.all().values().order_by('-created_at'))
+                'id'       : board.id,
+                'title'    : board.title,
+                'content'  : board.content,
+                'nickname' : board.nickname,
+                'reviews'  : list(board.review_set.all().values().order_by('-created_at'))
             }
 
             return JsonResponse({ "data" : board_data },status = 200)
