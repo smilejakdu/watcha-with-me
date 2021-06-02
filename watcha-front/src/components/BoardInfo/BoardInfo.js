@@ -16,7 +16,7 @@ const BoardInfo = ({board}) => {
         dispatch({
             type: LOAD_BOARD_REQUEST,
         });
-    }, []);
+    }, [mainBoards]);
 
     const detailBoardClick = (id)=>{
         dispatch({
