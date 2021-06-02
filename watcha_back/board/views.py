@@ -16,7 +16,6 @@ class BoardView(View):
     @login_check
     def post(self , request):
         data = json.loads(request.body)
-        print("data :",data)
         user_email = User.objects.get(id=request.user.id).email
         user_email = user_email[:user_email.index('@')]
 
@@ -119,3 +118,4 @@ class DetailBoardView(View):
 
         except Exception as e:
             return JsonResponse({"message":e},status = 400)
+
