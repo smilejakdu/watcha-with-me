@@ -168,7 +168,6 @@ const reducer = (state = initialState, action) =>
                 draft.removeBoardLoading = true;
                 draft.removeBoardDone = false;
                 draft.removeBoardError = null;
-                console.log("reducers remove board request");
                 break;
             case REMOVE_BOARD_SUCCESS:
                 draft.removeBoardLoading = false;
@@ -190,6 +189,7 @@ const reducer = (state = initialState, action) =>
             case ADD_REVIEW_SUCCESS: {
                 const board = draft.mainBoards.find((v) => v.id === action.data.BoardId);
                 board.Reviews.unshift(action.data);
+                console.log("board : ", board);
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;
                 break;

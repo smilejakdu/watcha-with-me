@@ -41,10 +41,12 @@ function* loadBoards(action) {
 }
 
 function loadDetailBoardsAPI(data) {
+    console.log("detail data : ",data);
     return axios.get(`/board/${data}`);
 }
 
 function* loadDetailBoards(action) {
+    console.log("action detail data : ",action);
     try {
         const result = yield call(loadDetailBoardsAPI,action.data);
         let {
@@ -90,7 +92,6 @@ function* addBoard(action) {
 }
 
 function addReviewAPI(data) {
-    console.log("board review  : " , data);
     return axios.post("/review", data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -118,10 +119,11 @@ function* addReview(action) {
 function removeBoardAPI(data) {
     console.log("board data : " , data); // 여기까지는 정확하게 찍힌다. 
     // axios.delete 에서 back 에 전달이 안된다. 이유가 뭘까 ??
-    return axios.delete("/board/", data, {
+    return axios.delete("/board/" , {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
         },
+        data,
     });
 }
 

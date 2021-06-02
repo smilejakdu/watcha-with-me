@@ -7,21 +7,12 @@ import {
     Spinner,
 } from "react-bootstrap";
 import useInput from "../../hooks/useInput"
-import {ADD_REVIEW_REQUEST} from "../../reducers/board"
-import { useSelector, useDispatch } from "react-redux";
 
 const ReviewForm=()=> {
-    const dispatch = useDispatch();
-    const { loadDetailBoardLoading, detailBoards } = useSelector(
-        (state) => state.board
-    );
     const [text, onChangeText, setText] = useInput("");
 
     const ReviewOnClick = () => {
-         dispatch({
-             type: ADD_REVIEW_REQUEST,
-             data: { content: text, board_id: detailBoards.id },
-         });
+         alert("click");
          setText("");
     };
 

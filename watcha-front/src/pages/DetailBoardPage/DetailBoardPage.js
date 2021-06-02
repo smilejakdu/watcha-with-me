@@ -7,24 +7,34 @@ import { useSelector , useDispatch} from "react-redux";
 import { Card, Spinner , Button } from "react-bootstrap";
 import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
-import {REMOVE_BOARD_REQUEST} from "../../reducers/board"
+import {
+    REMOVE_BOARD_REQUEST,
+    REMOVE_REVIEW_REQUEST,
+} from "../../reducers/board";
 import {useHistory} from 'react-router-dom'
 
 const DetailBoardPage=()=> {
     const dispatch = useDispatch();
     const history = useHistory();
     const [reviewData , setReviewData] = useState();
+    const [detailId , setDetailId] = useState();
     const { detailBoards } = useSelector((state) => state.board);
 
     useEffect(() => {
         setReviewData(detailBoards.reviews);
+        setDetailId(detailBoards.id);
+        console.log("detailBoards : ", detailBoards);
     }, [detailBoards]);
 
-    const BoardRemoveOnClick = (id) =>{
+    useEffect(() => {
+        console.log("id : ", detailId);
+    }, [detailBoards]);
+
+    const ReviewRemoveOnClick = (id) =>{
         dispatch({
-            type : REMOVE_BOARD_REQUEST,
-            data : id
-        })
+            type: REMOVE_REVIEW_REQUEST,
+            data: id,
+        });
     }
 
     return (
@@ -38,17 +48,6 @@ const DetailBoardPage=()=> {
                                 <p> {detailBoards.content} </p>
                                 <footer className="blockquote-footer">
                                     {detailBoards.email}
-                                    <Button
-                                        variant="dark"
-                                        style={{
-                                            position: "absolute",
-                                            right: 0,
-                                            marginRight: "10px",
-                                        }}
-                                        onClick={() =>BoardRemoveOnClick(detailBoards.id)}
-                                    >
-                                        remove
-                                    </Button>
                                 </footer>
                             </blockquote>
                         </Card.Body>
@@ -59,9 +58,8 @@ const DetailBoardPage=()=> {
             ) : (
                 <center>
                     <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                        <span className="visually-hidden"></span>
                     </Spinner>
-                    <h2>재밌지..?? ㅋㅋㅋㅋㅋ</h2>
                 </center>
             )}
         </Body>
