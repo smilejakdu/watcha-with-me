@@ -67,8 +67,6 @@ function* loadDetailBoards(action) {
 
 
 function addBoardAPI(data) {
-    console.log("board data : ", data);
-    alert(data);
     return axios.post("/board/", data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -77,8 +75,6 @@ function addBoardAPI(data) {
 }
 
 function* addBoard(action) {
-    console.log("board action : " , action);
-    alert(action.data)
     try {
         const result = yield call(addBoardAPI, action.data);
         alert(result);

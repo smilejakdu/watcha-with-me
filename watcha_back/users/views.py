@@ -54,8 +54,12 @@ class SignUpView(View):
                     return JsonResponse({"message":f"doesnot_{d}"} , status = 400)
             # 특수 문자 회원가입 금지 , 띄어쓰기 있는거 금지 
 
+
             if User.objects.filter(nickname = data['nickname']).exists():
                 return JsonResponse({"message" : "EXISTS_NICKNAME"} , status = 400)
+
+            if len(data['nickname']) == 0:
+                return JsonResponse({"message":"DOESNOT_NICKNAME"} , status = 400)
 
             if len(data['password']) < 5:
                 return JsonResponse({"message":"SHORT_PASSWORD"} , status = 400)

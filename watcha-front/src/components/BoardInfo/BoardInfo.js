@@ -11,7 +11,7 @@ const BoardInfo = ({board}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { mainBoards, loadBoardLoading } = useSelector((state) => state.board);
-
+    
     useEffect(() => {
         dispatch({
             type: LOAD_BOARD_REQUEST,
@@ -31,12 +31,28 @@ const BoardInfo = ({board}) => {
             data: {id:id},
         }); 
     }
-
+    const color_list = [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "light",
+        "dark",
+    ];
     return (
         <CardContainer>
             {mainBoards.length > 0 &&
                 mainBoards.map((board) => (
-                    <Card>
+                    <Card
+                        style={{ margin: "20px" }}
+                        bg={color_list[Math.floor(Math.random() *color_list.length)]}
+                        // text={variant=== "light" ? "dark" : "white"}
+                        style={{ width: "18rem" }}
+                        className="mb-2"
+                    >
+                        <Card.Header>{board.nickname}</Card.Header>
                         <Card.Body
                             style={{
                                 width: "18rem",
@@ -45,9 +61,6 @@ const BoardInfo = ({board}) => {
                             }}
                             onClick={() => detailBoardClick(board.id)}
                         >
-                            <Card.Subtitle className="mb-2 text-muted">
-                                {board.email}
-                            </Card.Subtitle>
                             <Card.Title>{board.title}</Card.Title>
                             <Card.Text>{board.content}</Card.Text>
                         </Card.Body>

@@ -18,7 +18,7 @@ const ReviewInfo = ({ review_data }) => {
                             <blockquote className="blockquote mb-0">
                                 <p> {review.content}</p>
                                 <footer className="blockquote-footer">
-                                    {review.email}
+                                    {review.nickname}
                                 </footer>
                             </blockquote>
                         </Card.Body>

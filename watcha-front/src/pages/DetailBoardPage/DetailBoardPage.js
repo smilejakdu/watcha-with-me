@@ -60,17 +60,34 @@ const DetailBoardPage=()=> {
          }
     };
 
+    const color_list = [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "light",
+        "dark",
+    ];
+
     return (
         <Body>
             {reviewData ? (
                 <BodyCenter>
-                    <Card>
-                        <Card.Header>{detailBoards.title}</Card.Header>
+                    <Card
+                        bg={
+                            color_list[
+                                Math.floor(Math.random() * color_list.length)
+                            ]
+                        }
+                    >
+                        <Card.Header>{detailBoards.nickname}</Card.Header>
                         <Card.Body>
                             <blockquote className="blockquote mb-0">
-                                <p> {detailBoards.content} </p>
-                                <footer className="blockquote-footer">
-                                    {detailBoards.email}
+                                <p> - {detailBoards.title} - </p>
+                                <footer>
+                                    {detailBoards.content}
                                 </footer>
                             </blockquote>
                         </Card.Body>
