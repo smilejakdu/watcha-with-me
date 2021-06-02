@@ -37,7 +37,7 @@ const Navigation = () => {
                   <Modal
                       isOpen={ModalShowOpen}
                       close={ModalShowClose}
-                      text={"If you want to use it, please log in."}
+                      text="login"
                   />
               )}
               <Navbar.Brand href="/scheduler" style={{ color: "red" }}>

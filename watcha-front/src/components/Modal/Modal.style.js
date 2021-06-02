@@ -73,6 +73,13 @@ const ModalButtonWrap = styled.div`
             background-color: ${palette.gray[7]};
         }
     }
+
+    p {
+        cursor: pointer;
+        &:hover {
+            color: black;
+        }
+    }
 `;
 
 const KaKaoBtn = styled.button`
@@ -106,6 +113,36 @@ const WhachaLogoImg = styled.img`
     display: flex;
 `
 
+const Input = styled.input`
+    font-size: 1rem;
+    display: flex;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin: 30px;
+    &:hover {
+        cursor: pointer;
+        border-bottom: 1px solid ${palette.gray[4]};
+    }
+`;
+
+const LoginRegisterBtn = styled.div`
+    border-radius: 10px;
+    width: 30%;
+    margin: 0 auto;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: ${palette.gray[7]};
+    &:hover {
+        cursor: pointer;
+        background: ${palette.gray[4]};
+    }
+`;
+
 export {
     ModalButtonWrap,
     ModalBody,
@@ -113,4 +150,6 @@ export {
     KaKaoBtn,
     KaKaoDiv,
     WhachaLogoImg,
+    Input,
+    LoginRegisterBtn,
 };
