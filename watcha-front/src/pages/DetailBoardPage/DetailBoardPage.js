@@ -8,26 +8,31 @@ import { Card, Spinner , Button } from "react-bootstrap";
 import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
 import {
+    LOAD_DETAIL_BOARD_REQUEST,
     REMOVE_BOARD_REQUEST,
     REMOVE_REVIEW_REQUEST,
 } from "../../reducers/board";
-import {useHistory} from 'react-router-dom'
+import { useHistory, useLocation } from "react-router-dom";
 
-const DetailBoardPage=()=> {
+const DetailBoardPage=({id})=> {
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
+    console.log("location : " , location.state);
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
     const { detailBoards } = useSelector((state) => state.board);
 
     useEffect(() => {
-        setReviewData(detailBoards.reviews);
-        setDetailId(detailBoards.id);
-        console.log("detailBoards : ", detailBoards);
-    }, [detailBoards]);
+        dispatch({
+            type: LOAD_DETAIL_BOARD_REQUEST,
+            data: location.state,
+        });
+    }, []);
 
     useEffect(() => {
-        console.log("id : ", detailId);
+        setReviewData(detailBoards.reviews);
+        setDetailId(detailBoards.id);
     }, [detailBoards]);
 
     const ReviewRemoveOnClick = (id) =>{

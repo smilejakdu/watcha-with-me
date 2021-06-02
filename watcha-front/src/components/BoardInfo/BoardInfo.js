@@ -16,14 +16,13 @@ const BoardInfo = ({board}) => {
         dispatch({
             type: LOAD_BOARD_REQUEST,
         });
-    }, [mainBoards]);
+    }, []);
 
     const detailBoardClick = (id)=>{
-        dispatch({
-            type: LOAD_DETAIL_BOARD_REQUEST,
-            data: id,
+        history.push({
+            pathname: "/detailboard",
+            state: id,
         });
-        history.push("/detailboard");
     }
 
     const BoardRemoveOnClick = (id)=>{

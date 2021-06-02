@@ -107,8 +107,6 @@ const reducer = (state = initialState, action) =>
             case LOAD_BOARD_SUCCESS:
                 draft.loadBoardLoading = false;
                 draft.loadBoardDone = true;
-                // draft.mainBoards = draft.mainBoards.concat(action.data);
-                // 위에대로 하면 데이터가 계속 쌓이게 됨.
                 draft.mainBoards = action.data;
                 break;
             case LOAD_BOARD_FAILURE:
@@ -123,7 +121,9 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                console.log("action detail board : " , action.data);
+                console.log("load detail board1 : " , action.data);
+                const board_and_review = draft.mainBoards.find((v)=>v.id === action.data.id)
+                console.log("action detail board2 : ", board_and_review);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -187,6 +187,7 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewError = null;
                 break;
             case ADD_REVIEW_SUCCESS: {
+                console.log("add review success" , action.data);
                 const board = draft.mainBoards.find((v) => v.id === action.data.BoardId);
                 board.Reviews.unshift(action.data);
                 console.log("board : ", board);
