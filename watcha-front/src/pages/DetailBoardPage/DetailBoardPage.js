@@ -5,7 +5,6 @@ import {
 } from "./DetailBoardPage.style";
 import { useSelector , useDispatch} from "react-redux";
 import { Card, Spinner , Button , InputGroup , FormControl } from "react-bootstrap";
-import ReviewForm from "../../components/ReviewForm/ReviewForm"
 import ReviewInfo from "../../components/ReviewInfo/ReviewInfo"
 import {
     LOAD_DETAIL_BOARD_REQUEST,

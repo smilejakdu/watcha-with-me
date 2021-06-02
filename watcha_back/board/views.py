@@ -62,14 +62,14 @@ class BoardView(View):
     def get(self , request):
 
         try:
-            boards     = Board.objects.prefetch_related('review_set').all()
+            boards     = Board.objects.prefetch_related('review_set').all().order_by('-created_at')
 
             board_data = [{
                 'id'      : board.id,
                 'title'   : board.title,
                 'content' : board.content,
                 'email'   : board.email,
-                'reviews' : list(board.review_set.all().values())
+                'reviews' : list(board.review_set.all().values().order_by('-created_at'))
             }for board in boards]
 
             return JsonResponse({"data" : list(board_data)} , status = 200)
@@ -106,7 +106,7 @@ class DetailBoardView(View):
                 'title'   : board.title,
                 'content' : board.content,
                 'email'   : board.email,
-                'reviews' : list(board.review_set.all().values())
+                'reviews' : list(board.review_set.all().values().order_by('-created_at'))
             }
 
             return JsonResponse({ "data" : board_data },status = 200)
