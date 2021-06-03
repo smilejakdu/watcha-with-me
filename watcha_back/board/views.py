@@ -117,3 +117,24 @@ class DetailBoardView(View):
         except Exception as e:
             return JsonResponse({"message":e},status = 400)
 
+
+class SearchView(View):
+    def get(self, request):
+
+        # 검색값을 받는다
+        search = request.GET.get("query", None)
+
+        try:
+            if len(search) > 0:
+                search_data = []
+# board = Board.objects.filter(title__icontains="title").order_by('-created_at').values()
+                title_data   = (Board.objects.filter(title__icontains = search).values())
+                content_data = (Board.objects.filter(content__icontains = search).values())
+
+                return JsonResponse({"data": list(search_data)}, status=200)
+
+        except TypeError:
+            return JsonResponse({"message": "INVALID_TYPE"}, status=400)
+
+        except Exception as e:
+            return JsonResponse({"message": e}, status=400)

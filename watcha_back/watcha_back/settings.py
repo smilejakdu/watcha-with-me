@@ -15,7 +15,7 @@ SECRET_KEY = my_settings.SECRET['secret']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = my_settings.ALLOWED_HOSTS
 
 
 # Application definition
@@ -67,13 +67,6 @@ WSGI_APPLICATION = 'watcha_back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
 DATABASES = my_settings.DATABASES
 
 # Password validation
@@ -118,9 +111,8 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000' ,'http://localhost:3000']
 
-#CORS_ALLOW_ALL_ORIGINS = cors_settings.CORS_ALLOW_ALL_ORIGINS
+CORS_ALLOW_ALL_ORIGINS = cors_settings.CORS_ALLOW_ALL_ORIGINS
 CORS_ALLOW_CREDENTIALS = cors_settings.CORS_ALLOW_CREDENTIALS
 
 CORS_ALLOW_METHODS = cors_settings.CORS_ALLOW_METHODS
