@@ -27,17 +27,21 @@ const Modal = ({ isOpen, close, textData }) => {
             };
             axios.post("/users/signin", data)
                 .then((res) => {
-                    let { 
-                        data:{access} 
-                    } = res;
+                    console.log('');
+                    console.log(res);
+                    const {access , user} = res.data;
+                    console.log("access :",access);
+                    console.log("nickname :", user);
+
+                    localStorage.setItem("nickname", user);
                     localStorage.setItem("token", access);
                     setNickname("");
                     setPassword("");
                     close();
                 })
-                .catch((err) => {
-                    console.log(err);
-                    alert("비밀번호와 아이디");
+                .catch((error) => {
+                    console.log(error);
+                    alert("check your nickname and password");
                 });
         } else if (text === "signup") {
             let data = {
@@ -53,8 +57,17 @@ const Modal = ({ isOpen, close, textData }) => {
                     setRePassword("");
                     setText("login");
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch((error) => {
+                    console.log(error);
+                    if(error.response){
+                        const {data} = error.response;
+                        if(data.message ==='SHORT_PASSWORD'){
+                            alert('your password short please more than 6')
+                        }else if (data.message === "doesnot_nickname") {
+                            alert("your nickname not found");
+                        }
+
+                    }
                 });
         }
     });

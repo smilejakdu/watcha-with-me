@@ -45,7 +45,6 @@ const DetailBoardPage=()=> {
     }
 
     const ReviewOnClick = () => {
-        alert("click");
         dispatch({
             type: ADD_REVIEW_REQUEST,
             data: { content: text, board_id: detailId },

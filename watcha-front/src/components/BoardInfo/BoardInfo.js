@@ -78,20 +78,23 @@ const BoardInfo = ({board}) => {
                             <Card.Title>{board.title}</Card.Title>
                             <Card.Text>{board.content}</Card.Text>
                         </Card.Body>
-                        <Button
-                            style={{
-                                position: "absolute",
-                                right: 0,
-                                bottom: 0,
-                                border:"none",
-                                marginRight: "10px",
-                                marginBottom: "10px",
-                                background: `${text_color_list[board.id % text_color_list.length]}`,
-                            }}
-                            onClick={() => BoardRemoveOnClick(board.id)}
-                        >
-                            remove
-                        </Button>
+                        {
+                            localStorage.getItem('nickname') === board.nickname &&
+                                <Button
+                                    style={{
+                                        position: "absolute",
+                                        right: 0,
+                                        bottom: 0,
+                                        border:"none",
+                                        marginRight: "10px",
+                                        marginBottom: "10px",
+                                        background: `${text_color_list[board.id % text_color_list.length]}`,
+                                    }}
+                                    onClick={() => BoardRemoveOnClick(board.id)}
+                                >
+                                    remove
+                                </Button>
+                        }
                     </Card>
                 ))}
         </CardContainer>

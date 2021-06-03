@@ -93,7 +93,7 @@ class SignInView(View):
                                            SECRET['secret'],
                                            algorithm = SECRET['algorithm']).decode()
 
-                    return JsonResponse({'access': token}, status=200, content_type="application/json")
+                    return JsonResponse({'access': token , 'user':user.nickname}, status=200, content_type="application/json")
 
                 return HttpResponse(status=401)
 
