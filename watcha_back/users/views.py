@@ -111,7 +111,7 @@ class SignInView(View):
         except Exception as e:
             return JsonResponse({"message" : e} , status = 400)
 
-
+# front => token => header 요청
 class TokenCheckView(View):
     def get(self , request):
         auth_token   = request.headers.get('Authorization', None)

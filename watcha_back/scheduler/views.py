@@ -16,9 +16,9 @@ import datetime
 class SchedulerView(View):
     @login_check
     def post(self , request):
-        data = json.loads(request.body)
-        user_email = User.objects.get(id=request.user.id).email
-        user_email = user_email[:user_email.index('@')]
+        data     = json.loads(request.body)
+        nickname = User.objects.get(id=request.user.id).nickname
+
         try:
             Scheduler(
                 start_date = data['start_date'],

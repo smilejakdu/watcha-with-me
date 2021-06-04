@@ -12,7 +12,6 @@ const Navigation = () => {
   const [modalShow, setModalShow] = useState(false);
   const history = useHistory();
 
-
   useEffect(()=>{
     const bg = document.getElementById("watcha_main_logo");
 
@@ -20,6 +19,7 @@ const Navigation = () => {
         let color = Math.random() * 0xffffff;
         color = parseInt(color);
         color = color.toString(16);
+
         bg.style.transition = "all 2s ease-out";
         bg.style.color = "#" + color;
     }, 3000);
@@ -32,6 +32,7 @@ const Navigation = () => {
 
   const logoutBtn = useCallback(() => {
       localStorage.removeItem("token");
+      localStorage.removeItem("nickname");
       history.push("/")
   }, []);
 
@@ -53,10 +54,7 @@ const Navigation = () => {
                      textData="login"
                  />
              )}
-             <Navbar.Brand
-                 href="/scheduler"
-                 id = "watcha_main_logo"
-             >
+             <Navbar.Brand href="/scheduler" id="watcha_main_logo">
                  Watcha
              </Navbar.Brand>
              <Nav className="mr-auto">
@@ -64,8 +62,10 @@ const Navigation = () => {
                  <Nav.Link href="/board">Board</Nav.Link>
                  {localStorage.getItem("token") ? (
                      <>
-                         {/* <Nav.Link href="/mypage">Mypage</Nav.Link> */}
                          <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>
+                         <Nav.Link onClick={logoutBtn}>
+                             {localStorage.getItem("nickname")}
+                         </Nav.Link>
                      </>
                  ) : (
                      <Nav.Link onClick={loginBtn}>SignIn</Nav.Link>

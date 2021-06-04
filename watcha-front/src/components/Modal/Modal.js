@@ -27,8 +27,6 @@ const Modal = ({ isOpen, close, textData }) => {
             };
             axios.post("/users/signin", data)
                 .then((res) => {
-                    console.log('');
-                    console.log(res);
                     const {access , user} = res.data;
                     console.log("access :",access);
                     console.log("nickname :", user);
@@ -38,6 +36,7 @@ const Modal = ({ isOpen, close, textData }) => {
                     setNickname("");
                     setPassword("");
                     close();
+                    window.location.reload();
                 })
                 .catch((error) => {
                     console.log(error);

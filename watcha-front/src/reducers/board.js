@@ -121,9 +121,7 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                console.log("load detail board1 : " , action.data);
                 const board_and_review = draft.mainBoards.find((v)=>v.id === action.data.id)
-                console.log("action detail board2 : ", board_and_review);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -172,7 +170,6 @@ const reducer = (state = initialState, action) =>
             case REMOVE_BOARD_SUCCESS:
                 draft.removeBoardLoading = false;
                 draft.removeBoardDone = true;
-                console.log("reducer remove board success : ", action.data);
                 draft.mainBoards = draft.mainBoards.filter(
                     (v) => v.id !== action.data.id
                 );
@@ -187,10 +184,8 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewError = null;
                 break;
             case ADD_REVIEW_SUCCESS: {
-                console.log("add review success" , action.data);
                 const board = draft.mainBoards.find((v) => v.id === action.data.BoardId);
                 board.Reviews.unshift(action.data);
-                console.log("board : ", board);
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;
                 break;

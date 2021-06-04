@@ -17,6 +17,9 @@ import {
     REMOVE_BOARD_REQUEST,
     REMOVE_BOARD_SUCCESS,
     REMOVE_BOARD_FAILURE,
+    REMOVE_REVIEW_REQUEST,
+    REMOVE_REVIEW_SUCCESS,
+    REMOVE_REVIEW_FAILURE,
 } from "../reducers/board";
 
 function loadBoardsAPI() {
@@ -41,12 +44,10 @@ function* loadBoards(action) {
 }
 
 function loadDetailBoardsAPI(data) {
-    console.log("detail data : ",data);
     return axios.get(`/board/${data}`);
 }
 
 function* loadDetailBoards(action) {
-    console.log("action detail data : ",action);
     try {
         const result = yield call(loadDetailBoardsAPI,action.data);
         let {
@@ -92,7 +93,6 @@ function* addBoard(action) {
 }
 
 function addReviewAPI(data) {
-    console.log("review data : " , data);
     return axios.post("/review", data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -101,10 +101,8 @@ function addReviewAPI(data) {
 }
 
 function* addReview(action) {
-    console.log("add review action : " , action);
     try {
         const result = yield call(addReviewAPI, action.data);
-        alert(result);
         yield put({
             type: ADD_REVIEW_SUCCESS,
             data: result.data,
@@ -119,8 +117,6 @@ function* addReview(action) {
 }
 
 function removeBoardAPI(data) {
-    console.log("board data : ", data); // 여기까지는 정확하게 찍힌다.
-    // axios.delete 에서 back 에 전달이 안된다. 이유가 뭘까 ??
     return axios.delete("/board/", {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -130,13 +126,12 @@ function removeBoardAPI(data) {
 }
 
 function* removeBoard(action) {
-    console.log("action : " , action);
     try {
         const result = yield call(removeBoardAPI, action.data);
         console.log("board delete result : " , result);
         alert(result);
         yield put({
-            type: REMOVE_BOARD_SUCCESS,
+            type: REMOVE_REVIEW_SUCCESS,
             data: result.data,
         });
     } catch (err) {
@@ -147,6 +142,34 @@ function* removeBoard(action) {
         });
     }
 }
+
+
+function removeReviewAPI(data) {
+    return axios.delete("/review", {
+        headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+        },
+        data,
+    });
+}
+
+function* removeReview(action) {
+    try {
+        const result = yield call(removeReviewAPI, action.data);
+        alert(result);
+        yield put({
+            type: REMOVE_REVIEW_SUCCESS,
+            data: result.data,
+        });
+    } catch (err) {
+        console.error(err);
+        yield put({
+            type: REMOVE_REVIEW_FAILURE,
+            error: err.response.data,
+        });
+    }
+}
+
 
 function* watchLoadBoard() {
     yield throttle(5000,LOAD_BOARD_REQUEST, loadBoards);
@@ -168,6 +191,10 @@ function* watchRemoveBoard() {
     yield takeLatest(REMOVE_BOARD_REQUEST, removeBoard);
 }
 
+function* watchRemoveReview() {
+    yield takeLatest(REMOVE_REVIEW_REQUEST, removeReview);
+}
+
 export default function* boardSaga() {
     yield all([
         fork(watchLoadBoard),
@@ -175,5 +202,6 @@ export default function* boardSaga() {
         fork(watchAddBoard),
         fork(watchAddReview),
         fork(watchRemoveBoard),
+        fork(watchRemoveReview),
     ]);
 }

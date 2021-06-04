@@ -42,24 +42,25 @@ const Scheduler = ({ events }) => {
         if (scheduler._$initialized) {
             return;
         }
-
-        scheduler.attachEvent("onEventAdded", (id, ev) => {
-            fetch(`${backUrl}/scheduler`, {
-                method: "POST",
-                body: JSON.stringify({
-                    start_date: ev.start_date,
-                    end_date: ev.end_date,
-                    text: ev.text,
-                }),
-                headers: {
-                    Authorization: `${localStorage.getItem("token")}`,
-                },
-            })
-                .then((res) => {
-                    console.log(res.json);
+        if (localStorage.getItem("token")){
+            scheduler.attachEvent("onEventAdded", (id, ev) => {
+                fetch(`${backUrl}/scheduler`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        start_date: ev.start_date,
+                        end_date: ev.end_date,
+                        text: ev.text,
+                    }),
+                    headers: {
+                        Authorization: `${localStorage.getItem("token")}`,
+                    },
                 })
-                .then((res) => handleGet());
-        });
+                    .then((res) => {
+                        console.log(res.json);
+                    })
+                    .then((res) => handleGet());
+            });
+        }
 
         scheduler.attachEvent("onEventChanged", (id, ev) => {
             fetch(`${backUrl}/scheduler`, {
