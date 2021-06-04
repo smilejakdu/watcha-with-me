@@ -1,11 +1,15 @@
 import React,{useState , useEffect , useCallback} from 'react'
 import axios from "axios";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Badge } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LOAD_DETAIL_BOARD_REQUEST } from "../../reducers/board";
-import { CardContainer, CardBorder } from "./BoardInfo.style";
+import { CardContainer, UpdateRemoveBtnBorder } from "./BoardInfo.style";
 import {useHistory} from "react-router-dom"
-import { LOAD_BOARD_REQUEST, REMOVE_BOARD_REQUEST } from "../../reducers/board";
+import {
+    LOAD_BOARD_REQUEST,
+    REMOVE_BOARD_REQUEST,
+    UPDATE_BOARD_REQUEST,
+} from "../../reducers/board";
 
 const BoardInfo = ({board}) => {
     const history = useHistory();
@@ -31,6 +35,14 @@ const BoardInfo = ({board}) => {
             data: {id:id},
         }); 
     }
+
+    const BoardUpdateOnClick = (id) => {
+        dispatch({
+            type: UPDATE_BOARD_REQUEST,
+            data: { id: id },
+        });
+    };
+
     const color_list = [
         "primary",
         "secondary",
@@ -60,9 +72,11 @@ const BoardInfo = ({board}) => {
                     <Card style={{ margin: "20px", border: "none" }}>
                         <Card.Header
                             style={{
-                                // color: `${text_color_list[Math.floor(
-                                //             Math.random() * text_color_list.length)]}`,
-                                color: `${text_color_list[board.id % text_color_list.length]}`,
+                                color: `${
+                                    text_color_list[
+                                        board.id % text_color_list.length
+                                    ]
+                                }`,
                                 border: "none",
                             }}
                         >
@@ -77,24 +91,44 @@ const BoardInfo = ({board}) => {
                         >
                             <Card.Title>{board.title}</Card.Title>
                             <Card.Text>{board.content}</Card.Text>
+                            <Button variant="light" text="dark">
+                                review <Badge bg="secondary">{board.review_count}</Badge>
+                            </Button>
                         </Card.Body>
-                        {
-                            localStorage.getItem('nickname') === board.nickname &&
+                        {localStorage.getItem("nickname") ===
+                            board.nickname && (
+                            <UpdateRemoveBtnBorder>
                                 <Button
                                     style={{
-                                        position: "absolute",
-                                        right: 0,
-                                        bottom: 0,
-                                        border:"none",
+                                        border: "none",
                                         marginRight: "10px",
-                                        marginBottom: "10px",
-                                        background: `${text_color_list[board.id % text_color_list.length]}`,
+                                        background: `${
+                                            text_color_list[
+                                                board.id %
+                                                    text_color_list.length
+                                            ]
+                                        }`,
+                                    }}
+                                    onClick={() => BoardUpdateOnClick(board.id)}
+                                >
+                                    update
+                                </Button>
+                                <Button
+                                    style={{
+                                        border: "none",
+                                        background: `${
+                                            text_color_list[
+                                                board.id %
+                                                    text_color_list.length
+                                            ]
+                                        }`,
                                     }}
                                     onClick={() => BoardRemoveOnClick(board.id)}
                                 >
                                     remove
                                 </Button>
-                        }
+                            </UpdateRemoveBtnBorder>
+                        )}
                     </Card>
                 ))}
         </CardContainer>

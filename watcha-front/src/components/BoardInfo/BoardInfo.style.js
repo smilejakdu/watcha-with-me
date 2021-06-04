@@ -15,4 +15,12 @@ const CardContainer = styled.div`
     }
 `;
 
-export { CardContainer };
+const UpdateRemoveBtnBorder = styled.div`
+    position: absolute;
+    right:0;
+    bottom:0;
+    margin-right:10px;
+    margin-bottom:10px;
+`;
+
+export { CardContainer, UpdateRemoveBtnBorder };

@@ -61,12 +61,13 @@ class BoardView(View):
         try:
             boards     = Board.objects.prefetch_related('review_set').all().order_by('-created_at')
 
+
             board_data = [{
-                'id'       : board.id,
-                'title'    : board.title,
-                'content'  : board.content,
-                'nickname' : board.nickname,
-                'reviews'  : list(board.review_set.all().values().order_by('-created_at'))
+                'id'           : board.id,
+                'title'        : board.title,
+                'content'      : board.content,
+                'nickname'     : board.nickname,
+                'review_count' : board.review_set.all().count()
             }for board in boards]
 
             return JsonResponse({"data" : list(board_data)} , status = 200)
