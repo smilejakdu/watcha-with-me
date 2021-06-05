@@ -1,2 +1,1 @@
-export const backUrl = 'http://localhost:8000'
-export const KakaoJsKey = "9b50747a56ad679f5efe84ac505e4624";
+export const backUrl = "http://15.164.218.183/:8000";
