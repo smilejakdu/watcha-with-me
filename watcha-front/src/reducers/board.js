@@ -79,7 +79,6 @@ export const UPDATE_BOARD_REQUEST = "UPDATE_BOARD_REQUEST";
 export const UPDATE_BOARD_SUCCESS = "UPDATE_BOARD_SUCCESS";
 export const UPDATE_BOARD_FAILURE = "UPDATE_BOARD_FAILURE";
 
-// review
 export const ADD_REVIEW_REQUEST = "ADD_REVIEW_REQUEST";
 export const ADD_REVIEW_SUCCESS = "ADD_REVIEW_SUCCESS";
 export const ADD_REVIEW_FAILURE = "ADD_REVIEW_FAILURE";
@@ -121,7 +120,9 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                const board_and_review = draft.mainBoards.find((v)=>v.id === action.data.id)
+                const board_and_review = draft.mainBoards.find(
+                    (v) => v.id === action.data.id
+                );
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -184,7 +185,9 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewError = null;
                 break;
             case ADD_REVIEW_SUCCESS: {
-                const board = draft.mainBoards.find((v) => v.id === action.data.BoardId);
+                const board = draft.mainBoards.find(
+                    (v) => v.id === action.data.BoardId
+                );
                 board.Reviews.unshift(action.data);
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;
@@ -193,6 +196,25 @@ const reducer = (state = initialState, action) =>
             case ADD_REVIEW_FAILURE:
                 draft.addReviewLoading = false;
                 draft.addReviewError = action.error;
+                break;
+
+            case UPDATE_REVIEW_REQUEST:
+                draft.updateReviewLoading = true;
+                draft.updateReviewDone = false;
+                draft.updateReviewError = null;
+                break;
+            case UPDATE_REVIEW_SUCCESS:
+                draft.updateReviewLoading = false;
+                draft.updateReviewDone = true;
+                draft.mainBoards.find((v) => v.id === action.data.BoardId
+                ).content = action.data.content;
+                draft.mainBoards.find(
+                    (v) => v.id === action.data.BoardId
+                ).title = action.data.title;
+                break;
+            case UPDATE_REVIEW_FAILURE:
+                draft.updateReviewLoading = false;
+                draft.updateReviewError = action.error;
                 break;
             default:
                 break;

@@ -36,23 +36,6 @@ const BoardInfo = ({board}) => {
         }); 
     }
 
-    const BoardUpdateOnClick = (id) => {
-        dispatch({
-            type: UPDATE_BOARD_REQUEST,
-            data: { id: id },
-        });
-    };
-
-    const color_list = [
-        "primary",
-        "secondary",
-        "success",
-        "danger",
-        "warning",
-        "info",
-        "light",
-    ];
-
     const text_color_list = [
         "#ff6600",
         "#ffe500",
@@ -91,28 +74,16 @@ const BoardInfo = ({board}) => {
                         >
                             <Card.Title>{board.title}</Card.Title>
                             <Card.Text>{board.content}</Card.Text>
-                            <Button variant="light" text="dark">
-                                review <Badge bg="secondary">{board.review_count}</Badge>
+                            <Button variant="light">
+                                review{" "}
+                                <Badge variant="secondary">
+                                    {board.review_count}
+                                </Badge>
                             </Button>
                         </Card.Body>
                         {localStorage.getItem("nickname") ===
                             board.nickname && (
                             <UpdateRemoveBtnBorder>
-                                <Button
-                                    style={{
-                                        border: "none",
-                                        marginRight: "10px",
-                                        background: `${
-                                            text_color_list[
-                                                board.id %
-                                                    text_color_list.length
-                                            ]
-                                        }`,
-                                    }}
-                                    onClick={() => BoardUpdateOnClick(board.id)}
-                                >
-                                    update
-                                </Button>
                                 <Button
                                     style={{
                                         border: "none",

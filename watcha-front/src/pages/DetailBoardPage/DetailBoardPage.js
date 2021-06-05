@@ -19,7 +19,6 @@ const DetailBoardPage=()=> {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-    console.log("location : " , location.state);
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
@@ -33,6 +32,7 @@ const DetailBoardPage=()=> {
     }, []);
 
     useEffect(() => {
+        console.log("detail board page :" , detailBoards);
         setReviewData(detailBoards.reviews);
         setDetailId(detailBoards.id);
     }, [detailBoards]);

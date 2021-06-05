@@ -10,16 +10,15 @@ import {
 import axios from "axios";
 import { backUrl } from "../../config/config";
 import logo from "../../utils/images/watchalogo.png";
+import useInput from "../../hooks/useInput"
 
 const Modal = ({ isOpen, close, textData }) => {
     const [text, setText] = useState(textData);
-    const [nickname, setNickname] = useState("");
-    const [password, setPassword] = useState("");
-    const [repassword, setRePassword] = useState("");
+    const [nickname ,onChangeNickname , setNickname ] = useInput("");
+    const [password ,onChangePassword , setPassword ] = useInput("");
+    const [repassword, onChangeRepassword, setRepassword] = useInput("");
 
     const onClickBtn = useCallback(() => {
-        console.log("일단버튼클릭");
-        console.log("text : " , text);
         if (text === "login") {
             let data = {
                 nickname: nickname,
@@ -53,7 +52,7 @@ const Modal = ({ isOpen, close, textData }) => {
                     console.log(res);
                     setNickname("");
                     setPassword("");
-                    setRePassword("");
+                    setRepassword("");
                     setText("login");
                 })
                 .catch((error) => {
@@ -96,9 +95,7 @@ const Modal = ({ isOpen, close, textData }) => {
                                             <Input
                                                 type="text"
                                                 placeholder="nickname"
-                                                onChange={(e) =>
-                                                    setNickname(e.target.value)
-                                                }
+                                                onChange={onChangeNickname}
                                                 value={nickname}
                                                 onKeyPress={handleKeyPress}
                                                 required
@@ -108,9 +105,7 @@ const Modal = ({ isOpen, close, textData }) => {
                                             <Input
                                                 type="password"
                                                 placeholder="password"
-                                                onChange={(e) =>
-                                                    setPassword(e.target.value)
-                                                }
+                                                onChange={onChangePassword}
                                                 value={password}
                                                 onKeyPress={handleKeyPress}
                                                 required
@@ -123,9 +118,7 @@ const Modal = ({ isOpen, close, textData }) => {
                                             <Input
                                                 type="text"
                                                 placeholder="nickname"
-                                                onChange={(e) =>
-                                                    setNickname(e.target.value)
-                                                }
+                                                onChange={onChangeNickname}
                                                 value={nickname}
                                                 onKeyPress={handleKeyPress}
                                                 required
@@ -135,9 +128,7 @@ const Modal = ({ isOpen, close, textData }) => {
                                             <Input
                                                 type="password"
                                                 placeholder="password"
-                                                onChange={(e) =>
-                                                    setPassword(e.target.value)
-                                                }
+                                                onChange={onChangePassword}
                                                 value={password}
                                                 onKeyPress={handleKeyPress}
                                                 required
@@ -147,11 +138,7 @@ const Modal = ({ isOpen, close, textData }) => {
                                             <Input
                                                 type="password"
                                                 placeholder="repassword"
-                                                onChange={(e) =>
-                                                    setRePassword(
-                                                        e.target.value
-                                                    )
-                                                }
+                                                onChange={onChangeRepassword}
                                                 value={repassword}
                                                 onKeyPress={handleKeyPress}
                                                 required

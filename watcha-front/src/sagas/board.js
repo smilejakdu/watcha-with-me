@@ -20,6 +20,9 @@ import {
     REMOVE_REVIEW_REQUEST,
     REMOVE_REVIEW_SUCCESS,
     REMOVE_REVIEW_FAILURE,
+    UPDATE_REVIEW_REQUEST,
+    UPDATE_REVIEW_SUCCESS,
+    UPDATE_REVIEW_FAILURE,
 } from "../reducers/board";
 
 function loadBoardsAPI() {
@@ -44,6 +47,7 @@ function* loadBoards(action) {
 }
 
 function loadDetailBoardsAPI(data) {
+    console.log("detail board data : " , data);
     return axios.get(`/board/${data}`);
 }
 
@@ -131,7 +135,7 @@ function* removeBoard(action) {
         console.log("board delete result : " , result);
         alert(result);
         yield put({
-            type: REMOVE_REVIEW_SUCCESS,
+            type: REMOVE_BOARD_SUCCESS,
             data: result.data,
         });
     } catch (err) {
@@ -156,6 +160,32 @@ function removeReviewAPI(data) {
 function* removeReview(action) {
     try {
         const result = yield call(removeReviewAPI, action.data);
+        alert(result);
+        yield put({
+            type: REMOVE_REVIEW_SUCCESS,
+            data: result.data,
+        });
+    } catch (err) {
+        console.error(err);
+        yield put({
+            type: REMOVE_REVIEW_FAILURE,
+            error: err.response.data,
+        });
+    }
+}
+
+function updateReviewAPI(data) {
+    console.log("review update data:",data);
+    return axios.put("/review",data, {
+        headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+        },
+    });
+}
+
+function* updateReview(action) {
+    try {
+        const result = yield call(updateReviewAPI, action.data);
         alert(result);
         yield put({
             type: REMOVE_REVIEW_SUCCESS,
@@ -195,6 +225,11 @@ function* watchRemoveReview() {
     yield takeLatest(REMOVE_REVIEW_REQUEST, removeReview);
 }
 
+function* watchUpdateReview() {
+    yield takeLatest(UPDATE_REVIEW_REQUEST, updateReview);
+}
+
+
 export default function* boardSaga() {
     yield all([
         fork(watchLoadBoard),
@@ -203,5 +238,6 @@ export default function* boardSaga() {
         fork(watchAddReview),
         fork(watchRemoveBoard),
         fork(watchRemoveReview),
+        fork(watchUpdateReview),
     ]);
 }
