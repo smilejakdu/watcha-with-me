@@ -3,12 +3,12 @@
 /config
 # dependencies
 /node_modules
+/config.js
 /.pnp
 .pnp.js
 
 # testing
 /coverage
-
 # production
 /build
 
