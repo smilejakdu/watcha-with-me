@@ -11,16 +11,20 @@ import {UPDATE_REVIEW_REQUEST} from "../../reducers/board"
 import useInput from "../../hooks/useInput"
 import { Button } from "react-bootstrap";
 
-const UpdateModal = ({ isOpen, close, textData }) => {
-    const [content, onChangeContent, setContent] = useInput("");
+const UpdateModal = ({close, review_id,review_content }) => {
+    const [content, onChangeContent, setContent] = useInput(review_content);
     const dispatch = useDispatch();
 
-    const ReviewUpdateModal = useCallback((id) => {
+    const ReviewUpdateModal = useCallback(() => {
+        console.log("review_id:",review_id);
+        console.log("review_content:", content);
         dispatch({
-            type:UPDATE_REVIEW_REQUEST,
-            data:{id:id}
-        })
-    },[])
+            type: UPDATE_REVIEW_REQUEST,
+            data: { id:review_id , content:content },
+        });
+        close();
+        window.location.reload();
+    }, [content]);
 
     return (
         <div>
@@ -31,14 +35,17 @@ const UpdateModal = ({ isOpen, close, textData }) => {
                 </p>
                 <div className="content">
                     <BoardTextArea
-                        placeholder="content"
                         minRows={2}
                         type="text"
                         name="content"
+                        onChange={onChangeContent}
+                        value={content}
+                        required
+                        placeholder="CONTENT"
                     />
                 </div>
                 <ModalButtonWrap>
-                    <button onClick={close}>update</button>
+                    <button onClick={ReviewUpdateModal}>update</button>
                     <button onClick={close}>cancel</button>
                 </ModalButtonWrap>
             </ModalBody>

@@ -17,14 +17,13 @@ import UpdateModal from "../UpdateModal/UpdateModal"
 
 const ReviewInfo = ({ review_data }) => {
     const [updateModal, setUpdateModal] = useState(false);
+    const [updateReviewId , setUpdateReviewId] = useState();
+    const [reviewContent , setReviewContent] = useState("");
     const dispatch = useDispatch();
 
-    const ReviewUpdateOnClick = useCallback(() => {
-        // dispatch({
-        //     type: UPDATE_REVIEW_REQUEST,
-        //     data: { id: id },
-        // });
-        // window.location.reload();
+    const ReviewUpdateOnClick = useCallback((id,review) => {
+        setReviewContent(review);
+        setUpdateReviewId(id);
         ModalShowOpen();
     },[])
 
@@ -61,7 +60,8 @@ const ReviewInfo = ({ review_data }) => {
                 <UpdateModal
                     isOpen={ModalShowOpen}
                     close={ModalShowClose}
-                    textData="login"
+                    review_id={updateReviewId}
+                    review_content={reviewContent}
                 />
             )}
             {review_data &&
@@ -89,7 +89,10 @@ const ReviewInfo = ({ review_data }) => {
                                             }`,
                                         }}
                                         onClick={() =>
-                                            ReviewUpdateOnClick(review.id)
+                                            ReviewUpdateOnClick(
+                                                review.id,
+                                                review.content
+                                            )
                                         }
                                     >
                                         update

@@ -186,15 +186,14 @@ function updateReviewAPI(data) {
 function* updateReview(action) {
     try {
         const result = yield call(updateReviewAPI, action.data);
-        alert(result);
         yield put({
-            type: REMOVE_REVIEW_SUCCESS,
+            type: UPDATE_REVIEW_SUCCESS,
             data: result.data,
         });
     } catch (err) {
         console.error(err);
         yield put({
-            type: REMOVE_REVIEW_FAILURE,
+            type: UPDATE_REVIEW_FAILURE,
             error: err.response.data,
         });
     }

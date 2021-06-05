@@ -120,9 +120,7 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                const board_and_review = draft.mainBoards.find(
-                    (v) => v.id === action.data.id
-                );
+                console.log("board detail data reducers : " , action.data);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -206,11 +204,6 @@ const reducer = (state = initialState, action) =>
             case UPDATE_REVIEW_SUCCESS:
                 draft.updateReviewLoading = false;
                 draft.updateReviewDone = true;
-                draft.mainBoards.find((v) => v.id === action.data.BoardId
-                ).content = action.data.content;
-                draft.mainBoards.find(
-                    (v) => v.id === action.data.BoardId
-                ).title = action.data.title;
                 break;
             case UPDATE_REVIEW_FAILURE:
                 draft.updateReviewLoading = false;
