@@ -3,14 +3,18 @@ import { withRouter } from "react-router-dom";
 import { CategoryLinkItem, CategoryLink, HeaderBody } from "./Navigation.style";
 import logo from "../../utils/images/watchalogo.png"
 import { Button, Navbar, Nav, Form, FormControl } from "react-bootstrap";
-import Axios from "axios";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+// import { SEARCH_ADD } from "../../reducers/search";
 import Modal from "../../components/Modal/Modal"
 import { useHistory } from "react-router-dom";
+import SearchBox from "../../components/SearchBox/SearchBox"
 
 const Navigation = () => {
   const [modalShow, setModalShow] = useState(false);
   const history = useHistory();
+
+//   const {SEARCH_ADD} = useSelector((state) => state.search);
 
   useEffect(()=>{
     const bg = document.getElementById("watcha_main_logo");
@@ -71,14 +75,7 @@ const Navigation = () => {
                      <Nav.Link onClick={loginBtn}>SignIn</Nav.Link>
                  )}
              </Nav>
-             <Form inline>
-                 <FormControl
-                     type="text"
-                     placeholder="Search"
-                     className="mr-sm-2"
-                 />
-                 <Button variant="outline-danger">Search</Button>
-             </Form>
+                <SearchBox/>
          </Navbar>
      </>
  );

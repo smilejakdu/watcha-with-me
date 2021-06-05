@@ -19,6 +19,8 @@ const DetailBoardPage=()=> {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
+    console.log("location : " , location);
+    console.log("location : ", location.state);
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
@@ -36,13 +38,6 @@ const DetailBoardPage=()=> {
         setReviewData(detailBoards.reviews);
         setDetailId(detailBoards.id);
     }, [detailBoards]);
-
-    const ReviewRemoveOnClick = (id) =>{
-        dispatch({
-            type: REMOVE_REVIEW_REQUEST,
-            data: id,
-        });
-    }
 
     const ReviewOnClick = () => {
         dispatch({
@@ -110,6 +105,7 @@ const DetailBoardPage=()=> {
                             <Button
                                 variant="outline-secondary"
                                 onClick={ReviewOnClick}
+                                style={{zIndex:0}}
                             >
                                 Button
                             </Button>
