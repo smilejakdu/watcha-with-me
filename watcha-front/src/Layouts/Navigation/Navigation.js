@@ -54,7 +54,7 @@ const Navigation = () => {
                      textData="login"
                  />
              )}
-             <Navbar.Brand href="/scheduler" id="watcha_main_logo">
+             <Navbar.Brand href="https://watcha.com/" id="watcha_main_logo">
                  Watcha
              </Navbar.Brand>
              <Nav className="mr-auto">

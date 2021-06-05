@@ -23,7 +23,7 @@ class SchedulerView(View):
             Scheduler(
                 start_date = data['start_date'],
                 end_date   = data['end_date'],
-                text       = f"-{user_email}-\n{data['text']}",
+                text       = f"-{nickname}-\n{data['text']}",
                 user_id    = User.objects.get(id = request.user.id).id
             ).save()
 
@@ -46,7 +46,7 @@ class SchedulerView(View):
             "start_date" : scheduler['start_date'],
             "end_date"   : scheduler['end_date'],
             "text"       : scheduler['text'],
-            "eamil"      : User.objects.get(id=scheduler['user_id']).email
+            "nickname"   : User.objects.get(id=scheduler['user_id']).nickname
         }for scheduler in schedulers]
 
         return JsonResponse({"data" : list(scheduler_data)} , status = 200)
