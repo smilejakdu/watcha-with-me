@@ -4,6 +4,8 @@ http://15.164.218.183:8080/
 
 ### 진행기간 :2021.5.28 ~ 2021.6.6
 
+<img src="https://github.com/smilejakdu/watcha-with-me/blob/main/screen_page.png" width="500" height="500">
+
 ## 📌프로젝트 소개
 
 > 왓챠 를 사용해서 영화를 보다가 , 함께보기가 있더라구요 . 
