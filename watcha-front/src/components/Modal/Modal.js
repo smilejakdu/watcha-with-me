@@ -63,8 +63,11 @@ const Modal = ({ isOpen, close, textData }) => {
                             alert('your password short please more than 6')
                         }else if (data.message === "doesnot_nickname") {
                             alert("your nickname not found");
+                        }else if (data.message === "EXISTS_NICKNAME"){
+                            alert("exists nickname");
+                        }else if (data.message ==="EMOJI_CAN_NOT_USED"){
+                            alert("can not use emoji");
                         }
-
                     }
                 });
         }

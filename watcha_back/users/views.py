@@ -46,7 +46,6 @@ class KakaoSignInView(View):
 class SignUpView(View):
     def post(self , request):
         data = json.loads(request.body)
-        print(data)
 
         try:
             for d in data:
@@ -54,12 +53,18 @@ class SignUpView(View):
                     return JsonResponse({"message":f"doesnot_{d}"} , status = 400)
             # 특수 문자 회원가입 금지 , 띄어쓰기 있는거 금지 
 
-
-            if User.objects.filter(nickname = data['nickname']).exists():
-                return JsonResponse({"message" : "EXISTS_NICKNAME"} , status = 400)
+            only_BMP_pattern = re.compile("["
+                    u"\U00010000-\U0010FFFF"  #BMP characters 이외
+                                    "]+", flags=re.UNICODE)
 
             if len(data['nickname']) == 0:
                 return JsonResponse({"message":"DOESNOT_NICKNAME"} , status = 400)
+
+            if bool(only_BMP_pattern.search(data['nickname'])):
+                return JsonResponse({"message":"EMOJI_CAN_NOT_USED"} , status = 400)
+
+            if User.objects.filter(nickname = data['nickname']).exists():
+                return JsonResponse({"message" : "EXISTS_NICKNAME"} , status = 400)
 
             if len(data['password']) < 5:
                 return JsonResponse({"message":"SHORT_PASSWORD"} , status = 400)
