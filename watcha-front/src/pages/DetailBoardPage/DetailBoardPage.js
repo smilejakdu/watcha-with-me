@@ -19,8 +19,6 @@ const DetailBoardPage=()=> {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-    console.log("location : " , location);
-    console.log("location : ", location.state);
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
@@ -34,9 +32,9 @@ const DetailBoardPage=()=> {
     }, []);
 
     useEffect(() => {
-        console.log("detail board page :" , detailBoards);
         setReviewData(detailBoards.reviews);
         setDetailId(detailBoards.id);
+        console.log("detailBoards:", detailBoards);
     }, [detailBoards]);
 
     const ReviewOnClick = () => {
@@ -45,7 +43,7 @@ const DetailBoardPage=()=> {
             data: { content: text, board_id: detailId },
         });
         setText("");
-        window.location.reload(); // 별로 좋아보이진 않는다 강제로 새로고침해서 데이터 받아옴
+        // window.location.reload(); // 별로 좋아보이진 않는다 강제로 새로고침해서 데이터 받아옴
     };
 
     const onKeyPress = (e) => {

@@ -101,6 +101,7 @@ const reducer = (state = initialState, action) =>
                 draft.loadBoardLoading = true;
                 draft.loadBoardDone = false;
                 draft.loadBoardError = null;
+                console.log("asdfasdf");
                 draft.detailBoards = [];
                 break;
             case LOAD_BOARD_SUCCESS:
@@ -120,7 +121,6 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                console.log("board detail data reducers : " , action.data);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:

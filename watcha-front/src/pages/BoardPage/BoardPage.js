@@ -8,13 +8,26 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 const BoardPage = () => {
+    const dispatch = useDispatch();
+    const {
+        mainBoards,
+        loadBoardLoading 
+    } = useSelector((state) => state.board);
+
+    useEffect(() => {
+        dispatch({
+            type: LOAD_BOARD_REQUEST,
+        });
+        console.log("2", mainBoards);
+    }, []);
+
     return (
         <Body>
             <BodyCenter>
-                <BoardForm />
+              {localStorage.getItem("token") && <BoardForm />}
             </BodyCenter>
             <BodyCenter>
-                <BoardInfo />
+                <BoardInfo boards={mainBoards} />
             </BodyCenter>
         </Body>
     );

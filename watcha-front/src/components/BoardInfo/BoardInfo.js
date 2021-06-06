@@ -11,17 +11,12 @@ import {
     UPDATE_BOARD_REQUEST,
 } from "../../reducers/board";
 
-const BoardInfo = ({board}) => {
+const BoardInfo = ({boards}) => {
+    console.log("board : ", boards);
     const history = useHistory();
     const dispatch = useDispatch();
     const { mainBoards, loadBoardLoading } = useSelector((state) => state.board);
     
-    useEffect(() => {
-        dispatch({
-            type: LOAD_BOARD_REQUEST,
-        });
-    }, []);
-
     const detailBoardClick = (id)=>{
         history.push({
             pathname: "/detailboard",
@@ -34,9 +29,6 @@ const BoardInfo = ({board}) => {
             type: REMOVE_BOARD_REQUEST,
             data: {id:id},
         }); 
-        dispatch({
-            type: LOAD_BOARD_REQUEST,
-        });
     }
 
     const text_color_list = [
@@ -53,8 +45,8 @@ const BoardInfo = ({board}) => {
  ;
     return (
         <CardContainer>
-            {mainBoards.length > 0 &&
-                mainBoards.map((board) => (
+            {boards.length > 0 &&
+                boards.map((board) => (
                     <Card style={{ margin: "20px", border: "none" }}>
                         <Card.Header
                             style={{

@@ -19,7 +19,6 @@ function* loadScheduler() {
         let {
             data :{data}
         } = result;
-        console.log("data 3 : ", data);
         yield put({
             type: LOAD_SCHEDULER_SUCCESS,
             data: data,

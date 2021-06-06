@@ -47,7 +47,6 @@ function* loadBoards(action) {
 }
 
 function loadDetailBoardsAPI(data) {
-    console.log("detail board data : " , data);
     return axios.get(`/board/${data}`);
 }
 
@@ -82,7 +81,6 @@ function addBoardAPI(data) {
 function* addBoard(action) {
     try {
         const result = yield call(addBoardAPI, action.data);
-        alert(result);
         yield put({
             type: ADD_BOARD_SUCCESS,
             data: result.data,
@@ -132,8 +130,6 @@ function removeBoardAPI(data) {
 function* removeBoard(action) {
     try {
         const result = yield call(removeBoardAPI, action.data);
-        console.log("board delete result : " , result);
-        alert(result);
         yield put({
             type: REMOVE_BOARD_SUCCESS,
             data: result.data,
@@ -160,7 +156,6 @@ function removeReviewAPI(data) {
 function* removeReview(action) {
     try {
         const result = yield call(removeReviewAPI, action.data);
-        alert(result);
         yield put({
             type: REMOVE_REVIEW_SUCCESS,
             data: result.data,
@@ -175,7 +170,6 @@ function* removeReview(action) {
 }
 
 function updateReviewAPI(data) {
-    console.log("review update data:",data);
     return axios.put("/review",data, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,

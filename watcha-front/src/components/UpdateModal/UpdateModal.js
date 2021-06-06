@@ -16,8 +16,6 @@ const UpdateModal = ({close, review_id,review_content }) => {
     const dispatch = useDispatch();
 
     const ReviewUpdateModal = useCallback(() => {
-        console.log("review_id:",review_id);
-        console.log("review_content:", content);
         dispatch({
             type: UPDATE_REVIEW_REQUEST,
             data: { id:review_id , content:content },

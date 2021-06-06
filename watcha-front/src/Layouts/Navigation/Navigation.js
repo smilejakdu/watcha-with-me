@@ -30,7 +30,6 @@ const Navigation = () => {
   },[])
 
   const loginBtn = useCallback(() => {
-      console.log("login btn click");
       setModalShow(true);
   }, []);
 

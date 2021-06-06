@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 const scheduler = window.scheduler;
 
 const Scheduler = ({ events }) => {
-    console.log("events : ", events);
     const [data, setData] = useState([]);
     const schedulerContainer = useRef(null);
 
@@ -54,11 +53,7 @@ const Scheduler = ({ events }) => {
                     headers: {
                         Authorization: `${localStorage.getItem("token")}`,
                     },
-                })
-                    .then((res) => {
-                        console.log(res.json);
-                    })
-                    .then((res) => handleGet());
+                }).then((res) => handleGet());
             });
         }
 
@@ -80,7 +75,6 @@ const Scheduler = ({ events }) => {
         });
 
         scheduler.attachEvent("onEventDeleted", (id, ev) => {
-            console.log("delete");
             fetch(`${backUrl}/scheduler`, {
                 method: "DELETE",
                 body: JSON.stringify({
@@ -89,14 +83,12 @@ const Scheduler = ({ events }) => {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
                 },
-            })
-                .then((res) => console.log(res))
-                .then((res) => {
+            }).then((res) => {
                     handleGet();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+               })
+               .catch((error) => {
+                   console.log(error);
+               });
         });
         scheduler._$initialized = true;
     };

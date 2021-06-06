@@ -39,7 +39,6 @@ const SearchBox = ({ searchData }) => {
             return (
                 <div style={{zIndex: 1}}>
                     {result.map((res, i) => {
-                        console.log("res : " , res);
                         return (
                             <h6 key={i} onClick={()=>searchDataClick(res.id)}>
                                 {res.title}

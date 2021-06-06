@@ -11,7 +11,6 @@ const initState = "";
 export default handleActions(
     {
         [SEARCH_ADD]: (state, action) => {
-            console.log("action : " , action);
             const { search } = action;
             state = "";
             return state.concat(search);

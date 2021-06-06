@@ -27,8 +27,6 @@ const Modal = ({ isOpen, close, textData }) => {
             axios.post("/users/signin", data)
                 .then((res) => {
                     const {access , user} = res.data;
-                    console.log("access :",access);
-                    console.log("nickname :", user);
 
                     localStorage.setItem("nickname", user);
                     localStorage.setItem("token", access);
@@ -38,7 +36,6 @@ const Modal = ({ isOpen, close, textData }) => {
                     window.location.reload();
                 })
                 .catch((error) => {
-                    console.log(error);
                     alert("check your nickname and password");
                 });
         } else if (text === "signup") {
@@ -49,14 +46,12 @@ const Modal = ({ isOpen, close, textData }) => {
             };
             axios.post("/users/signup", data)
                 .then((res) => {
-                    console.log(res);
                     setNickname("");
                     setPassword("");
                     setRepassword("");
                     setText("login");
                 })
                 .catch((error) => {
-                    console.log(error);
                     if(error.response){
                         const {data} = error.response;
                         if(data.message ==='SHORT_PASSWORD'){
