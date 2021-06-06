@@ -34,6 +34,9 @@ const BoardInfo = ({board}) => {
             type: REMOVE_BOARD_REQUEST,
             data: {id:id},
         }); 
+        dispatch({
+            type: LOAD_BOARD_REQUEST,
+        });
     }
 
     const text_color_list = [
