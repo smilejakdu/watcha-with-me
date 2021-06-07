@@ -81,6 +81,7 @@ function addBoardAPI(data) {
 function* addBoard(action) {
     try {
         const result = yield call(addBoardAPI, action.data);
+        console.log("result : " , result);
         yield put({
             type: ADD_BOARD_SUCCESS,
             data: result.data,

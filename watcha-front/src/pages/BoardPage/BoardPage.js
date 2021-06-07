@@ -11,19 +11,14 @@ const BoardPage = () => {
     const dispatch = useDispatch();
     const {
         mainBoards,
-        loadBoardLoading,
-        addBoardLoading,
-        removeBoardLoading,
+        loadBoardLoading 
     } = useSelector((state) => state.board);
 
     useEffect(() => {
+        console.log("123");
         dispatch({
             type: LOAD_BOARD_REQUEST,
         });
-    }, [mainBoards, loadBoardLoading, addBoardLoading, removeBoardLoading]);
-
-    useEffect(() => {
-        console.log("mainBoards : ", mainBoards);
     }, []);
 
     return (

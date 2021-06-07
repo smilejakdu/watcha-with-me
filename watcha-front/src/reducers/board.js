@@ -134,7 +134,7 @@ const reducer = (state = initialState, action) =>
             case ADD_BOARD_SUCCESS:
                 draft.addBoardLoading = false;
                 draft.addBoardDone = true;
-                draft.mainBoards.unshift(action.data.data);
+                draft.mainBoards.unshift(action.data.data[0]);
                 break;
             case ADD_BOARD_FAILURE:
                 draft.addBoardLoading = false;
