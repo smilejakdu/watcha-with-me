@@ -113,7 +113,6 @@ const reducer = (state = initialState, action) =>
                 draft.loadBoardError = action.error;
                 break;
             case LOAD_DETAIL_BOARD_REQUEST:
-                console.log("detail board");
                 draft.loadDetailBoardLoading = true;
                 draft.loadDetailBoardDone = false;
                 draft.loadDetailBoardError = null;
@@ -121,7 +120,6 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
-                console.log("detail board success: ", action.data);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -136,9 +134,7 @@ const reducer = (state = initialState, action) =>
             case ADD_BOARD_SUCCESS:
                 draft.addBoardLoading = false;
                 draft.addBoardDone = true;
-                console.log("action data : " , action.data);
-                draft.mainBoards.unshift(action.data);
-                // draft.imagePaths = [];
+                draft.mainBoards.unshift(action.data.data);
                 break;
             case ADD_BOARD_FAILURE:
                 draft.addBoardLoading = false;

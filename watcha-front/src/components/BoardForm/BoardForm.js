@@ -33,34 +33,32 @@ const BoardForm = () => {
 
     return (
         <BoardBox>
-            <form>
-              <div>
-                <BoardTextArea
-                    type="text"
-                    name="title"
-                    value={title}
-                    minRows={2}
-                    onChange={onChangeTitle}
-                    placeholder="TITLE"
-                    required
-                />
-              </div>
-              <div>
-                <BoardTextArea
-                    type="text"
-                    name="content"
-                    value={content}
-                    onChange={onChangeContent}
-                    required
-                    placeholder="CONTENT"
-                />
-              </div>
-              <div>
-                <Button type="submit" variant="dark" onClick={onSubmit}>
-                    Button
-                </Button>
-              </div>
-            </form>
+            <div>
+            <BoardTextArea
+                type="text"
+                name="title"
+                value={title}
+                minRows={2}
+                onChange={onChangeTitle}
+                placeholder="TITLE"
+                required
+            />
+            </div>
+            <div>
+            <BoardTextArea
+                type="text"
+                name="content"
+                value={content}
+                onChange={onChangeContent}
+                required
+                placeholder="CONTENT"
+            />
+            </div>
+            <div>
+              <Button type="button" variant="dark" onClick={onSubmit}>
+                  Button
+              </Button>
+            </div>
         </BoardBox>
     );
 };

@@ -18,14 +18,17 @@ class BoardView(View):
         data     = json.loads(request.body)
 
         try:
-            Board(
+            board = Board.objects.create(
                 title    = data['title'],
                 content  = data['content'],
                 nickname = User.objects.get(id=request.user.id).nickname,
                 user_id  = request.user.id
-            ).save()
+            )
 
-            return JsonResponse({"message" : "SUCCESS_POST"} , status = 200)
+            board = Board.objects.filter(id = board.id).values()
+
+            return JsonResponse({"message" : "SUCCESS_POST" ,
+                                 "data"    : list(board)} , status = 200)
         except TypeError:
             return JsonResponse({"message":"INVALID_TYPE"},status = 400)
 
