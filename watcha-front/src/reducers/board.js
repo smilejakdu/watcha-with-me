@@ -136,6 +136,7 @@ const reducer = (state = initialState, action) =>
             case ADD_BOARD_SUCCESS:
                 draft.addBoardLoading = false;
                 draft.addBoardDone = true;
+                console.log("action data : " , action.data);
                 draft.mainBoards.unshift(action.data);
                 // draft.imagePaths = [];
                 break;
@@ -171,7 +172,7 @@ const reducer = (state = initialState, action) =>
                 draft.removeBoardLoading = false;
                 draft.removeBoardDone = true;
                 draft.mainBoards = draft.mainBoards.filter(
-                    (v) => v.id !== action.data.id
+                    (v) => v.id !== action.data.data
                 );
                 break;
             case REMOVE_BOARD_FAILURE:

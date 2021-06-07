@@ -66,6 +66,7 @@ class BoardView(View):
                 'title'        : board.title,
                 'content'      : board.content,
                 'nickname'     : board.nickname,
+                'datetime'     : board.created_at,
                 'reviews'      : list(board.review_set.all().values().order_by('-created_at')),
                 'review_count' : board.review_set.all().count(),
             }for board in boards]
@@ -82,8 +83,11 @@ class BoardView(View):
         try:
             board = Board.objects.get(user_id = request.user.id ,
                                       id      = data['id'])
+            board_id = board.id
             board.delete()
-            return JsonResponse({"message" : "SUCCESS_DELETE"} , status = 200)
+
+            return JsonResponse({"message" : "SUCCESS_DELETE",
+                                 "data"    : board_id} , status = 200)
 
         except TypeError:
             return JsonResponse({"message":"INVALID_TYPE"},status = 400)

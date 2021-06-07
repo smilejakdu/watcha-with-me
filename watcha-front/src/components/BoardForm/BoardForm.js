@@ -25,7 +25,7 @@ const BoardForm = () => {
         if (!content || !content.trim()) {
             return alert("내용을 작성하세요.");
         }
-        return dispatch({
+        dispatch({
             type: ADD_BOARD_REQUEST,
             data: { title: title, content: content },
         });

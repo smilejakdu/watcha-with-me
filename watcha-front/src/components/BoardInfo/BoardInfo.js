@@ -23,7 +23,7 @@ const BoardInfo = ({boards}) => {
     }
 
     const BoardRemoveOnClick = (id)=>{
-        dispatch({
+        return dispatch({
             type: REMOVE_BOARD_REQUEST,
             data: {id:id},
         }); 
@@ -57,6 +57,9 @@ const BoardInfo = ({boards}) => {
                             }}
                         >
                             {board.nickname}
+                            <p style={{fontSize:"14px", float:"right" , margin:"10px" }}>
+                                - 2021.06.10 -
+                            </p>
                         </Card.Header>
                         <Card.Body
                             style={{
