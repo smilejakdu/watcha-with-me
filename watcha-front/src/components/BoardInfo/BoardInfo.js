@@ -12,6 +12,7 @@ import {
 } from "../../reducers/board";
 
 const BoardInfo = ({boards}) => {
+    console.log("boards:" , boards);
     const history = useHistory();
     const dispatch = useDispatch();
     
@@ -58,7 +59,7 @@ const BoardInfo = ({boards}) => {
                         >
                             {board.nickname}
                             <p style={{fontSize:"14px", float:"right" , margin:"10px" }}>
-                                - 2021.06.10 -
+                                {board.datetime}
                             </p>
                         </Card.Header>
                         <Card.Body
