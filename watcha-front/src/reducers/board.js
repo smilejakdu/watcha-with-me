@@ -201,6 +201,8 @@ const reducer = (state = initialState, action) =>
             case UPDATE_REVIEW_SUCCESS:
                 draft.updateReviewLoading = false;
                 draft.updateReviewDone = true;
+                draft.detailBoards.reviews.find((v) => v.id === action.data.data.id
+                ).content = action.data.data.content;
                 break;
             case UPDATE_REVIEW_FAILURE:
                 draft.updateReviewLoading = false;
@@ -212,14 +214,11 @@ const reducer = (state = initialState, action) =>
                 draft.removeDetailBoardError = null;
                 break;
             case REMOVE_REVIEW_SUCCESS:
-                console.log("action remove review : " , action.data);
-                console.log("action remove review data : ",action.data.data);
                 draft.removeDetailBoardLoading = false;
                 draft.removeDetailBoardDone = true;
                 draft.detailBoards = draft.detailBoards.reviews.filter(
                     (v) => v.id !== action.data.data
                 );
-                console.log("asdfadsf");
                 break;
             case REMOVE_REVIEW_FAILURE:
                 draft.removeDetailBoardLoading = false;

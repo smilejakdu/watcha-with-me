@@ -16,12 +16,11 @@ const UpdateModal = ({close, review_id,review_content }) => {
     const dispatch = useDispatch();
 
     const ReviewUpdateModal = useCallback(() => {
-        dispatch({
+        close();
+        return dispatch({
             type: UPDATE_REVIEW_REQUEST,
             data: { id:review_id , content:content },
         });
-        close();
-        window.location.reload();
     }, [content]);
 
     return (

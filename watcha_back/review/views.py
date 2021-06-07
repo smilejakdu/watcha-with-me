@@ -42,7 +42,7 @@ class ReviewView(View):
     @login_check
     def put(self, request):
         data = json.loads(request.body)
-
+        print(data)
         if len(data['content']) == 0:
             return JsonResponse({"message":"DOESNOT_CONTENT"}, status = 400)
 
@@ -52,7 +52,13 @@ class ReviewView(View):
 
             review.content = data['content']
             review.save()
-            return JsonResponse({"message":"PUT_SUCCESS"}, status = 200)
+
+            data = {
+                "id"      : data["id"],
+                "content" : data["content"]
+            }
+            return JsonResponse({"message" : "PUT_SUCCESS" , 
+                                 "data"    : data}, status = 200)
 
         except Review.DoesNotExist:
             return JsonResponse({"message":"DOESNOT_REVIEW"},status = 400)

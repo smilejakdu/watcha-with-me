@@ -26,6 +26,7 @@ const DetailBoardPage=()=> {
         detailBoards,
         addReviewLoading,
         removeDetailBoardLoading,
+        updateReviewLoading,
     } = useSelector((state) => state.board);
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const DetailBoardPage=()=> {
             data: location.state,
         });
         setText("");
-    }, [addReviewLoading, removeDetailBoardLoading]);
+    }, [addReviewLoading, removeDetailBoardLoading, updateReviewLoading]);
 
     useEffect(() => {
         setReviewData(detailBoards.reviews);
@@ -46,7 +47,6 @@ const DetailBoardPage=()=> {
             type: ADD_REVIEW_REQUEST,
             data: { content: text, board_id: detailId },
         });
-        // window.location.reload(); // 별로 좋아보이진 않는다 강제로 새로고침해서 데이터 받아옴
     };
 
     const onKeyPress = (e) => {
