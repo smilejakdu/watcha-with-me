@@ -2,8 +2,8 @@ import os
 import json
 import bcrypt
 import re
-import datetime
 
+from datetime      import datetime
 from django.views  import View
 from users.models  import User
 from review.models import Review
@@ -15,14 +15,15 @@ from users.utils   import login_check
 class BoardView(View):
     @login_check
     def post(self , request):
-        data     = json.loads(request.body)
-
+        data = json.loads(request.body)
+        now  = datetime.now()
         try:
             board = Board.objects.create(
-                title    = data['title'],
-                content  = data['content'],
-                nickname = User.objects.get(id=request.user.id).nickname,
-                user_id  = request.user.id
+                title      = data['title'],
+                content    = data['content'],
+                nickname   = User.objects.get(id=request.user.id).nickname,
+                user_id    = request.user.id,
+                created_at = f"{now.year}-{now.month}-{now.day}"
             )
 
             board = Board.objects.filter(id = board.id).values()
@@ -69,7 +70,7 @@ class BoardView(View):
                 'title'        : board.title,
                 'content'      : board.content,
                 'nickname'     : board.nickname,
-                'datetime'     : board.created_at.strftime('%Y-%m-%d'),
+                'created_at'   : board.created_at,
                 'reviews'      : list(board.review_set.all().values().order_by('-created_at')),
                 'review_count' : board.review_set.all().count(),
             }for board in boards]

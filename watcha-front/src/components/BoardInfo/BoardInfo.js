@@ -59,7 +59,7 @@ const BoardInfo = ({boards}) => {
                         >
                             {board.nickname}
                             <p style={{fontSize:"14px", float:"right" , margin:"10px" }}>
-                                {board.datetime}
+                                {board.created_at}
                             </p>
                         </Card.Header>
                         <Card.Body
