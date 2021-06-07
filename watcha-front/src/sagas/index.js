@@ -6,6 +6,7 @@ import schedulerSaga from "./scheduler";
 import {backUrl} from "../config/config"
 
 axios.defaults.baseURL = backUrl;
+axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {

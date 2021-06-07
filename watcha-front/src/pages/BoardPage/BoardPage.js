@@ -18,7 +18,10 @@ const BoardPage = () => {
         dispatch({
             type: LOAD_BOARD_REQUEST,
         });
-        console.log("2", mainBoards);
+    }, []);
+
+    useEffect(() => {
+        console.log("mainBoards : ", mainBoards);
     }, []);
 
     return (

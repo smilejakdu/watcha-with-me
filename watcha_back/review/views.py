@@ -22,14 +22,16 @@ class ReviewView(View):
         if len(data['content']) == 0:
             return JsonResponse({"message":"DOESNOT_CONTENT"}, status = 400)
         try:
-            Review(
+            review = Review.objects.create(
                 content  = data['content'],
                 nickname = User.objects.get(id = request.user.id).nickname,
                 board_id = Board.objects.get(id = data['board_id']).id,
                 user_id  = request.user.id,
-            ).save()
+            )
 
-            return JsonResponse({"message":"SUCCESS"},status = 200)
+            review = Review.objects.filter(id = review.id).values()
+
+            return JsonResponse({"message":"SUCCESS" , "data":list(review)},status = 200)
         except TypeError:
             return JsonResponse({"message":"INVALID_TYPE"},status = 400)
         except ValueError:

@@ -101,7 +101,6 @@ const reducer = (state = initialState, action) =>
                 draft.loadBoardLoading = true;
                 draft.loadBoardDone = false;
                 draft.loadBoardError = null;
-                console.log("asdfasdf");
                 draft.detailBoards = [];
                 break;
             case LOAD_BOARD_SUCCESS:
@@ -114,6 +113,7 @@ const reducer = (state = initialState, action) =>
                 draft.loadBoardError = action.error;
                 break;
             case LOAD_DETAIL_BOARD_REQUEST:
+                console.log("detail board");
                 draft.loadDetailBoardLoading = true;
                 draft.loadDetailBoardDone = false;
                 draft.loadDetailBoardError = null;
@@ -121,6 +121,7 @@ const reducer = (state = initialState, action) =>
             case LOAD_DETAIL_BOARD_SUCCESS:
                 draft.loadDetailBoardLoading = false;
                 draft.loadDetailBoardDone = true;
+                console.log("detail board success: ", action.data);
                 draft.detailBoards = action.data;
                 break;
             case LOAD_DETAIL_BOARD_FAILURE:
@@ -181,12 +182,13 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewLoading = true;
                 draft.addReviewDone = false;
                 draft.addReviewError = null;
+                console.log("board review 123123");
                 break;
             case ADD_REVIEW_SUCCESS: {
-                const board = draft.mainBoards.find(
-                    (v) => v.id === action.data.BoardId
-                );
-                board.Reviews.unshift(action.data);
+                console.log("board review :", action.data);
+                console.log("board review :", action.data.data);
+                console.log("board review :", draft.detailBoards);
+                draft.detailBoards.reviews.unshift(action.data.data)
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;
                 break;

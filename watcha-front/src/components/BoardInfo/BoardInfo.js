@@ -12,10 +12,8 @@ import {
 } from "../../reducers/board";
 
 const BoardInfo = ({boards}) => {
-    console.log("board : ", boards);
     const history = useHistory();
     const dispatch = useDispatch();
-    const { mainBoards, loadBoardLoading } = useSelector((state) => state.board);
     
     const detailBoardClick = (id)=>{
         history.push({

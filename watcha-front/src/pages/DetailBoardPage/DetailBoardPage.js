@@ -22,27 +22,28 @@ const DetailBoardPage=()=> {
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
-    const { detailBoards } = useSelector((state) => state.board);
+    const { detailBoards, addReviewLoading } = useSelector(
+        (state) => state.board
+    );
 
     useEffect(() => {
         dispatch({
             type: LOAD_DETAIL_BOARD_REQUEST,
             data: location.state,
         });
-    }, []);
+        setText("")
+    }, [addReviewLoading]);
 
     useEffect(() => {
         setReviewData(detailBoards.reviews);
         setDetailId(detailBoards.id);
-        console.log("detailBoards:", detailBoards);
     }, [detailBoards]);
 
     const ReviewOnClick = () => {
-        dispatch({
+        return dispatch({
             type: ADD_REVIEW_REQUEST,
             data: { content: text, board_id: detailId },
         });
-        setText("");
         // window.location.reload(); // 별로 좋아보이진 않는다 강제로 새로고침해서 데이터 받아옴
     };
 
