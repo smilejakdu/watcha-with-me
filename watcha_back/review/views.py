@@ -73,10 +73,11 @@ class ReviewView(View):
     def delete(self, request):
         data = json.loads(request.body)
         try:
-            review = Review.objects.get(id      = data["id"],
+            review    = Review.objects.get(id      = data["id"],
                                         user_id = request.user.id)
+            review_id = review.id
             review.delete()
-            return JsonResponse({"message":"DELETE_SUCCESS"}, status = 200)
+            return JsonResponse({"message":"DELETE_SUCCESS" , "data":review_id}, status = 200)
 
         except Review.DoesNotExist:
             return JsonResponse({"message":"DOESNOT_REVIEW"},status = 400)

@@ -24,7 +24,7 @@ const ReviewInfo = ({ review_data }) => {
     const ReviewUpdateOnClick = useCallback((id,review) => {
         setReviewContent(review);
         setUpdateReviewId(id);
-        ModalShowOpen();
+        // ModalShowOpen();
     },[])
 
     const ReviewRemoveOnClick = (id)=>{
@@ -32,7 +32,6 @@ const ReviewInfo = ({ review_data }) => {
             type: REMOVE_REVIEW_REQUEST,
             data: {id:id},
         });
-        window.location.reload();
     }
     const ModalShowOpen = useCallback(() => {
         setUpdateModal(true);
@@ -56,68 +55,60 @@ const ReviewInfo = ({ review_data }) => {
 
     return (
         <>
-            {updateModal && (
-                <UpdateModal
-                    isOpen={ModalShowOpen}
-                    close={ModalShowClose}
-                    review_id={updateReviewId}
-                    review_content={reviewContent}
-                />
-            )}
-            {review_data &&
-                review_data.map((review) => (
-                    <Card style={{ marginTop: "20px" }}>
-                        <Card.Body>
-                            <blockquote className="blockquote mb-0">
-                                <p> {review.content}</p>
-                                <footer className="blockquote-footer">
-                                    {review.nickname}
-                                </footer>
-                            </blockquote>
-                            {localStorage.getItem("nickname") ===
-                                review.nickname && (
-                                <UpdateRemoveBtnBorder>
-                                    <Button
-                                        style={{
-                                            border: "none",
-                                            marginRight: "10px",
-                                            background: `${
-                                                text_color_list[
-                                                    (review.id + 3) %
-                                                        text_color_list.length
-                                                ]
-                                            }`,
-                                        }}
-                                        onClick={() =>
-                                            ReviewUpdateOnClick(
-                                                review.id,
-                                                review.content
-                                            )
-                                        }
-                                    >
-                                        update
-                                    </Button>
-                                    <Button
-                                        style={{
-                                            border: "none",
-                                            background: `${
-                                                text_color_list[
-                                                    review.id %
-                                                        text_color_list.length
-                                                ]
-                                            }`,
-                                        }}
-                                        onClick={() =>
-                                            ReviewRemoveOnClick(review.id)
-                                        }
-                                    >
-                                        remove
-                                    </Button>
-                                </UpdateRemoveBtnBorder>
-                            )}
-                        </Card.Body>
-                    </Card>
-                ))}
+        {review_data &&
+            review_data.map((review) => (
+                <Card style={{ marginTop: "20px" }}>
+                    <Card.Body>
+                        <blockquote className="blockquote mb-0">
+                            <p> {review.content}</p>
+                            <footer className="blockquote-footer">
+                                {review.nickname}
+                            </footer>
+                        </blockquote>
+                        {localStorage.getItem("nickname") ===
+                            review.nickname && (
+                            <UpdateRemoveBtnBorder>
+                                <Button
+                                    style={{
+                                        border: "none",
+                                        marginRight: "10px",
+                                        background: `${
+                                            text_color_list[
+                                                (review.id + 3) %
+                                                    text_color_list.length
+                                            ]
+                                        }`,
+                                    }}
+                                    onClick={() =>
+                                        ReviewUpdateOnClick(
+                                            review.id,
+                                            review.content
+                                        )
+                                    }
+                                >
+                                    update
+                                </Button>
+                                <Button
+                                    style={{
+                                        border: "none",
+                                        background: `${
+                                            text_color_list[
+                                                review.id %
+                                                    text_color_list.length
+                                            ]
+                                        }`,
+                                    }}
+                                    onClick={() =>
+                                        ReviewRemoveOnClick(review.id)
+                                    }
+                                >
+                                    remove
+                                </Button>
+                            </UpdateRemoveBtnBorder>
+                        )}
+                    </Card.Body>
+                </Card>
+            ))}
         </>
     );
 };

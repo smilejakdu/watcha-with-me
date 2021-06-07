@@ -182,13 +182,9 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewLoading = true;
                 draft.addReviewDone = false;
                 draft.addReviewError = null;
-                console.log("board review 123123");
                 break;
             case ADD_REVIEW_SUCCESS: {
-                console.log("board review :", action.data);
-                console.log("board review :", action.data.data);
-                console.log("board review :", draft.detailBoards);
-                draft.detailBoards.reviews.unshift(action.data.data)
+                draft.detailBoards.reviews.unshift(action.data.data);
                 draft.addReviewLoading = false;
                 draft.addReviewDone = true;
                 break;
@@ -197,7 +193,6 @@ const reducer = (state = initialState, action) =>
                 draft.addReviewLoading = false;
                 draft.addReviewError = action.error;
                 break;
-
             case UPDATE_REVIEW_REQUEST:
                 draft.updateReviewLoading = true;
                 draft.updateReviewDone = false;
@@ -210,6 +205,25 @@ const reducer = (state = initialState, action) =>
             case UPDATE_REVIEW_FAILURE:
                 draft.updateReviewLoading = false;
                 draft.updateReviewError = action.error;
+                break;
+            case REMOVE_REVIEW_REQUEST:
+                draft.removeDetailBoardLoading = true;
+                draft.removeDetailBoardDone = false;
+                draft.removeDetailBoardError = null;
+                break;
+            case REMOVE_REVIEW_SUCCESS:
+                console.log("action remove review : " , action.data);
+                console.log("action remove review data : ",action.data.data);
+                draft.removeDetailBoardLoading = false;
+                draft.removeDetailBoardDone = true;
+                draft.detailBoards = draft.detailBoards.reviews.filter(
+                    (v) => v.id !== action.data.data
+                );
+                console.log("asdfadsf");
+                break;
+            case REMOVE_REVIEW_FAILURE:
+                draft.removeDetailBoardLoading = false;
+                draft.removeDetailBoardError = action.error;
                 break;
             default:
                 break;

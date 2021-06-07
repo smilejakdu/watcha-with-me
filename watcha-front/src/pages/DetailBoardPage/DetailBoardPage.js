@@ -22,17 +22,19 @@ const DetailBoardPage=()=> {
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
-    const { detailBoards, addReviewLoading } = useSelector(
-        (state) => state.board
-    );
+    const {
+        detailBoards,
+        addReviewLoading,
+        removeDetailBoardLoading,
+    } = useSelector((state) => state.board);
 
     useEffect(() => {
         dispatch({
             type: LOAD_DETAIL_BOARD_REQUEST,
             data: location.state,
         });
-        setText("")
-    }, [addReviewLoading]);
+        setText("");
+    }, [addReviewLoading, removeDetailBoardLoading]);
 
     useEffect(() => {
         setReviewData(detailBoards.reviews);
