@@ -34,7 +34,6 @@ const Scheduler = ({ events }) => {
                                                             today.getDate()));
         scheduler.clearAll();
         scheduler.parse(events);
-
     },[events]);
 
     const initSchedulerEvents = () => {
@@ -53,45 +52,55 @@ const Scheduler = ({ events }) => {
                     headers: {
                         Authorization: `${localStorage.getItem("token")}`,
                     },
-                }).then((res) => handleGet());
+                }).then((res) => handleGet())
+                .catch((error)=>{
+                    console.log("error : " , error);
+                    alert("post error")
+                });
             });
         }
 
-        scheduler.attachEvent("onEventChanged", (id, ev) => {
-            fetch(`${backUrl}/scheduler`, {
-                method: "PUT",
-                body: JSON.stringify({
-                    id: id,
-                    start_date: ev.start_date,
-                    end_date: ev.end_date,
-                    text: ev.text,
-                }),
-                headers: {
-                    Authorization: `${localStorage.getItem("token")}`,
-                },
-            })
-                .then((res) => handleGet())
-                .catch((error) => console.log(error));
-        });
+        if (localStorage.getItem("token")){
+            scheduler.attachEvent("onEventChanged", (id, ev) => {
+                fetch(`${backUrl}/scheduler`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        id: id,
+                        start_date: ev.start_date,
+                        end_date: ev.end_date,
+                        text: ev.text,
+                    }),
+                    headers: {
+                        Authorization: `${localStorage.getItem("token")}`,
+                    },
+                })
+                    .then((res) => handleGet())
+                    .catch((error) =>{
+                        alert("본인꺼만 수정 삭제가능")
+                    });
+            });
+        }
 
-        scheduler.attachEvent("onEventDeleted", (id, ev) => {
-            fetch(`${backUrl}/scheduler`, {
-                method: "DELETE",
-                body: JSON.stringify({
-                    id: id,
-                }),
-                headers: {
-                    Authorization: `${localStorage.getItem("token")}`,
-                },
-            }).then((res) => {
-                    handleGet();
-               })
-               .catch((error) => {
-                   console.log(error);
-               });
-        });
-        scheduler._$initialized = true;
-    };
+        if (localStorage.getItem("token")){
+            scheduler.attachEvent("onEventDeleted", (id, ev) => {
+                fetch(`${backUrl}/scheduler`, {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        id: id,
+                    }),
+                    headers: {
+                        Authorization: `${localStorage.getItem("token")}`,
+                    },
+                }).then((res) => {
+                        handleGet();
+                })
+                .catch((error) => {
+                    alert("본인꺼만 수정 삭제가능")
+                });
+            });
+            scheduler._$initialized = true;
+        };
+    }
 
     const handleGet = () => {
         axios

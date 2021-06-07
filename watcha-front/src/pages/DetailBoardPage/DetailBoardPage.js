@@ -70,7 +70,7 @@ const DetailBoardPage=()=> {
         <Body>
             {reviewData ? (
                 <BodyCenter>
-                    <Card style={{border:"none"}}>
+                    <Card style={{ border: "none" }}>
                         <Card.Header
                             style={{
                                 color: `${
@@ -93,25 +93,30 @@ const DetailBoardPage=()=> {
                             </blockquote>
                         </Card.Body>
                     </Card>
-                    <InputGroup className="mb-3" style={{ marginTop: "30px" }}>
-                        <FormControl
-                            placeholder="write content"
-                            aria-label="Recipient's username"
-                            aria-describedby="basic-addon2"
-                            value={text}
-                            onChange={onChangeText}
-                            onKeyPress={onKeyPress}
-                        />
-                        <InputGroup.Append>
-                            <Button
-                                variant="outline-secondary"
-                                onClick={ReviewOnClick}
-                                style={{zIndex:0}}
-                            >
-                                Button
-                            </Button>
-                        </InputGroup.Append>
-                    </InputGroup>
+                    {localStorage.getItem("token") && (
+                        <InputGroup
+                            className="mb-3"
+                            style={{ marginTop: "30px" }}
+                        >
+                            <FormControl
+                                placeholder="write content"
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                value={text}
+                                onChange={onChangeText}
+                                onKeyPress={onKeyPress}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    variant="outline-secondary"
+                                    onClick={ReviewOnClick}
+                                    style={{ zIndex: 0 }}
+                                >
+                                    Button
+                                </Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    )}
                     <ReviewInfo review_data={reviewData} />
                 </BodyCenter>
             ) : (
