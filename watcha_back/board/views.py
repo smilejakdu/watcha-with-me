@@ -23,7 +23,6 @@ class BoardView(View):
                 content    = data['content'],
                 nickname   = User.objects.get(id=request.user.id).nickname,
                 user_id    = request.user.id,
-                created_at = f"{now.year}-{now.month}-{now.day}"
             )
 
             board = Board.objects.filter(id = board.id).values()
