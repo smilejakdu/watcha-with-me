@@ -62,7 +62,7 @@ class BoardView(View):
     def get(self , request):
 
         try:
-            boards     = Board.objects.prefetch_related('review_set').all().order_by('-created_at')
+            boards     = Board.objects.prefetch_related('review_set').all().order_by('-id')
 
             board_data = [{
                 'id'           : board.id,
@@ -70,7 +70,7 @@ class BoardView(View):
                 'content'      : board.content,
                 'nickname'     : board.nickname,
                 'created_at'   : board.created_at,
-                'reviews'      : list(board.review_set.all().values().order_by('-created_at')),
+                'reviews'      : list(board.review_set.all().values().order_by('-id')),
                 'review_count' : board.review_set.all().count(),
             }for board in boards]
 
