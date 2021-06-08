@@ -1,0 +1,306 @@
+[2021-06-06 15:53:07 +0000] [3617] [INFO] Starting gunicorn 20.1.0
+[2021-06-06 15:53:07 +0000] [3617] [INFO] Listening at: http://0.0.0.0:8000 (3617)
+[2021-06-06 15:53:07 +0000] [3617] [INFO] Using worker: sync
+[2021-06-06 15:53:07 +0000] [3620] [INFO] Booting worker with pid: 3620
+[2021-06-06 15:53:48 +0000] [3617] [INFO] Handling signal: term
+[2021-06-06 15:53:48 +0000] [3620] [INFO] Worker exiting (pid: 3620)
+[2021-06-06 15:53:48 +0000] [3617] [INFO] Shutting down: Master
+[2021-06-06 15:54:35 +0000] [3653] [INFO] Starting gunicorn 20.1.0
+[2021-06-06 15:54:35 +0000] [3653] [INFO] Listening at: http://0.0.0.0:8000 (3653)
+[2021-06-06 15:54:35 +0000] [3653] [INFO] Using worker: sync
+[2021-06-06 15:54:35 +0000] [3656] [INFO] Booting worker with pid: 3656
+[2021-06-06 15:56:55 +0000] [3653] [INFO] Handling signal: hup
+[2021-06-06 15:56:55 +0000] [3653] [INFO] Hang up: Master
+[2021-06-06 15:56:55 +0000] [3653] [WARNING] Worker with pid 3656 was terminated due to signal 1
+[2021-06-06 15:56:55 +0000] [3684] [INFO] Booting worker with pid: 3684
+[2021-06-06 16:58:34 +0000] [3653] [INFO] Handling signal: term
+[2021-06-06 16:58:34 +0000] [3684] [INFO] Worker exiting (pid: 3684)
+[2021-06-06 16:58:35 +0000] [3653] [INFO] Shutting down: Master
+[2021-06-06 21:31:48 +0000] [5109] [INFO] Starting gunicorn 20.1.0
+[2021-06-06 21:31:48 +0000] [5109] [INFO] Listening at: http://0.0.0.0:8000 (5109)
+[2021-06-06 21:31:48 +0000] [5109] [INFO] Using worker: sync
+[2021-06-06 21:31:48 +0000] [5112] [INFO] Booting worker with pid: 5112
+[2021-06-07 02:48:15 +0000] [5109] [INFO] Handling signal: term
+[2021-06-07 02:48:15 +0000] [5112] [INFO] Worker exiting (pid: 5112)
+[2021-06-07 02:48:15 +0000] [5109] [INFO] Shutting down: Master
+[2021-06-07 02:48:24 +0000] [5797] [INFO] Starting gunicorn 20.1.0
+[2021-06-07 02:48:24 +0000] [5797] [INFO] Listening at: http://0.0.0.0:8000 (5797)
+[2021-06-07 02:48:24 +0000] [5797] [INFO] Using worker: sync
+[2021-06-07 02:48:24 +0000] [5800] [INFO] Booting worker with pid: 5800
+Not Found: /
+Not Found: /
+Not Found: /
+[2021-06-07 05:53:14 +0000] [5797] [CRITICAL] WORKER TIMEOUT (pid:5800)
+[2021-06-07 05:53:14 +0000] [5800] [INFO] Worker exiting (pid: 5800)
+[2021-06-07 05:53:14 +0000] [6151] [INFO] Booting worker with pid: 6151
+Not Found: /
+Not Found: /
+Not Found: /favicon.ico
+[2021-06-07 09:45:28 +0000] [5797] [CRITICAL] WORKER TIMEOUT (pid:6151)
+[2021-06-07 09:45:28 +0000] [6151] [INFO] Worker exiting (pid: 6151)
+{'id': 4, 'content': 'Hshs111111'}
+{'id': 4, 'content': 'Hshs1115'}
+{'id': 4, 'content': 'Hshs11'}
+[2021-06-07 09:45:28 +0000] [7306] [INFO] Booting worker with pid: 7306
+Forbidden: /review
+Forbidden: /review
+[2021-06-07 11:18:04 +0000] [5797] [CRITICAL] WORKER TIMEOUT (pid:7306)
+[2021-06-07 11:18:34 +0000] [5797] [WARNING] Worker with pid 7306 was terminated due to signal 9
+[2021-06-07 11:18:34 +0000] [7607] [INFO] Booting worker with pid: 7607
+Not Found: /
+Not Found: /favicon.ico
+[2021-06-07 15:20:44 +0000] [5797] [INFO] Handling signal: term
+[2021-06-08 00:20:44 +0900] [7607] [INFO] Worker exiting (pid: 7607)
+[2021-06-07 15:20:44 +0000] [5797] [INFO] Shutting down: Master
+[2021-06-07 15:21:28 +0000] [8831] [INFO] Starting gunicorn 20.1.0
+[2021-06-07 15:21:28 +0000] [8831] [INFO] Listening at: http://0.0.0.0:8000 (8831)
+[2021-06-07 15:21:28 +0000] [8831] [INFO] Using worker: sync
+[2021-06-07 15:21:28 +0000] [8834] [INFO] Booting worker with pid: 8834
+Not Found: /
+[2021-06-07 17:48:46 +0000] [8831] [CRITICAL] WORKER TIMEOUT (pid:8834)
+[2021-06-08 02:48:46 +0900] [8834] [INFO] Worker exiting (pid: 8834)
+[2021-06-07 17:48:46 +0000] [9003] [INFO] Booting worker with pid: 9003
+Not Found: /
+Not Found: /
+Not Found: /
+Not Found: /
+Bad Request: /users/signin
+Bad Request: /users/signin
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+Internal Server Error: /scheduler
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/users/utils.py", line 33, in wrapper
+    return func(self, request, *args, **kwargs)
+  File "/home/ubuntu/watcha-with-me/watcha_back/scheduler/views.py", line 86, in delete
+    id      = data["id"])
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/back_end/lib/python3.7/site-packages/django/db/models/query.py", line 437, in get
+    self.model._meta.object_name
+scheduler.models.Scheduler.DoesNotExist: Scheduler matching query does not exist.
+[2021-06-08 01:09:09 +0000] [8831] [INFO] Handling signal: term
+[2021-06-08 10:09:09 +0900] [9003] [INFO] Worker exiting (pid: 9003)
+[2021-06-08 01:09:09 +0000] [8831] [INFO] Shutting down: Master
+[2021-06-08 01:09:12 +0000] [10689] [INFO] Starting gunicorn 20.1.0
+[2021-06-08 01:09:12 +0000] [10689] [INFO] Listening at: http://0.0.0.0:8000 (10689)
+[2021-06-08 01:09:12 +0000] [10689] [INFO] Using worker: sync
+[2021-06-08 01:09:12 +0000] [10692] [INFO] Booting worker with pid: 10692
+[2021-06-08 01:10:01 +0000] [10689] [INFO] Handling signal: term
+[2021-06-08 10:10:01 +0900] [10692] [INFO] Worker exiting (pid: 10692)
+[2021-06-08 01:10:01 +0000] [10689] [INFO] Shutting down: Master

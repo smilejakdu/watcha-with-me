@@ -29,8 +29,7 @@ class BoardView(View):
 
             return JsonResponse({"message" : "SUCCESS_POST" ,
                                  "data"    : list(board)} , status = 200)
-        except TypeError:
-            return JsonResponse({"message":"INVALID_TYPE"},status = 400)
+        except TypeError: return JsonResponse({"message":"INVALID_TYPE"},status = 400)
 
         except ValueError:
             return JsonResponse({"message":"VALUE_ERROR"},status = 400)
@@ -62,7 +61,7 @@ class BoardView(View):
     def get(self , request):
 
         try:
-            boards     = Board.objects.prefetch_related('review_set').all().order_by('-id')
+            boards     = Board.objects.prefetch_related('review_set').all().order_by('-created_at')
 
             board_data = [{
                 'id'           : board.id,
@@ -70,7 +69,7 @@ class BoardView(View):
                 'content'      : board.content,
                 'nickname'     : board.nickname,
                 'created_at'   : board.created_at,
-                'reviews'      : list(board.review_set.all().values().order_by('-id')),
+                'reviews'      : list(board.review_set.all().values().order_by('-created_at')),
                 'review_count' : board.review_set.all().count(),
             }for board in boards]
 
