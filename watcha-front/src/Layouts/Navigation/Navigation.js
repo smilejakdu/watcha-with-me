@@ -7,14 +7,16 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 // import { SEARCH_ADD } from "../../reducers/search";
 import Modal from "../../components/Modal/Modal"
+import JokeModal from "../../components/JokeModal/JokeModal"
+
 import { useHistory } from "react-router-dom";
 import SearchBox from "../../components/SearchBox/SearchBox"
 
 const Navigation = () => {
   const [modalShow, setModalShow] = useState(false);
-  const history = useHistory();
+  const [jokeModalShow , setJokeModalShow] = useState(false);
 
-//   const {SEARCH_ADD} = useSelector((state) => state.search);
+  const history = useHistory();
 
   useEffect(()=>{
     const bg = document.getElementById("watcha_main_logo");
@@ -47,6 +49,14 @@ const Navigation = () => {
     setModalShow(false);
   };
 
+  const JokeModalShowOpen = ()=>{
+    setJokeModalShow(true)
+  }
+
+  const JokeModalClose = () =>{
+    setJokeModalShow(false)
+  }
+
  return (
      <>
          <Navbar style={{ borderBottom: "1px solid #666666" }}>
@@ -57,6 +67,10 @@ const Navigation = () => {
                      textData="login"
                  />
              )}
+
+             {jokeModalShow && (
+                 <JokeModal close={JokeModalClose} textData="까꿍 >_<" />
+             )}
              <Navbar.Brand href="https://watcha.com/" id="watcha_main_logo">
                  Watcha
              </Navbar.Brand>
@@ -66,7 +80,7 @@ const Navigation = () => {
                  {localStorage.getItem("token") ? (
                      <>
                          <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>
-                         <Nav.Link onClick={logoutBtn}>
+                         <Nav.Link onClick={JokeModalShowOpen}>
                              {localStorage.getItem("nickname")}
                          </Nav.Link>
                      </>
@@ -74,7 +88,7 @@ const Navigation = () => {
                      <Nav.Link onClick={loginBtn}>SignIn</Nav.Link>
                  )}
              </Nav>
-                <SearchBox/>
+             <SearchBox />
          </Navbar>
      </>
  );
