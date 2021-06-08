@@ -68,7 +68,7 @@ class BoardView(View):
                 'title'        : board.title,
                 'content'      : board.content,
                 'nickname'     : board.nickname,
-                'created_at'   : board.created_at,
+                'created_at'   : board.created_at.strftime('%Y-%m-%d'),
                 'reviews'      : list(board.review_set.all().values().order_by('-created_at')),
                 'review_count' : board.review_set.all().count(),
             }for board in boards]
