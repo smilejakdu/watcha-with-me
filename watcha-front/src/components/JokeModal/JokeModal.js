@@ -3,10 +3,6 @@ import { ModalBody, ModalOverlay, JokeBorder } from "./JokeModal.style";
 
 
 const JokeModal = ({ close, textData }) => {
-    const JokeModalClose = useCallback(() => {
-        close();
-    }, [close]);
-
     return (
         <div>
             <div>
