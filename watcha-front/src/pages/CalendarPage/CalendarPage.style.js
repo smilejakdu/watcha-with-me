@@ -71,7 +71,7 @@ const Day = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  background: ${palette.gray[4]};
+  border-top: 1px solid #ccc;
 
   & div {
     min-width: 14%;
