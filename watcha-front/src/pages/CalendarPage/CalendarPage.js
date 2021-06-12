@@ -27,18 +27,18 @@ const Calendar = ({today , history}) => {
   useEffect(() => {});
 
   const monList = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "JANUARY",
+    "FEBRUARY",
+    "MARCH",
+    "APRIL",
+    "MAY",
+    "JUNE",
+    "JULY",
+    "AUGUST",
+    "SEPTEMBER",
+    "OCTOBER",
+    "NOVEMBER",
+    "DECEMBER",
   ];
 
   let calendarDays = [];
@@ -75,15 +75,16 @@ const Calendar = ({today , history}) => {
               (month < 9 ? "0" + (month + 1) : month + 1) +
               "-" +
               (day < 10 ? "0" + day : day);
-            // console.log(thisyear+"-"+(thismonth<9? "0"+(thismonth+1):(thismonth+1))+"-"+day);
             return (
               <div key={dateKey}>
                 {dateKey === toDay ? (
                   <div
+                    className="clickStyle"
                     style={{
                       background: "#dee2e6",
                       display: "inline",
                       width: "100%",
+                      cursor: "pointer",
                     }}
                   >
                     {day}
@@ -93,6 +94,7 @@ const Calendar = ({today , history}) => {
                     style={{
                       color:
                         idx == 0 ? "#CE879F" : idx == 6 ? "#CE879F" : "#444078",
+                      float:"right",
                     }}
                   >
                     {day}
@@ -106,13 +108,8 @@ const Calendar = ({today , history}) => {
                       <ScheduleStyle
                         className={schedule.completed}
                         key={schedule.desc}
-                        onClick={openModal}
                       >
                         {schedule.desc}
-                        <CalendarModal
-                          isOpen={isModalOpen}
-                          close={closeModal}
-                        />
                       </ScheduleStyle>
                     );
                   })}
@@ -138,7 +135,6 @@ const Calendar = ({today , history}) => {
 
   const [month, changeMonth] = useState(thismonth+1);
   const [year, changeYear] = useState(thisyear);
-  const [isModalOpen, setModalState] = useState(false);
 
   const nextMonth = () => {
     if (month != 11) {
@@ -160,19 +156,8 @@ const Calendar = ({today , history}) => {
     makeCalendar(year, month);
   };
 
-  const openModal = () => {
-    setModalState({ isModalOpen: true });
-  };
-
-  const closeModal = () => {
-    setModalState({ isModalOpen: false });
-  };
-
   return (
     <Container>
-      {isModalOpen && (
-        <CalendarModal isOpen={ModalShowOpen} close={ModalShowClose} />
-      )}
       <Header>
         <button onClick={prevMonth}>◀</button>
         <span>

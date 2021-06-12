@@ -31,11 +31,9 @@ const Header = styled.div`
   font-size: 1em;
 
   span {
-    color: ${palette.green[13]};
+    color: #222;
     font-size: 40px;
-    background: ${palette.gray[2]};
     padding: 20px;
-    box-shadow: 0 1px 2px 0 ${palette.green[13]};
     border-radius: 20px;
   }
 
@@ -46,7 +44,7 @@ const Header = styled.div`
     display: inline-flex;
     background: transparent;
     border: none;
-    color: ${palette.gray[3]};
+    color: #eee;
     font-size: 1.2em;
     padding: 4px;
 
@@ -104,7 +102,16 @@ const Row = styled.div`
     margin: 3px 0 0 3px;
     font-size: 0.8em;
   }
+  .clickStyle {
+    &:hover {
+      cursor: pointer;
+      background: ${palette.green[2]};
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
+
 
 const FloatBtn1 = styled.button`
   box-shadow: 0 1px 2px 0 ${palette.orange[4]};

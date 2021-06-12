@@ -12,7 +12,7 @@ import {useDispatch} from "react-redux";
 import {addSchedule} from "../../reducers/calendar";
 import useInput from "../../hooks/useInput"
 
-const CalendarModal=(props)=> {
+const CalendarModal=({isOpen , close})=> {
   const dispatch = useDispatch();
   const [title, onChangeTitle, setTitle] = useInput("");
   const [genre, onChangeGenre, setGenre] = useInput("");
@@ -35,9 +35,9 @@ const CalendarModal=(props)=> {
 	};
 
 	return (
-    <AddContainer>
+    <ModalOverlay>
       <InputBox>
-        <h2>새로운 일정</h2>
+        <h2>schedule</h2>
         <input
           type="text"
           id="scheduleInput"
@@ -50,7 +50,7 @@ const CalendarModal=(props)=> {
         {/* <button onClick={props.history.goBack}>뒤로</button> */}
         <button onClick={checkSchedule}>저장</button>
       </BtnBox>
-    </AddContainer>
+    </ModalOverlay>
   );
 }
 
