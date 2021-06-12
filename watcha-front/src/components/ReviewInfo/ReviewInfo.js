@@ -19,6 +19,7 @@ const ReviewInfo = ({ review_data }) => {
     const [updateModal, setUpdateModal] = useState(false);
     const [updateReviewId , setUpdateReviewId] = useState();
     const [reviewContent , setReviewContent] = useState("");
+
     const dispatch = useDispatch();
 
     const ReviewUpdateOnClick = useCallback((id,review) => {

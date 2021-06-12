@@ -30,6 +30,15 @@ const Header = styled.div`
   height: 14%;
   font-size: 1em;
 
+  span {
+    color: ${palette.green[13]};
+    font-size: 40px;
+    background: ${palette.gray[2]};
+    padding: 20px;
+    box-shadow: 0 1px 2px 0 ${palette.green[13]};
+    border-radius: 20px;
+  }
+
   & button {
     margin: 0 25px;
     cursor: pointer;
@@ -64,7 +73,7 @@ const Day = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-
+  background: ${palette.gray[4]};
   & div {
     min-width: 13%;
     max-height: 5%;
