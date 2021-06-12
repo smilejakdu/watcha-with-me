@@ -76,7 +76,7 @@ const Day = styled.div`
   background: ${palette.gray[4]};
 
   & div {
-    min-width: 13%;
+    min-width: 14%;
     max-height: 5%;
     text-align: right;
     font-weight: 600;
