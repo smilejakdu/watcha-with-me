@@ -72,6 +72,7 @@ const Day = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 1px solid #ccc;
+  padding:20px;
 
   & div {
     min-width: 14%;
