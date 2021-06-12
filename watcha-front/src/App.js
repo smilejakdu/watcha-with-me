@@ -8,41 +8,39 @@ import {
 import Layout from "./Layouts/Layout";
 import BoardPage from "./pages/BoardPage/BoardPage";
 import DetailBoardPage from "./pages/DetailBoardPage/DetailBoardPage";
-import SchedulerPage from "./pages/SchedulerPage/SchedulerPage";
+import CalendarPage from "./pages/CalendarPage/CalendarPage";
 
 const App = () => {
   return (
-      <div>
-          <Router>
-              <Layout>
-                  <Switch>
-                      <Route
-                          exact="exact"
-                          path={["/", "/scheduler"]}
-                          component={SchedulerPage}
-                      />
-                      <Route
-                          exact="exact"
-                          path="/board"
-                          component={BoardPage}
-                      />
-                      <Route
-                          exact="exact"
-                          path="/detailboard"
-                          component={DetailBoardPage}
-                      />
-                      <Route
-                          render={({ location }) => (
-                              <div>
-                                  <h2>존재하지 않는 페이지 입니다.</h2>
-                                  <p>{location.pathname}</p>
-                              </div>
-                          )}
-                      />
-                  </Switch>
-              </Layout>
-          </Router>
-      </div>
+    <div>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route
+              path={["/", "/scheduler"]}
+              exact
+              render={(props) => (
+                <CalendarPage today={new Date()} history={props.history} />
+              )}
+            />
+            <Route exact="exact" path="/board" component={BoardPage} />
+            <Route
+              exact="exact"
+              path="/detailboard"
+              component={DetailBoardPage}
+            />
+            <Route
+              render={({ location }) => (
+                <div>
+                  <h2>존재하지 않는 페이지 입니다.</h2>
+                  <p>{location.pathname}</p>
+                </div>
+              )}
+            />
+          </Switch>
+        </Layout>
+      </Router>
+    </div>
   );
 };
 export default App;

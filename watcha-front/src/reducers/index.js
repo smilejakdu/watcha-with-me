@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import board from "./board";
-import scheduler from "./scheduler";
 import search from "./search";
+import calendar from "./calendar";
 
 export default combineReducers({
     board,
-    scheduler,
+    calendar,
     search
 });
