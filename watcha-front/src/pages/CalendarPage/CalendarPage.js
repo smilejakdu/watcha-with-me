@@ -13,15 +13,17 @@ import {
   ScheduleStyle,
 } from "./CalendarPage.style";
 
-const Calendar = (props) => {
+const Calendar = ({today , history}) => {
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
   const schedules = useSelector((state) => state.calendar.schedules);
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
-  var thisyear = props.today.getFullYear();
-  var thismonth = props.today.getMonth();
-
+  var thisyear = today.getFullYear();
+  var thismonth = today.getMonth();
+  var thisday = today.getDate();
+  var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
+  console.log(`today : ${toDay}`);
   // 여기서 데이터를 가져오면 된다.
   useEffect(() => {});
 
@@ -77,14 +79,26 @@ const Calendar = (props) => {
             // console.log(thisyear+"-"+(thismonth<9? "0"+(thismonth+1):(thismonth+1))+"-"+day);
             return (
               <div key={dateKey}>
-                <span
-                  style={{
-                    color:
-                      idx == 0 ? "#CE879F" : idx == 6 ? "#CE879F" : "#444078",
-                  }} 
-                >
-                  {day}
-                </span>
+                {dateKey === toDay ? (
+                  <div
+                    style={{
+                      background: "#dee2e6",
+                      display: "inline",
+                      width: "100%",
+                    }}
+                  >
+                    {day}
+                  </div>
+                ) : (
+                  <span
+                    style={{
+                      color:
+                        idx == 0 ? "#CE879F" : idx == 6 ? "#CE879F" : "#444078",
+                    }}
+                  >
+                    {day}
+                  </span>
+                )}
                 {schedules
                   .filter((schedule) => schedule.date.substr(0, 10) === dateKey)
                   .sort()
@@ -96,7 +110,7 @@ const Calendar = (props) => {
                         onClick={openModal}
                       >
                         {schedule.desc}
-                        <Modal isOpen={isModalOpen} close={closeModal}/>
+                        <Modal isOpen={isModalOpen} close={closeModal} />
                       </ScheduleStyle>
                     );
                   })}
@@ -175,14 +189,14 @@ const Calendar = (props) => {
         {makeCalendar(year, month)}
       </Days>
 
-      {/* <FloatBtn1>My Calendar</FloatBtn1>
+      <FloatBtn1>My Calendar</FloatBtn1>
       <FloatBtn2
         onClick={() => {
-          props.history.push("/add");
+          history.push("/add");
         }}
       >
-        Add
-      </FloatBtn2> */}
+        Add{/* <img src={btn}/> */}
+      </FloatBtn2>
     </Container>
   );
 };

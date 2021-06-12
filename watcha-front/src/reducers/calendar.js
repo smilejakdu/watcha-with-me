@@ -6,12 +6,12 @@ const ADD_SCHEDULE = "calendar/ADD_SCHEDULE"
 
 const initialState = {
     
-    thismonth: 5,
+    thismonth: 6,
     year: 2021,
     schedules: [
-        {date:"2021-03-25T22:05", desc:"ice", completed:false},
-        {date:"2021-03-25T19:17", desc:"ice2", completed:false},
-        {date:"2021-03-26T02:17", desc:"ice3", completed:false},
+        {date:"2021-06-25T22:05", desc:"ice", completed:false},
+        {date:"2021-06-25T19:17", desc:"ice2", completed:false},
+        {date:"2021-06-26T02:17", desc:"ice3", completed:false},
     ],
 };
 
