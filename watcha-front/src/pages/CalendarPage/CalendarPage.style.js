@@ -74,10 +74,11 @@ const Day = styled.div`
   display: flex;
   justify-content: space-between;
   background: ${palette.gray[4]};
+
   & div {
     min-width: 13%;
     max-height: 5%;
-    text-align: center;
+    text-align: right;
     font-weight: 600;
     box-sizing: border-box;
   }
@@ -90,13 +91,16 @@ const Row = styled.div`
   justify-content: space-between;
 
   & div {
-    width: 13%;
+    width: 15%;
     height: 100%;
     font-weight: 600;
+    text-align: right;
+    border:1px solid ${palette.gray[4]};
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
   }
+
   & span {
     margin: 3px 0 0 3px;
     font-size: 0.8em;

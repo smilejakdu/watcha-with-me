@@ -175,14 +175,14 @@ const Calendar = (props) => {
         {makeCalendar(year, month)}
       </Days>
 
-      <FloatBtn1>My Calendar</FloatBtn1>
+      {/* <FloatBtn1>My Calendar</FloatBtn1>
       <FloatBtn2
         onClick={() => {
           props.history.push("/add");
         }}
       >
-        Add{/* <img src={btn}/> */}
-      </FloatBtn2>
+        Add
+      </FloatBtn2> */}
     </Container>
   );
 };
