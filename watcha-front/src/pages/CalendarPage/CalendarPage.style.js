@@ -95,7 +95,6 @@ const Row = styled.div`
     height: 100%;
     font-weight: 600;
     text-align: right;
-    border:1px solid ${palette.gray[4]};
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
