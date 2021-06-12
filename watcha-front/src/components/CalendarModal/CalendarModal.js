@@ -29,7 +29,6 @@ const CalendarModal=(props)=> {
         data:""
       })
 			alert("success");
-			props.history.goBack();
 		} else {
 			alert("정보를 입력해주세요");
 		}
@@ -48,7 +47,7 @@ const CalendarModal=(props)=> {
         <input type="datetime-local" id="scheduleDate" />
       </InputBox>
       <BtnBox>
-        <button onClick={props.history.goBack}>뒤로</button>
+        {/* <button onClick={props.history.goBack}>뒤로</button> */}
         <button onClick={checkSchedule}>저장</button>
       </BtnBox>
     </AddContainer>

@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "../../components/Modal/Modal"
+import CalendarModal from "../../components/CalendarModal/CalendarModal"
 import {
   Container,
   Header,
@@ -23,7 +23,6 @@ const Calendar = ({today , history}) => {
   var thismonth = today.getMonth();
   var thisday = today.getDate();
   var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
-  console.log(`today : ${toDay}`);
   // 여기서 데이터를 가져오면 된다.
   useEffect(() => {});
 
@@ -110,7 +109,10 @@ const Calendar = ({today , history}) => {
                         onClick={openModal}
                       >
                         {schedule.desc}
-                        <Modal isOpen={isModalOpen} close={closeModal} />
+                        <CalendarModal
+                          isOpen={isModalOpen}
+                          close={closeModal}
+                        />
                       </ScheduleStyle>
                     );
                   })}
@@ -134,9 +136,9 @@ const Calendar = ({today , history}) => {
     { once: true }
   );
 
-  const [month, changeMonth] = React.useState(thismonth);
-  const [year, changeYear] = React.useState(thisyear);
-  const [isModalOpen, setModalState] = React.useState(false);
+  const [month, changeMonth] = useState(thismonth+1);
+  const [year, changeYear] = useState(thisyear);
+  const [isModalOpen, setModalState] = useState(false);
 
   const nextMonth = () => {
     if (month != 11) {
@@ -168,10 +170,13 @@ const Calendar = ({today , history}) => {
 
   return (
     <Container>
+      {isModalOpen && (
+        <CalendarModal isOpen={ModalShowOpen} close={ModalShowClose} />
+      )}
       <Header>
         <button onClick={prevMonth}>◀</button>
         <span>
-          {monList[month]} {year}
+          {monList[month-1]} {year}
         </span>
         <button onClick={nextMonth}>▶</button>
       </Header>
@@ -185,18 +190,10 @@ const Calendar = ({today , history}) => {
           <div>Fri</div>
           <div>Sat</div>
         </Day>
-
-        {makeCalendar(year, month)}
+        {makeCalendar(year, month-1)}
       </Days>
 
       <FloatBtn1>My Calendar</FloatBtn1>
-      <FloatBtn2
-        onClick={() => {
-          history.push("/add");
-        }}
-      >
-        Add{/* <img src={btn}/> */}
-      </FloatBtn2>
     </Container>
   );
 };
