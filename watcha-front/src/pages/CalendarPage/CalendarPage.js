@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CalendarModal from "../../components/CalendarModal/CalendarModal"
 import {
@@ -13,8 +13,10 @@ import {
   ScheduleStyle,
 } from "./CalendarPage.style";
 
-const Calendar = ({today , history}) => {
+import CalendarAddModal from "../../components/CalendarAddModal/CalendarAddModal"
 
+const Calendar = ({today , history}) => {
+  const [calendarAdd , setCalendarAdd] = useState(false);
   // console.log("리덕스에서 가져온 스케쥴",schedules)
   const schedules = useSelector((state) => state.calendar.schedules);
 
@@ -156,12 +158,26 @@ const Calendar = ({today , history}) => {
     makeCalendar(year, month);
   };
 
+
+  const ModalShowOpen = useCallback(() => {
+    console.log("modalshow");
+    setCalendarAdd(true);
+  }, []);
+
+  const ModalShowClose = useCallback(() => {
+    setCalendarAdd(false);
+  }, []);
+
+
   return (
     <Container>
+      {calendarAdd && (
+        <CalendarAddModal isOpen={ModalShowOpen} close={ModalShowClose} />
+      )}
       <Header>
         <button onClick={prevMonth}>◀</button>
         <span>
-          {monList[month-1]} {year}
+          {monList[month - 1]} {year}
         </span>
         <button onClick={nextMonth}>▶</button>
       </Header>
@@ -175,10 +191,11 @@ const Calendar = ({today , history}) => {
           <div>Fri</div>
           <div>Sat</div>
         </Day>
-        {makeCalendar(year, month-1)}
+        {makeCalendar(year, month - 1)}
       </Days>
 
       <FloatBtn1>My Calendar</FloatBtn1>
+      <FloatBtn2 onClick={ModalShowOpen}>Register</FloatBtn2>
     </Container>
   );
 };

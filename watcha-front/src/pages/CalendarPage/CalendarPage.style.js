@@ -72,12 +72,12 @@ const Day = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 1px solid #ccc;
-  padding:20px;
+  padding: 20px;
 
   & div {
     min-width: 14%;
     max-height: 5%;
-    text-align: right;
+    text-align: center;
     font-weight: 600;
     box-sizing: border-box;
   }

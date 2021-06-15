@@ -9,6 +9,7 @@ import Layout from "./Layouts/Layout";
 import BoardPage from "./pages/BoardPage/BoardPage";
 import DetailBoardPage from "./pages/DetailBoardPage/DetailBoardPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
+import CalendarPageAdd from "./pages/CalendarPageAdd/CalendarPageAdd";
 
 const App = () => {
   return (
@@ -22,6 +23,11 @@ const App = () => {
               render={(props) => (
                 <CalendarPage today={new Date()} history={props.history} />
               )}
+            />
+            <Route
+              exact="exact"
+              path="/scheduler_add"
+              component={CalendarPageAdd}
             />
             <Route exact="exact" path="/board" component={BoardPage} />
             <Route
