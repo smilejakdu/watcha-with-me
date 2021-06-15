@@ -13,14 +13,16 @@ import { Dropdown } from "react-bootstrap";
 
 const CalendarAddModal = ({ isOpen, close }) => {
   const [text, onChangeText, setText] = useInput("");
+  const [genre, onChangeGenre, setGenre] = useInput("장르를 선택하시오");
 
   const dispatch = useDispatch();
-  const checkSchedule = () => {
+  const registerSchedule = () => {
     var schedule = document.getElementById("scheduleInput").value;
     var date = document.getElementById("scheduleDate").value;
 
     if (schedule != 0 && date != 0) {
       alert(text)
+      alert(genre);
       dispatch(addSchedule(date, schedule));
       console.log(date, schedule);
       close()
@@ -36,13 +38,15 @@ const CalendarAddModal = ({ isOpen, close }) => {
           <h2>일정</h2>
           <Dropdown>
             <Dropdown.Toggle variant="outline-warning" id="dropdown-basic">
-              장르를 선택하시오
+              {genre}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">멜로</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">공포</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">코믹</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">액션</Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("멜로")}>
+                멜로
+              </Dropdown.Item>
+              <Dropdown.Item onClick={()=>setGenre("공포")}>공포</Dropdown.Item>
+              <Dropdown.Item onClick={()=>setGenre("코믹")}>코믹</Dropdown.Item>
+              <Dropdown.Item onClick={()=>setGenre("액션")}>액션</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <input
@@ -56,7 +60,7 @@ const CalendarAddModal = ({ isOpen, close }) => {
         </InputBox>
         <BtnBox>
           <button onClick={close}>cancel</button>
-          <button onClick={checkSchedule}>Register</button>
+          <button onClick={registerSchedule}>Register</button>
         </BtnBox>
       </ModalBody>
     </ModalOverlay>

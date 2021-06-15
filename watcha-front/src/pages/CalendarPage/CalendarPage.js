@@ -186,7 +186,6 @@ const Calendar = ({today , history}) => {
         {makeCalendar(year, month - 1)}
       </Days>
 
-      <FloatBtn1>My Calendar</FloatBtn1>
       <FloatBtn2 onClick={ModalShowOpen}>Register</FloatBtn2>
     </Container>
   );
