@@ -58,39 +58,40 @@ const Navigation = () => {
   }
 
  return (
-     <>
-         <Navbar style={{ borderBottom: "1px solid #666666" }}>
-             {modalShow && (
-                 <Modal
-                     isOpen={ModalShowOpen}
-                     close={ModalShowClose}
-                     textData="login"
-                 />
-             )}
-
-             {jokeModalShow && (
-                 <JokeModal close={JokeModalClose} textData="까꿍 >_<" />
-             )}
-             <Navbar.Brand href="https://watcha.com/" id="watcha_main_logo">
-                 Watcha
-             </Navbar.Brand>
-             <Nav className="mr-auto">
-                 <Nav.Link href="/scheduler">Scheduler</Nav.Link>
-                 <Nav.Link href="/board">Board</Nav.Link>
-                 {localStorage.getItem("token") ? (
-                     <>
-                         <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>
-                         <Nav.Link onClick={JokeModalShowOpen}>
-                             {localStorage.getItem("nickname")}
-                         </Nav.Link>
-                     </>
-                 ) : (
-                     <Nav.Link onClick={loginBtn}>SignIn</Nav.Link>
-                 )}
-             </Nav>
-             <SearchBox />
-         </Navbar>
-     </>
+   <>
+     <Navbar style={{ borderBottom: "1px solid #666666" }}>
+       {modalShow && (
+         <Modal
+           isOpen={ModalShowOpen}
+           close={ModalShowClose}
+           textData="login"
+         />
+       )}
+       analysis
+       {jokeModalShow && (
+         <JokeModal close={JokeModalClose} textData="까꿍 >_<" />
+       )}
+       <Navbar.Brand href="https://watcha.com/" id="watcha_main_logo">
+         Watcha
+       </Navbar.Brand>
+       <Nav className="mr-auto">
+         <Nav.Link>Analysis</Nav.Link>
+         <Nav.Link href="/scheduler">Scheduler</Nav.Link>
+         <Nav.Link href="/board">Board</Nav.Link>
+         {localStorage.getItem("token") ? (
+           <>
+             <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>
+             <Nav.Link onClick={JokeModalShowOpen}>
+               {localStorage.getItem("nickname")}
+             </Nav.Link>
+           </>
+         ) : (
+           <Nav.Link onClick={loginBtn}>SignIn</Nav.Link>
+         )}
+       </Nav>
+       <SearchBox />
+     </Navbar>
+   </>
  );
 };
 
