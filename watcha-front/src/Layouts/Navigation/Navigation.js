@@ -67,7 +67,6 @@ const Navigation = () => {
            textData="login"
          />
        )}
-       analysis
        {jokeModalShow && (
          <JokeModal close={JokeModalClose} textData="까꿍 >_<" />
        )}
