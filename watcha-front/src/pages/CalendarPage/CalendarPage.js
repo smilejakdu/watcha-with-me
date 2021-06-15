@@ -80,17 +80,7 @@ const Calendar = ({today , history}) => {
             return (
               <div key={dateKey}>
                 {dateKey === toDay ? (
-                  <div
-                    className="clickStyle"
-                    style={{
-                      background: "#dee2e6",
-                      display: "inline",
-                      width: "100%",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {day}
-                  </div>
+                  <span>{day}(today)</span>
                 ) : (
                   <span
                     style={{
@@ -99,7 +89,7 @@ const Calendar = ({today , history}) => {
                       float:"right",
                     }}
                   >
-                    {day}
+                    {day} 
                   </span>
                 )}
                 {schedules
@@ -111,7 +101,9 @@ const Calendar = ({today , history}) => {
                         className={schedule.completed}
                         key={schedule.desc}
                       >
-                        {schedule.desc}
+                        <p>
+                          {schedule.desc}
+                        </p>
                       </ScheduleStyle>
                     );
                   })}

@@ -2,9 +2,16 @@ import styled from "styled-components";
 import palette from "../../utils/palette"
 
 const ScheduleStyle = styled.div`
+
+  p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+  }
   &:hover {
     cursor: pointer;
-    color: ${palette.green[11]}
+    color: ${palette.green[11]};
   }
 `;
 

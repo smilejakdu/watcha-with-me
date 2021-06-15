@@ -14,10 +14,11 @@ const ModalOverlay = styled.div`
 const ModalBody = styled.div`
   position: fixed;
   z-index: 3;
-  margin: 5rem auto;
+  margin: 10rem auto;
   left: 0;
   right: 0;
   width: 320px;
+  height: 400px;
   background: white;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   & > * {
@@ -63,7 +64,6 @@ const AddContainer = styled.div`
 `;
 
 const InputBox = styled.div`
-  width: 70%;
   height: 75%;
   margin-top: 3%;
   background-color: #fff;
@@ -79,6 +79,7 @@ const InputBox = styled.div`
     width: 80%;
     border-radius: 5px;
     border: 1px solid #888;
+    margin:20px;
     &:focus {
       border: 1px solid #a673ff;
     }
@@ -88,10 +89,10 @@ const BtnBox = styled.div`
   margin-top: 3%;
   box-sizing: border-box;
   display: flex;
-  width: 70%;
   height: 13%;
   justify-content: space-evenly;
   align-items: center;
+  margin:20px;
 
   & button {
     box-shadow: 0 1px 2px 0 ${palette.green[1]};
@@ -99,11 +100,9 @@ const BtnBox = styled.div`
     min-width: 90px;
     max-width: 150px;
     height: 30px;
-    margin: auto 0px;
     background: #fff;
     border: 1px solid ${palette.orange[4]};
     border-radius: 20px;
-    font-weight: 600;
     color: ${palette.orange[4]};
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;

@@ -9,6 +9,7 @@ import {
   BtnBox,
 } from "./CalendarAddModal.style";
 import useInput from "../../hooks/useInput"
+import { Dropdown } from "react-bootstrap";
 
 const CalendarAddModal = ({ isOpen, close }) => {
   const [text, onChangeText, setText] = useInput("");
@@ -19,24 +20,36 @@ const CalendarAddModal = ({ isOpen, close }) => {
     var date = document.getElementById("scheduleDate").value;
 
     if (schedule != 0 && date != 0) {
+      alert(text)
       dispatch(addSchedule(date, schedule));
       console.log(date, schedule);
-      alert("저장되었습니다 😊");
+      close()
     } else {
-      alert("정보를 입력해주세요 ☺");
+      alert("어?? 뭐 잊은거 없어 ??");
     }
   };
 
   return (
-    <ModalOverlay onClick={close}>
+    <ModalOverlay>
       <ModalBody>
         <InputBox>
-          <h2>새로운 일정</h2>
+          <h2>일정</h2>
+          <Dropdown>
+            <Dropdown.Toggle variant="outline-warning" id="dropdown-basic">
+              장르를 선택하시오
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">멜로</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">공포</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">코믹</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">액션</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <input
             type="text"
             id="scheduleInput"
+            placeholder="movie title"
             max="9999-12-31"
-            // style={{ height: 30 + "%" }}
             onChange={onChangeText}
           />
           <input type="datetime-local" id="scheduleDate" />
