@@ -21,10 +21,10 @@ class SchedulerView(View):
 
         try:
             Scheduler(
-                start_date = data['start_date'],
-                end_date   = data['end_date'],
-                text       = f"-{nickname}-\n{data['text']}",
-                user_id    = User.objects.get(id = request.user.id).id
+                genre       = data['genre'],
+                movie_title = data['movie_title'],
+                date        = data['date'],
+                user_id     = User.objects.get(id = request.user.id).id
             ).save()
 
             return JsonResponse({"message":"SUCCESS"},status = 200)
@@ -42,11 +42,11 @@ class SchedulerView(View):
                      all().values())
 
         scheduler_data = [{
-            "id"         : scheduler['id'],
-            "start_date" : scheduler['start_date'],
-            "end_date"   : scheduler['end_date'],
-            "text"       : scheduler['text'],
-            "nickname"   : User.objects.get(id=scheduler['user_id']).nickname
+            "id"          : scheduler['id'],
+            "genre"       : scheduler['genre'],
+            "movie_title" : scheduler['movie_title'],
+            "date"        : scheduler['date'],
+            "nickname"    : User.objects.get(id=scheduler['user_id']).nickname
         }for scheduler in schedulers]
 
         return JsonResponse({"data" : list(scheduler_data)} , status = 200)
@@ -57,17 +57,10 @@ class SchedulerView(View):
         scheduler = Scheduler.objects.get(user_id = request.user.id ,
                                           id      = data["id"])
 
-        regex = '-[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}-$'
-
-        for text in data["text"].split():
-            if re.search(regex, text):
-                continue
-            print(text)
-        
         try:
-            scheduler.start_date = data["start_date"]
-            scheduler.end_date   = data["end_date"]
-            scheduler.text       = data["text"]
+            scheduler.genre       = data["genre"]
+            scheduler.movie_title = data["movie_title"]
+            scheduler.date        = data["date"]
             scheduler.save()
 
             return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
@@ -82,9 +75,10 @@ class SchedulerView(View):
     @login_check
     def delete(self , request):
         data      = json.loads(request.body)
-        scheduler = Scheduler.objects.get(user_id = request.user.id ,
-                                          id      = data["id"])
         try:
+
+            scheduler = Scheduler.objects.get(user_id = request.user.id ,
+                                              id      = data["id"])
             scheduler.delete()
             return JsonResponse({"message": "DELETE_SUCCESS"},status = 200)
         except KeyError:

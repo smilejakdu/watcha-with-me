@@ -12,19 +12,16 @@ import useInput from "../../hooks/useInput"
 import { Dropdown } from "react-bootstrap";
 
 const CalendarAddModal = ({ isOpen, close }) => {
-  const [text, onChangeText, setText] = useInput("");
+  const [title, onChangeTitle, setTitle] = useInput("");
   const [genre, onChangeGenre, setGenre] = useInput("장르를 선택하시오");
 
   const dispatch = useDispatch();
   const registerSchedule = () => {
-    var schedule = document.getElementById("scheduleInput").value;
     var date = document.getElementById("scheduleDate").value;
 
-    if (schedule != 0 && date != 0) {
-      alert(text)
-      alert(genre);
-      dispatch(addSchedule(date, schedule));
-      console.log(date, schedule);
+    if (title != 0 && date != 0) {
+      console.log(genre,title, date);
+      dispatch(addSchedule(genre , title, date));
       close()
     } else {
       alert("어?? 뭐 잊은거 없어 ??");
@@ -44,17 +41,22 @@ const CalendarAddModal = ({ isOpen, close }) => {
               <Dropdown.Item onClick={() => setGenre("멜로")}>
                 멜로
               </Dropdown.Item>
-              <Dropdown.Item onClick={()=>setGenre("공포")}>공포</Dropdown.Item>
-              <Dropdown.Item onClick={()=>setGenre("코믹")}>코믹</Dropdown.Item>
-              <Dropdown.Item onClick={()=>setGenre("액션")}>액션</Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("공포")}>
+                공포
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("코믹")}>
+                코믹
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("액션")}>
+                액션
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <input
             type="text"
-            id="scheduleInput"
             placeholder="movie title"
             max="9999-12-31"
-            onChange={onChangeText}
+            onChange={onChangeTitle}
           />
           <input type="datetime-local" id="scheduleDate" />
         </InputBox>
