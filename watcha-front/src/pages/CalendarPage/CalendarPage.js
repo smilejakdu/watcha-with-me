@@ -12,12 +12,13 @@ import {
   FloatBtn2,
   ScheduleStyle,
 } from "./CalendarPage.style";
-
+import {LOAD_SCHEDULE_REQUEST} from "../../reducers/calendar"
 import CalendarAddModal from "../../components/CalendarAddModal/CalendarAddModal"
 
 const Calendar = ({today , history}) => {
   const [calendarAdd , setCalendarAdd] = useState(false);
   // console.log("리덕스에서 가져온 스케쥴",schedules)
+  const dispatch = useDispatch();
   const schedules = useSelector((state) => state.calendar.schedules);
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
@@ -27,7 +28,11 @@ const Calendar = ({today , history}) => {
 
   var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
   // 여기서 데이터를 가져오면 된다.
-  useEffect(() => {});
+  useEffect(() => {
+   dispatch({
+     type: LOAD_SCHEDULE_REQUEST,
+   });
+  },[]);
 
   const monList = [
     "JANUARY",
@@ -102,7 +107,7 @@ const Calendar = ({today , history}) => {
                         key={schedule.desc}
                       >
                         <p>
-                          {schedule.movie_title}({schedule.genre})
+                          {schedule.title}
                         </p>
                       </ScheduleStyle>
                     );

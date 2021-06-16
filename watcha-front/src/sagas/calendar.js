@@ -21,6 +21,7 @@ function* loadSchedule(action) {
     let {
       data: { data },
     } = result;
+    console.log("load data :" , data);
     yield put({
       type: LOAD_SCHEDULE_SUCCESS,
       data: data,
