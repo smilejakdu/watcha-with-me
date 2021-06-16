@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "chart.js": "^3.3.2",
     "dhtmlx-scheduler": "^5.3.11",
     "immer": "^8.0.1",
     "react": "^17.0.2",
