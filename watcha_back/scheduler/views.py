@@ -17,14 +17,15 @@ class SchedulerView(View):
     @login_check
     def post(self , request):
         data     = json.loads(request.body)
+        print(data)
         nickname = User.objects.get(id=request.user.id).nickname
 
         try:
             Scheduler(
-                genre       = data['genre'],
-                movie_title = data['movie_title'],
-                date        = data['date'],
-                user_id     = User.objects.get(id = request.user.id).id
+                genre   = data['genre'],
+                title   = data['title'],
+                date    = data['date'],
+                user_id = User.objects.get(id = request.user.id).id
             ).save()
 
             return JsonResponse({"message":"SUCCESS"},status = 200)
@@ -42,11 +43,11 @@ class SchedulerView(View):
                      all().values())
 
         scheduler_data = [{
-            "id"          : scheduler['id'],
-            "genre"       : scheduler['genre'],
-            "movie_title" : scheduler['movie_title'],
-            "date"        : scheduler['date'],
-            "nickname"    : User.objects.get(id=scheduler['user_id']).nickname
+            "id"        : scheduler['id'],
+            "genre"     : scheduler['genre'],
+            "title"     : scheduler['title'],
+            "date"      : scheduler['date'],
+            "nickname"  : User.objects.get(id=scheduler['user_id']).nickname
         }for scheduler in schedulers]
 
         return JsonResponse({"data"      : list(scheduler_data) ,
@@ -60,9 +61,9 @@ class SchedulerView(View):
                                           id      = data["id"])
 
         try:
-            scheduler.genre       = data["genre"]
-            scheduler.movie_title = data["movie_title"]
-            scheduler.date        = data["date"]
+            scheduler.genre = data["genre"]
+            scheduler.title = data["title"]
+            scheduler.date  = data["date"]
             scheduler.save()
 
             return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
@@ -76,7 +77,7 @@ class SchedulerView(View):
 
     @login_check
     def delete(self , request):
-        data      = json.loads(request.body)
+        data   = json.loads(request.body)
         try:
 
             scheduler = Scheduler.objects.get(user_id = request.user.id ,

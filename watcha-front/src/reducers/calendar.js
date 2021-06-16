@@ -1,8 +1,8 @@
 import produce from "../utils/produce";
 
 export const initialState = {
-  thismonth: 5,
-  year: 0,
+  thismonth: null,
+  year: null,
   schedules: [],
 
   loadScheduleLoading: false,

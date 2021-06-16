@@ -1,6 +1,9 @@
 import React , {useState} from "react";
 import {useDispatch} from "react-redux";
-import {addSchedule} from "../../reducers/calendar";
+import {
+  ADD_SCHEDULE_REQUEST,
+  LOAD_SCHEDULE_REQUEST,
+} from "../../reducers/calendar";
 import {
   ModalOverlay,
   ModalBody,
@@ -22,7 +25,11 @@ const CalendarAddModal = ({ isOpen, close }) => {
 
     if (title != 0 && date != 0) {
       console.log(genre,title, date);
-      dispatch(addSchedule(genre , title, date));
+      // dispatch(addSchedule(genre , title, date));
+      dispatch({
+        type: ADD_SCHEDULE_REQUEST,
+        data : {genre:genre , title: title , date:date},
+      });
       close()
     } else {
       alert("어?? 뭐 잊은거 없어 ??");
