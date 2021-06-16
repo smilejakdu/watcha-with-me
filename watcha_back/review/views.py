@@ -80,7 +80,7 @@ class ReviewView(View):
         data = json.loads(request.body)
         try:
             review    = Review.objects.get(id      = data["id"],
-                                        user_id = request.user.id)
+                                           user_id = request.user.id)
             review_id = review.id
             review.delete()
             return JsonResponse({"message":"DELETE_SUCCESS" , "data":review_id}, status = 200)

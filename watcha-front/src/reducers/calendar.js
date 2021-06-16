@@ -69,6 +69,7 @@ const reducer = (state = initialState, action) =>
       case LOAD_SCHEDULE_SUCCESS:
         draft.loadScheduleLoading = false;
         draft.loadScheduleDone = true;
+        console.log("loading action data", action.data);
         draft.schedules = action.data;
         break;
       case LOAD_SCHEDULE_FAILURE:
@@ -97,12 +98,11 @@ const reducer = (state = initialState, action) =>
       case UPDATE_SCHEDULE_SUCCESS:
         draft.updateScheduleLoading = false;
         draft.updateScheduleDone = true;
-        draft.schedules.find((v) => v.id === action.data.data.id).genre =
-          action.data.genre;
+        draft.schedules.find((v) => v.id === action.data.data.id).genre = action.data.data.genre;
         draft.schedules.find((v) => v.id === action.data.data.id).title =
-          action.data.title;
+          action.data.data.title;
         draft.schedules.find((v) => v.id === action.data.data.id).date =
-          action.data.date;
+          action.data.data.date;
         break;
       case UPDATE_SCHEDULE_FAILURE:
         draft.updateScheduleLoading = false;
@@ -132,7 +132,6 @@ const reducer = (state = initialState, action) =>
           break;
         }
         draft.thismonth -= 1;
-        break;
         break;
       case NEXT_MONTH:
         if (draft.thismonth === 12) {

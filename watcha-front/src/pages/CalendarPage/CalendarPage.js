@@ -14,9 +14,16 @@ import {
 } from "./CalendarPage.style";
 import {LOAD_SCHEDULE_REQUEST} from "../../reducers/calendar"
 import CalendarAddModal from "../../components/CalendarAddModal/CalendarAddModal"
+import CalendarUpdateModal from "../../components/CalendarUpdateModal/CalendarUpdateModal"
 
 const Calendar = ({today , history}) => {
   const [calendarAdd , setCalendarAdd] = useState(false);
+  const [calendarUpdate , setCalendarUpdate] = useState(false);
+  const [updateScheduleId , setUpdateScheduleId] = useState();
+  const [genre , setGenre] = useState("");
+  const [title , setTitle] = useState("");
+  const [date, setDate] = useState("");
+
   // console.log("리덕스에서 가져온 스케쥴",schedules)
   const dispatch = useDispatch();
   const schedules = useSelector((state) => state.calendar.schedules);
@@ -29,10 +36,10 @@ const Calendar = ({today , history}) => {
   var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
   // 여기서 데이터를 가져오면 된다.
   useEffect(() => {
-   dispatch({
-     type: LOAD_SCHEDULE_REQUEST,
-   });
-  },[]);
+    dispatch({
+      type: LOAD_SCHEDULE_REQUEST,
+    });
+  }, []);
 
   const monList = [
     "JANUARY",
@@ -103,8 +110,17 @@ const Calendar = ({today , history}) => {
                   .sort()
                   .map((schedule) => {
                     return (
-                      <ScheduleStyle key={schedule.desc}>
-                        <p onClick={()=>UpdateModalShowOpen(schedule.id)}>
+                      <ScheduleStyle key={schedule.id}>
+                        <p
+                          onClick={() =>
+                            UpdateBtnClick(
+                              schedule.id,
+                              schedule.genre,
+                              schedule.title,
+                              schedule.date
+                            )
+                          }
+                        >
                           제목 : {schedule.title}
                         </p>
                       </ScheduleStyle>
@@ -155,7 +171,6 @@ const Calendar = ({today , history}) => {
 
 
   const ModalShowOpen = useCallback(() => {
-    console.log("modalshow");
     setCalendarAdd(true);
   }, []);
 
@@ -163,15 +178,37 @@ const Calendar = ({today , history}) => {
     setCalendarAdd(false);
   }, []);
 
-  const UpdateModalShowOpen = useCallback((id) => {
-    console.log("update scheduler id : " ,id);
-    setCalendarAdd(true);
+  const UpdateBtnClick = useCallback((id, genre, title, date) => {
+    console.log(id , genre , title , date);
+    setGenre(genre);
+    setTitle(title);
+    setDate(date);
+    setUpdateScheduleId(id);
+    UpdateModalShowOpen();
+  }, []);
+
+  const UpdateModalShowOpen = useCallback(() => {
+    setCalendarUpdate(true);
+  }, []);
+
+  const UpdateModalShowClose = useCallback(() => {
+    setCalendarUpdate(false);
   }, []);
 
   return (
     <Container>
       {calendarAdd && (
         <CalendarAddModal isOpen={ModalShowOpen} close={ModalShowClose} />
+      )}
+      {calendarUpdate && (
+        <CalendarUpdateModal
+          isOpen={UpdateModalShowOpen}
+          close={UpdateModalShowClose}
+          update_id={updateScheduleId}
+          update_genre={genre}
+          update_title={title}
+          update_date={date}
+        />
       )}
       <Header>
         <button onClick={prevMonth}>◀</button>

@@ -17,18 +17,20 @@ class SchedulerView(View):
     @login_check
     def post(self , request):
         data     = json.loads(request.body)
-        print(data)
         nickname = User.objects.get(id=request.user.id).nickname
 
         try:
-            Scheduler(
+            scheduler = Scheduler.objects.create(
                 genre   = data['genre'],
                 title   = data['title'],
                 date    = data['date'],
-                user_id = User.objects.get(id = request.user.id).id
-            ).save()
+                user_id = User.objects.get(id = request.user.id).id 
+            )
 
-            return JsonResponse({"message":"SUCCESS"},status = 200)
+            scheduler = Scheduler.objects.filter(id = scheduler.id).values()
+
+            return JsonResponse({"message":"SUCCESS",
+                                 "data" : list(scheduler)},status = 200)
 
         except TypeError:
             return JsonResponse({"message":"INVALID_TYPE"},status = 400)
@@ -66,7 +68,15 @@ class SchedulerView(View):
             scheduler.date  = data["date"]
             scheduler.save()
 
-            return JsonResponse({"message": "UPDATE_SUCCESS"},status = 200)
+            data = {
+                "id"    : data["id"],
+                "genre" : data["genre"],
+                "title" : data["title"],
+                "date"  : data["date"],
+            }
+
+            return JsonResponse({"message": "UPDATE_SUCCESS",
+                                 "data"   : data},status = 200)
 
         except KeyError:
             return JsonResponse({"message": "KEY_ERROR"},status = 400)
@@ -78,12 +88,16 @@ class SchedulerView(View):
     @login_check
     def delete(self , request):
         data   = json.loads(request.body)
+
         try:
 
-            scheduler = Scheduler.objects.get(user_id = request.user.id ,
-                                              id      = data["id"])
+            scheduler    = Scheduler.objects.get(user_id = request.user.id ,
+                                                 id      = data["id"])
+            scheduler_id = scheduler.id
             scheduler.delete()
-            return JsonResponse({"message": "DELETE_SUCCESS"},status = 200)
+
+            return JsonResponse({"message": "DELETE_SUCCESS",
+                                 "data"   : scheduler_id},status = 200)
         except KeyError:
             return JsonResponse({"message": "KEY_ERROR"},status = 400)
         except ValueError:
