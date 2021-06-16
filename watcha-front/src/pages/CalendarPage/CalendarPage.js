@@ -22,7 +22,7 @@ const Calendar = ({today , history}) => {
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
   var thisyear = today.getFullYear();
-  var thismonth = today.getMonth();
+  var thismonth = today.getMonth()-1;
   var thisday = today.getDate();
   var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
   // 여기서 데이터를 가져오면 된다.
@@ -98,11 +98,10 @@ const Calendar = ({today , history}) => {
                   .map((schedule) => {
                     return (
                       <ScheduleStyle
-                        className={schedule.completed}
                         key={schedule.desc}
                       >
                         <p>
-                          {schedule.desc}
+                          {schedule.movie_title}({schedule.genre})
                         </p>
                       </ScheduleStyle>
                     );
@@ -169,7 +168,7 @@ const Calendar = ({today , history}) => {
       <Header>
         <button onClick={prevMonth}>◀</button>
         <span>
-          {monList[month - 1]} {year}
+          {monList[month]} {year}
         </span>
         <button onClick={nextMonth}>▶</button>
       </Header>
@@ -183,7 +182,7 @@ const Calendar = ({today , history}) => {
           <div>Fri</div>
           <div>Sat</div>
         </Day>
-        {makeCalendar(year, month - 1)}
+        {makeCalendar(year, month)}
       </Days>
 
       <FloatBtn2 onClick={ModalShowOpen}>Register</FloatBtn2>

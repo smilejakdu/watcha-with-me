@@ -1,64 +1,98 @@
 import produce from "../utils/produce";
 
 export const initialState = {
-  thismonth: 6,
-  year: 2021,
-  schedules: [
-    { date: "2021-06-25T22:05", desc: "ice", completed: false },
-    { date: "2021-06-25T19:17", desc: "ice2", completed: false },
-    { date: "2021-06-26T02:17", desc: "ice3", completed: false },
-  ],
+  thismonth: 5,
+  year: 0,
+  schedules: [],
+
+  loadScheduleLoading: false,
+  loadScheduleDone: false,
+  loadScheduleError: null,
+
+  addScheduleLoading: false,
+  addScheduleDone: false,
+  addScheduleError: null,
 };
 
 //Action
-export const LOAD_DATE_REQUEST = "LOAD_DATE_REQUEST";
-export const LOAD_DATE_SUCCESS = "LOAD_DATE_SUCCESS";
-export const LOAD_DATE_FAILURE = "LOAD_DATE_FAILURE";
+export const LOAD_SCHEDULE_REQUEST = "LOAD_SCHEDULE_REQUEST";
+export const LOAD_SCHEDULE_SUCCESS = "LOAD_SCHEDULE_SUCCESS";
+export const LOAD_SCHEDULE_FAILURE = "LOAD_SCHEDULE_FAILURE";
 
 export const ADD_SCHEDULE_REQUEST = "ADD_SCHEDULE_REQUEST";
 export const ADD_SCHEDULE_SUCCESS = "ADD_SCHEDULE_SUCCESS";
 export const ADD_SCHEDULE_FAILURE = "ADD_SCHEDULE_FAILURE";
 
-export const PREV_MONTH = "PREV_MONTH"
-export const NEXT_MONTH = "NEXT_MONTH"
+export const PREV_MONTH = "PREV_MONTH";
+export const NEXT_MONTH = "NEXT_MONTH";
 
 // Action Creators
-export const loadDate = (date) =>{
-    return {type:LOAD_DATE, date};
+export const loadDate = (date) => {
+  return { type: LOAD_SCHEDULE_REQUEST, date };
 };
-export const prevMonth = (thismonth) =>{
-    return {type:PREV_MONTH, thismonth};
+export const prevMonth = (thismonth) => {
+  return { type: PREV_MONTH, thismonth };
 };
-export const nextMonth = (thismonth) =>{
-    return {type:NEXT_MONTH, thismonth};
+export const nextMonth = (thismonth) => {
+  return { type: NEXT_MONTH, thismonth };
 };
-export const addSchedule = (genre, title , date) =>{
-    console.log("calendar redux : " , genre , title , date);
-    return {type:ADD_SCHEDULE, genre, title, date};
+export const addSchedule = (genre, title, date) => {
+  console.log("calendar redux : ", genre, title, date);
+  return { type: ADD_SCHEDULE_REQUEST, genre, title, date };
 };
-//Reducer
-export default function reducer(state = initialState, action){
-    switch (action.type){
-        case "calendar/LOAD_DATE":{
-            return state;
-        }
-        case "calendar/PREV_MONTH":{
-            if(state.thismonth === 1){
-                return {...state, thismonth: state.thismonth+11, year:state.year-1}
-            } return {...state, thismonth:state.thismonth-1}
-            
-        }
-        case "calendar/NEXT_MONTH":{
-            if(state.thismonth===12){
-                return {...state, thismonth: state.thismonth-11, year:state.year+1};
-            } return {...state, thismonth:state.thismonth+1};
 
+//Reducer
+const reducer = (state = initialState, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case LOAD_SCHEDULE_REQUEST:
+        draft.loadScheduleLoading = true;
+        draft.loadScheduleDone = false;
+        draft.loadScheduleError = null;
+        break;
+      case LOAD_SCHEDULE_SUCCESS:
+        draft.loadScheduleLoading = false;
+        draft.loadScheduleDone = true;
+        draft.schedules = action.data;
+        break;
+      case LOAD_SCHEDULE_FAILURE:
+        draft.loadScheduleLoading = false;
+        draft.loadScheduleError = action.error;
+        break;
+      case ADD_SCHEDULE_REQUEST:
+        draft.addScheduleLoading = true;
+        draft.addScheduleDone = false;
+        draft.addScheduleError = null;
+        break;
+      case ADD_SCHEDULE_SUCCESS:
+        draft.addScheduleLoading = false;
+        draft.addScheduleDone = true;
+        draft.schedules.unshift(action.data.data[0]);
+        break;
+      case ADD_SCHEDULE_FAILURE:
+        draft.addScheduleLoading = false;
+        draft.addScheduleError = action.error;
+        break;
+      case PREV_MONTH:
+        if (draft.thismonth === 1) {
+          draft.thismonth += 11
+          draft.thisyear -= 1
+          break;
         }
-        case "calendar/ADD_SCHEDULE":{
-            const new_schedules = [...state.schedules,{date:action.date, desc:action.desc, completed:false}];
-            return {schedules:new_schedules};
-        }
-        default:
-            return state;
+        draft.thismonth -= 1
+        break;
+        break;
+      case NEXT_MONTH:
+        if (draft.thismonth === 12) {
+          draft.thismonth -= 11
+          draft.thisyear += 1
+          break;
+        } 
+        draft.thismonth += 1
+        break;
+      default:
+        break;
     }
-}
+  });
+
+export default reducer;

@@ -16,8 +16,9 @@ const CalendarAddModal = ({ isOpen, close }) => {
   const [genre, onChangeGenre, setGenre] = useInput("장르를 선택하시오");
 
   const dispatch = useDispatch();
+
   const registerSchedule = () => {
-    var date = document.getElementById("scheduleDate").value;
+    const date = document.getElementById("scheduleDate").value;
 
     if (title != 0 && date != 0) {
       console.log(genre,title, date);
