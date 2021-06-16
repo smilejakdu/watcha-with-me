@@ -103,11 +103,9 @@ const Calendar = ({today , history}) => {
                   .sort()
                   .map((schedule) => {
                     return (
-                      <ScheduleStyle
-                        key={schedule.desc}
-                      >
-                        <p>
-                          {schedule.title}
+                      <ScheduleStyle key={schedule.desc}>
+                        <p onClick={()=>UpdateModalShowOpen(schedule.id)}>
+                          제목 : {schedule.title}
                         </p>
                       </ScheduleStyle>
                     );
@@ -165,6 +163,10 @@ const Calendar = ({today , history}) => {
     setCalendarAdd(false);
   }, []);
 
+  const UpdateModalShowOpen = useCallback((id) => {
+    console.log("update scheduler id : " ,id);
+    setCalendarAdd(true);
+  }, []);
 
   return (
     <Container>

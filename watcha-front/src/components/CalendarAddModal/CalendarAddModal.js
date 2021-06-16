@@ -25,7 +25,6 @@ const CalendarAddModal = ({ isOpen, close }) => {
 
     if (title != 0 && date != 0) {
       console.log(genre,title, date);
-      // dispatch(addSchedule(genre , title, date));
       dispatch({
         type: ADD_SCHEDULE_REQUEST,
         data : {genre:genre , title: title , date:date},
