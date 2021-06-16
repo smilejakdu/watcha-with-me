@@ -3,14 +3,14 @@ import json
 import bcrypt
 import re
 
+from datetime     import datetime
 from django.views import View
 from users.models import User
-from users.utils import login_check
-from .models import Scheduler
-from django.http import JsonResponse
-from users.utils import login_check
-from collections import deque
-import datetime
+from users.utils  import login_check
+from .models      import Scheduler
+from django.http  import JsonResponse
+from users.utils  import login_check
+from collections  import deque
 
 
 class SchedulerView(View):
@@ -49,7 +49,9 @@ class SchedulerView(View):
             "nickname"    : User.objects.get(id=scheduler['user_id']).nickname
         }for scheduler in schedulers]
 
-        return JsonResponse({"data" : list(scheduler_data)} , status = 200)
+        return JsonResponse({"data"      : list(scheduler_data) ,
+                             "year"      : datetime.now().year ,
+                             "thismonth" : datetime.now().month } , status = 200)
 
     @login_check
     def put(self , request):

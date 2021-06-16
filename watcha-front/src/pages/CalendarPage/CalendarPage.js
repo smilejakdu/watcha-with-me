@@ -21,9 +21,10 @@ const Calendar = ({today , history}) => {
   const schedules = useSelector((state) => state.calendar.schedules);
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
-  var thisyear = today.getFullYear();
-  var thismonth = today.getMonth()-1;
-  var thisday = today.getDate();
+  const thisyear = today.getFullYear();
+  const thismonth = today.getMonth();
+  const thisday = today.getDate();
+
   var toDay = `${thisyear}-${thismonth < 9 ? "0"+(thismonth+1):thismonth+1}-${thisday<10?"0"+thisday : thisday}`;
   // 여기서 데이터를 가져오면 된다.
   useEffect(() => {});
@@ -126,7 +127,7 @@ const Calendar = ({today , history}) => {
     { once: true }
   );
 
-  const [month, changeMonth] = useState(thismonth+1);
+  const [month, changeMonth] = useState(thismonth);
   const [year, changeYear] = useState(thisyear);
 
   const nextMonth = () => {
