@@ -16,7 +16,7 @@ import { Dropdown } from "react-bootstrap";
 
 const CalendarAddModal = ({ isOpen, close }) => {
   const [title, onChangeTitle, setTitle] = useInput("");
-  const [genre, onChangeGenre, setGenre] = useInput("장르를 선택하시오");
+  const [genre, onChangeGenre, setGenre] = useInput("genre");
 
   const dispatch = useDispatch();
 
@@ -45,16 +45,16 @@ const CalendarAddModal = ({ isOpen, close }) => {
               {genre}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setGenre("멜로")}>
-                멜로
+              <Dropdown.Item onClick={() => setGenre("romance")}>
+                로멘스
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => setGenre("공포")}>
+              <Dropdown.Item onClick={() => setGenre("fear")}>
                 공포
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => setGenre("코믹")}>
+              <Dropdown.Item onClick={() => setGenre("comic")}>
                 코믹
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => setGenre("액션")}>
+              <Dropdown.Item onClick={() => setGenre("action")}>
                 액션
               </Dropdown.Item>
             </Dropdown.Menu>

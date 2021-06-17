@@ -104,5 +104,30 @@ class SchedulerView(View):
             return JsonResponse({"message": "KEY_ERROR"}, status = 400)
         except Exception as e:
             return JsonResponse({"message": e},status = 400)
-        return
+
+
+class AnalysisView(View):
+    def get(self, request):
+        schedulers = list(Scheduler.
+                       objects.
+                       values('genre'))
+
+        try:
+            movie_data = {
+                'action'  : 0,
+                'fear'    : 0,
+                'comic'   : 0,
+                'romance' : 0
+            }
+
+            for scheduler in schedulers:
+                movie_data[scheduler['genre']] += 1
+
+            return JsonResponse({"data": movie_data},status = 200)
+        except KeyError:
+            return JsonResponse({"message": "KEY_ERROR"},status = 400)
+        except ValueError:
+            return JsonResponse({"message": "KEY_ERROR"}, status = 400)
+        except Exception as e:
+            return JsonResponse({"message": e},status = 400)
 

@@ -4,7 +4,7 @@ from django.conf             import settings
 
 urlpatterns = [
     path('users/'    , include("users.urls")),
-    path('scheduler' , include("scheduler.urls")),
+    path('scheduler/' , include("scheduler.urls")),
     path('board/'    , include("board.urls")),
     path('review'    , include("review.urls")),
 ]

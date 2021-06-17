@@ -9,6 +9,7 @@ import Layout from "./Layouts/Layout";
 import BoardPage from "./pages/BoardPage/BoardPage";
 import DetailBoardPage from "./pages/DetailBoardPage/DetailBoardPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
+import AnalysisPage from "./pages/AnalysisPage/AnalysisPage";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               path="/detailboard"
               component={DetailBoardPage}
             />
+            <Route exact="exact" path="/analysis" component={AnalysisPage} />
             <Route
               render={({ location }) => (
                 <div>

@@ -74,7 +74,7 @@ const Navigation = () => {
          Watcha
        </Navbar.Brand>
        <Nav className="mr-auto">
-         <Nav.Link>Analysis</Nav.Link>
+         <Nav.Link href="/analysis">Analysis</Nav.Link>
          <Nav.Link href="/scheduler">Scheduler</Nav.Link>
          <Nav.Link href="/board">Board</Nav.Link>
          {localStorage.getItem("token") ? (
