@@ -21,7 +21,7 @@ import {
 
 
 function loadScheduleAPI() {
-  return axios.get("/scheduler/");
+  return axios.get("/scheduler");
 }
 
 function* loadSchedule(action) {
@@ -44,7 +44,7 @@ function* loadSchedule(action) {
 }
 
 function addScheduleAPI(data) {
-  return axios.post("/scheduler/", data, {
+  return axios.post("/scheduler", data, {
     headers: {
       Authorization: `${localStorage.getItem("token")}`,
     },
@@ -69,7 +69,7 @@ function* addSchedule(action) {
 }
 
 function updateScheduleAPI(data) {
-  return axios.put("/scheduler/", data, {
+  return axios.put("/scheduler", data, {
     headers: {
       Authorization: `${localStorage.getItem("token")}`,
     },
@@ -93,7 +93,7 @@ function* updateSchedule(action) {
 }
 
 function removeScheduleAPI(data) {
-  return axios.delete("/scheduler/", {
+  return axios.delete("/scheduler", {
     headers: {
       Authorization: `${localStorage.getItem("token")}`,
     },
