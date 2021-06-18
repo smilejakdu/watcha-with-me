@@ -94,13 +94,13 @@ const Calendar = ({today , history}) => {
             return (
               <div key={dateKey}>
                 {dateKey === toDay ? (
-                  <span>{day}(today)</span>
+                  <span style={{color:'coral'}}>{day}(today)</span>
                 ) : (
                   <span
                     style={{
                       color:
                         idx == 0 ? "#CE879F" : idx == 6 ? "#CE879F" : "#444078",
-                      float:"right",
+                      float:"left",
                     }}
                   >
                     {day} 

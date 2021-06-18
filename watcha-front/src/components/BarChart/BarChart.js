@@ -27,7 +27,7 @@ const BarChart = ({data})=> {
   };
 
   return (
-    <div>
+    <div style={{width:700 , margin:'0 auto'}}>
       <Bar data={movie_data} />
     </div>
   );

@@ -131,3 +131,29 @@ class AnalysisView(View):
         except Exception as e:
             return JsonResponse({"message": e},status = 400)
 
+
+class PolarChartView(View):
+    @login_check
+    def get(self , request):
+        try:
+            schedulers = list(Scheduler.
+                                objects.
+                                filter(user_id = request.user.id).values())
+
+            polar_data = {
+                'action'  : 0,
+                'fear'    : 0,
+                'comic'   : 0,
+                'romance' : 0
+            }
+
+            for scheduler in schedulers:
+                polar_data[scheduler['genre']] += 1
+
+            return JsonResponse({"data": polar_data},status = 200)
+        except KeyError:
+            return JsonResponse({"message": "KEY_ERROR"},status = 400)
+        except ValueError:
+            return JsonResponse({"message": "KEY_ERROR"}, status = 400)
+        except Exception as e:
+            return JsonResponse({"message": e},status = 400)

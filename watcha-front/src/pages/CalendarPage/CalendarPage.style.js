@@ -84,7 +84,7 @@ const Day = styled.div`
   & div {
     min-width: 14%;
     max-height: 5%;
-    text-align: center;
+    /* text-align: center; 요일 가운데 정리 */
     font-weight: 600;
     box-sizing: border-box;
   }
@@ -100,7 +100,6 @@ const Row = styled.div`
     width: 15%;
     height: 100%;
     font-weight: 600;
-    text-align: right;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
