@@ -22,6 +22,7 @@ const Calendar = ({today , history}) => {
   const [updateScheduleId , setUpdateScheduleId] = useState();
   const [genre , setGenre] = useState("");
   const [title , setTitle] = useState("");
+  const [nickname , setNickname] = useState("");
   const [date, setDate] = useState("");
 
   // console.log("리덕스에서 가져온 스케쥴",schedules)
@@ -117,7 +118,8 @@ const Calendar = ({today , history}) => {
                               schedule.id,
                               schedule.genre,
                               schedule.title,
-                              schedule.date
+                              schedule.date,
+                              schedule.nickname
                             )
                           }
                         >
@@ -178,11 +180,12 @@ const Calendar = ({today , history}) => {
     setCalendarAdd(false);
   }, []);
 
-  const UpdateBtnClick = useCallback((id, genre, title, date) => {
+  const UpdateBtnClick = useCallback((id, genre, title, date , nickname) => {
     console.log(id , genre , title , date);
     setGenre(genre);
     setTitle(title);
     setDate(date);
+    setNickname(nickname)
     setUpdateScheduleId(id);
     UpdateModalShowOpen();
   }, []);
@@ -208,6 +211,7 @@ const Calendar = ({today , history}) => {
           update_genre={genre}
           update_title={title}
           update_date={date}
+          update_nickname={nickname}
         />
       )}
       <Header>

@@ -1,5 +1,5 @@
 import React , { useCallback } from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch , useSelector} from "react-redux";
 import {
   ADD_SCHEDULE_REQUEST,
   UPDATE_SCHEDULE_REQUEST,
@@ -21,6 +21,7 @@ const CalendarUpdateModal = ({
   update_genre,
   update_title,
   update_date,
+  update_nickname,
   isOpen,
   close,
 }) => {
@@ -87,9 +88,15 @@ const CalendarUpdateModal = ({
               />
             </InputBox>
             <BtnBox>
-              <button onClick={close}>취소</button>
-              <button onClick={() => SchedulerUpdateOnClick()}>수정</button>
-              <button onClick={() => SchedulerRemoveOnClick()}>삭제</button>
+              {localStorage.getItem("nickname") === update_nickname ? (
+                <>
+                  <button onClick={close}>취소</button>
+                  <button onClick={() => SchedulerUpdateOnClick()}>수정</button>
+                  <button onClick={() => SchedulerRemoveOnClick()}>삭제</button>
+                </>
+              ) : (
+                <button onClick={close}>확인</button>
+              )}
             </BtnBox>
           </ModalBody>
         </ModalOverlay>
