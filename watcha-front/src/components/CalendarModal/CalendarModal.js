@@ -23,7 +23,6 @@ const CalendarModal=({isOpen , close})=> {
 
 		if (schedule != 0 && date != 0) {
 			dispatch(addSchedule(date, schedule));
-      console.log(date, schedule);
       dispatch({
         type:"",
         data:""

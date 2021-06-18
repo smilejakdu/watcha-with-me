@@ -44,7 +44,6 @@ function* loadSchedule(action) {
 }
 
 function addScheduleAPI(data) {
-  console.log("data : " , data);
   return axios.post("/scheduler/", data, {
     headers: {
       Authorization: `${localStorage.getItem("token")}`,
@@ -53,7 +52,6 @@ function addScheduleAPI(data) {
 }
 
 function* addSchedule(action) {
-  console.log(action);
   try {
     const result = yield call(addScheduleAPI, action.data);
     yield put({

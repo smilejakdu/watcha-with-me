@@ -143,7 +143,7 @@ const Calendar = ({today , history}) => {
       if (calendarDays.length === 0) {
         makeCalendar(thisyear, thismonth);
       }
-      console.log("첫 로딩 시 현재 월 출력", thisyear, thismonth);
+      // console.log("첫 로딩 시 현재 월 출력", thisyear, thismonth);
     },
     { once: true }
   );
@@ -159,7 +159,7 @@ const Calendar = ({today , history}) => {
       changeYear((year) => year + 1);
     }
     makeCalendar(year, month);
-    console.log("next!", year, month, new_month);
+    // console.log("next!", year, month, new_month);
   };
   const prevMonth = () => {
     if (month != 0) {
@@ -181,7 +181,6 @@ const Calendar = ({today , history}) => {
   }, []);
 
   const UpdateBtnClick = useCallback((id, genre, title, date , nickname) => {
-    console.log(id , genre , title , date);
     setGenre(genre);
     setTitle(title);
     setDate(date);

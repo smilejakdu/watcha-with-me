@@ -12,7 +12,6 @@ import {
 } from "../../reducers/board";
 
 const BoardInfo = ({boards}) => {
-    console.log("boards:" , boards);
     const history = useHistory();
     const dispatch = useDispatch();
     

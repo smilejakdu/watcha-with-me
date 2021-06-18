@@ -30,7 +30,6 @@ const AnalysisPage = () => {
         },
       })
       .then((res) => {
-        console.log("res : ", res);
         const {
           data: { data },
         } = res;

@@ -53,7 +53,6 @@ export const nextMonth = (thismonth) => {
   return { type: NEXT_MONTH, thismonth };
 };
 export const addSchedule = (genre, title, date) => {
-  console.log("calendar redux : ", genre, title, date);
   return { type: ADD_SCHEDULE_REQUEST, genre, title, date };
 };
 
@@ -69,7 +68,6 @@ const reducer = (state = initialState, action) =>
       case LOAD_SCHEDULE_SUCCESS:
         draft.loadScheduleLoading = false;
         draft.loadScheduleDone = true;
-        console.log("loading action data", action.data);
         draft.schedules = action.data;
         break;
       case LOAD_SCHEDULE_FAILURE:
@@ -116,7 +114,6 @@ const reducer = (state = initialState, action) =>
       case REMOVE_SCHEDULE_SUCCESS:
         draft.removeScheduleLoading = false;
         draft.removeScheduleDone = true;
-        console.log("scheduler remove reducer : " , action);
         draft.schedules = draft.schedules.filter(
           (v) => v.id !== action.data.data
         );

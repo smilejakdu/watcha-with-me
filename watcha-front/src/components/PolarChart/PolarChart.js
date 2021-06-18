@@ -2,7 +2,6 @@ import React from 'react'
 import { PolarArea } from "react-chartjs-2";
 
 const PolarChart = ({ polarData }) => {
-  console.log("polarData : " , polarData);
   const data = {
     labels: ["로멘스", "코믹", "공포", "액션"],
     datasets: [

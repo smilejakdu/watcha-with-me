@@ -15,7 +15,6 @@ const BoardPage = () => {
     } = useSelector((state) => state.board);
 
     useEffect(() => {
-        console.log("123");
         dispatch({
             type: LOAD_BOARD_REQUEST,
         });
