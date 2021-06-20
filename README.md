@@ -17,7 +17,7 @@ http://watcha-withme.xyz:8080/
 ## 📌 기획 및 설계
 - [기획서](https://whimsical.com/D1eEoSPpuc2ySmKuoGJhyM)
 - [API](https://www.notion.so/Watch-with-me-7f2491fa73894b909dcb89d6bf83332b)
-<img src="https://github.com/smilejakdu/watcha-with-me/blob/main/screen_page.png" width="1000" height="500">
+<img src="https://github.com/smilejakdu/watcha-with-me/blob/main/watcha-front/src/utils/images/project_plan.png" width="1000" height="500">
 
 ## 📌 프로젝트 참가자 ( Front & Back )
 
