@@ -29,6 +29,7 @@ const CalendarAddModal = ({ isOpen, close }) => {
         data : {genre:genre , title: title , date:date},
       });
       close()
+      window.location.reload();
     } else {
       alert("어?? 뭐 잊은거 없어 ??");
     }

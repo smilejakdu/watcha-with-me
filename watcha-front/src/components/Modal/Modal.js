@@ -11,16 +11,12 @@ import axios from "axios";
 import { backUrl } from "../../config/config";
 import logo from "../../utils/images/watchalogo.png";
 import useInput from "../../hooks/useInput"
-import { useSelector, useDispatch } from "react-redux";
 
 const Modal = ({ isOpen, close, textData }) => {
     const [text, setText] = useState(textData);
     const [nickname ,onChangeNickname , setNickname ] = useInput("");
     const [password ,onChangePassword , setPassword ] = useInput("");
     const [repassword, onChangeRepassword, setRepassword] = useInput("");
-    const dispatch = useDispatch();
-    const {me} = useSelector((state) => state.user);
-    
 
     const onClickBtn = useCallback(() => {
         if (text === "login") {
@@ -32,9 +28,8 @@ const Modal = ({ isOpen, close, textData }) => {
                 .then((res) => {
                     const {access , user} = res.data;
 
-                    // localStorage.setItem("nickname", user);
-                    // localStorage.setItem("token", access);
-
+                    localStorage.setItem("nickname", user);
+                    localStorage.setItem("token", access);
                     setNickname("");
                     setPassword("");
                     close();

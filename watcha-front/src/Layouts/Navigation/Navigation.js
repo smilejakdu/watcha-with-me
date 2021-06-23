@@ -19,12 +19,6 @@ const Navigation = () => {
 
   const history = useHistory();
 
-  useEffect(() => {
-    if (!(me && me.id)) {
-      Router.push("/");
-    }
-  }, [me && me.id]);
-
   useEffect(()=>{
     const bg = document.getElementById("watcha_main_logo");
     setInterval(function () {
@@ -35,7 +29,6 @@ const Navigation = () => {
         bg.style.transition = "all 2s ease-out";
         bg.style.color = "#" + color;
     }, 3000);
-
   },[])
 
   const loginBtn = useCallback(() => {
@@ -84,10 +77,7 @@ const Navigation = () => {
          <Nav.Link href="/analysis">Analysis</Nav.Link>
          <Nav.Link href="/scheduler">Scheduler</Nav.Link>
          <Nav.Link href="/board">Board</Nav.Link>
-         {
-           me
-         }
-         {localStorage.getItem("token") ? (
+         {me ? (
            <>
              <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>
              <Nav.Link onClick={JokeModalShowOpen}>

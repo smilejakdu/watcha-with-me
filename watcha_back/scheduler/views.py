@@ -9,7 +9,6 @@ from users.models import User
 from users.utils  import login_check
 from .models      import Scheduler
 from django.http  import JsonResponse
-from users.utils  import login_check
 from collections  import deque
 
 
