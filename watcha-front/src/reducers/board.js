@@ -56,6 +56,7 @@ export const initialState = {
     loadModalLoading: false,
     loadModalDone: false,
     loadModalError: null,
+    me:null
 };
 
 // board

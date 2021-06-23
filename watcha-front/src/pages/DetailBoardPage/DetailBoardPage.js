@@ -22,6 +22,7 @@ const DetailBoardPage=()=> {
     const [text, onChangeText, setText] = useInput("");
     const [reviewData , setReviewData] = useState();
     const [detailId , setDetailId] = useState();
+
     const {
         detailBoards,
         addReviewLoading,
