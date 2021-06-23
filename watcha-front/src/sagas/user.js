@@ -38,7 +38,7 @@ function* loadUser(action) {
 }
 
 function logInAPI(data) {
-    return axios.post("/user/login", data);
+    return axios.post("/users/signin", data);
 }
 
 function* logIn(action) {
@@ -58,7 +58,7 @@ function* logIn(action) {
 }
 
 function logOutAPI() {
-    return axios.post("/user/logout");
+    return axios.post("/users/logout");
 }
 
 function* logOut() {
@@ -77,7 +77,7 @@ function* logOut() {
 }
 
 function signUpAPI(data) {
-    return axios.post("/user", data);
+    return axios.post("/users/signup", data);
 }
 
 function* signUp(action) {

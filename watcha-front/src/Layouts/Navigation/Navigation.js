@@ -15,12 +15,18 @@ import SearchBox from "../../components/SearchBox/SearchBox"
 const Navigation = () => {
   const [modalShow, setModalShow] = useState(false);
   const [jokeModalShow , setJokeModalShow] = useState(false);
+  const { me } = useSelector((state) => state.user);
 
   const history = useHistory();
 
+  useEffect(() => {
+    if (!(me && me.id)) {
+      Router.push("/");
+    }
+  }, [me && me.id]);
+
   useEffect(()=>{
     const bg = document.getElementById("watcha_main_logo");
-
     setInterval(function () {
         let color = Math.random() * 0xffffff;
         color = parseInt(color);
@@ -29,6 +35,7 @@ const Navigation = () => {
         bg.style.transition = "all 2s ease-out";
         bg.style.color = "#" + color;
     }, 3000);
+
   },[])
 
   const loginBtn = useCallback(() => {
@@ -77,6 +84,9 @@ const Navigation = () => {
          <Nav.Link href="/analysis">Analysis</Nav.Link>
          <Nav.Link href="/scheduler">Scheduler</Nav.Link>
          <Nav.Link href="/board">Board</Nav.Link>
+         {
+           me
+         }
          {localStorage.getItem("token") ? (
            <>
              <Nav.Link onClick={logoutBtn}>SignOut</Nav.Link>

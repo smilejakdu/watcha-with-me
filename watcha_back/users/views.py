@@ -12,6 +12,7 @@ from django.http             import JsonResponse , HttpResponse
 from watcha_back.my_settings import SECRET
 from django.core.validators  import validate_email
 from django.core.exceptions  import ValidationError
+from users.utils             import login_check
 
 class KakaoSignInView(View):
     def post(self, request):
@@ -97,8 +98,13 @@ class SignInView(View):
                     token = jwt.encode({'nickname': data['nickname']},
                                            SECRET['secret'],
                                            algorithm = SECRET['algorithm']).decode()
+                    user_data = {
+                        'id'       : user.id,
+                        'nickname' : user.nickname,
+                    }
 
-                    return JsonResponse({'access': token , 'user':user.nickname}, status=200, content_type="application/json")
+                    return JsonResponse({'access': token ,
+                                         'user'  : user_data}, status=200, content_type="application/json")
 
                 return HttpResponse(status=401)
 
@@ -115,6 +121,27 @@ class SignInView(View):
 
         except Exception as e:
             return JsonResponse({"message" : e} , status = 400)
+
+class UserLoadView(View):
+    @login_check
+    def get(self, request):
+        try:
+            user = (User.objects.get(id=request.user.id))
+
+            user_data = {
+                'id'       : user.id,
+                'nickname' : user.nickname,
+            }
+
+            return JsonResponse({"message" : "SUCCESS",
+                                 "data"    : list(user_data)},status = 200)
+
+        except TypeError:
+            return JsonResponse({"message":"INVALID_TYPE"},status = 400)
+        except ValueError:
+            return JsonResponse({"message":"VALUE_ERROR"},status = 400)
+        except Exception as e:
+            return JsonResponse({"message":e},status = 400)
 
 # front => token => header 요청
 class TokenCheckView(View):
