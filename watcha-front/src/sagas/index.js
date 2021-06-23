@@ -3,7 +3,6 @@ import axios from "axios";
 
 import boardSaga from "./board";
 import calendarSaga from "./calendar";
-import userSaga from "./user"
 import {backUrl} from "../config/config"
 
 axios.defaults.baseURL = backUrl;
@@ -14,6 +13,5 @@ export default function* rootSaga() {
     yield all([
         fork(boardSaga),
         fork(calendarSaga),
-        fork(userSaga),
     ]);
 }
