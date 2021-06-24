@@ -60,16 +60,22 @@ const CalendarUpdateModal = ({
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={() => setGenre("romance")}>
-                    romance
+                    로멘스
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setGenre("fear")}>
-                    fear
+                    공포
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setGenre("comic")}>
-                    comic
+                    코믹
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setGenre("action")}>
-                    action
+                    액션
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setGenre("drama")}>
+                    드라마
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setGenre("comic_romance")}>
+                    코믹로멘스
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

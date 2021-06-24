@@ -29,7 +29,6 @@ const CalendarAddModal = ({ isOpen, close }) => {
         data : {genre:genre , title: title , date:date},
       });
       close()
-      window.location.reload();
     } else {
       alert("어?? 뭐 잊은거 없어 ??");
     }
@@ -56,6 +55,12 @@ const CalendarAddModal = ({ isOpen, close }) => {
               </Dropdown.Item>
               <Dropdown.Item onClick={() => setGenre("action")}>
                 액션
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("drama")}>
+                드라마
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setGenre("comic_romance")}>
+                코믹로맨스
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

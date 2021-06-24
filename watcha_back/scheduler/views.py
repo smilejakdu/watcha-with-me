@@ -110,13 +110,15 @@ class AnalysisView(View):
         schedulers = list(Scheduler.
                        objects.
                        values('genre'))
-
+    # labels: ["로멘스", "코믹", "공포", "액션", "드라마", "코믹 로멘스"],
         try:
             movie_data = {
-                'action'  : 0,
-                'fear'    : 0,
-                'comic'   : 0,
-                'romance' : 0
+                'action'        : 0,
+                'fear'          : 0,
+                'comic'         : 0,
+                'romance'       : 0,
+                'drama'         : 0,
+                'comic_romance' : 0,
             }
 
             for scheduler in schedulers:
@@ -140,10 +142,12 @@ class PolarChartView(View):
                                 filter(user_id = request.user.id).values())
 
             polar_data = {
-                'action'  : 0,
-                'fear'    : 0,
-                'comic'   : 0,
-                'romance' : 0
+                'action'        : 0,
+                'fear'          : 0,
+                'comic'         : 0,
+                'romance'       : 0,
+                'drama'         : 0,
+                'comic_romance' : 0,
             }
 
             for scheduler in schedulers:
