@@ -98,13 +98,9 @@ class SignInView(View):
                     token = jwt.encode({'nickname': data['nickname']},
                                            SECRET['secret'],
                                            algorithm = SECRET['algorithm']).decode()
-                    user_data = {
-                        'id'       : user.id,
-                        'nickname' : user.nickname,
-                    }
 
                     return JsonResponse({'access': token ,
-                                         'user'  : user_data}, status=200, content_type="application/json")
+                                         'user'  : user.nickname}, status=200, content_type="application/json")
 
                 return HttpResponse(status=401)
 
