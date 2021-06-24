@@ -6,7 +6,6 @@ import PolarChart from "../../components/PolarChart/PolarChart";
 
 const AnalysisPage = () => {
   const [data , setData] = useState({});
-  const [polarData , setPolarData] = useState({});
 
 	useEffect(() => {
 		axios
@@ -22,24 +21,6 @@ const AnalysisPage = () => {
       });
   },[])
 
-  useEffect(() => {
-    axios
-      .get("scheduler/polar", {
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        const {
-          data: { data },
-        } = res;
-        setPolarData(data);
-      })
-      .catch((error) => {
-        console.log("error : ", error);
-      });
-  }, []);
-
 	return (
     <Body>
       <BodyCenter>
@@ -52,7 +33,7 @@ const AnalysisPage = () => {
           <center>
             <h2 style={{ margin: "0 auto" }}>my chart</h2>
           </center>
-          <PolarChart polarData = {polarData}/>
+          <PolarChart/>
         </>
         )}
      </BodyCenter>

@@ -1,7 +1,26 @@
-import React from 'react'
+import React , {useState , useEffect , useCallback} from 'react'
 import { PolarArea } from "react-chartjs-2";
+import axios from "axios";
+const PolarChart = () => {
+  const [polarData, setPolarData] = useState({});
+  useEffect(() => {
+    axios
+      .get("scheduler/polar", {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const {
+          data: { data },
+        } = res;
+        setPolarData(data);
+      })
+      .catch((error) => {
+        console.log("error : ", error);
+      });
+  }, []);
 
-const PolarChart = ({ polarData }) => {
   const data = {
     labels: ["로멘스", "코믹", "공포", "액션", "드라마", "코믹 로멘스"],
     datasets: [
