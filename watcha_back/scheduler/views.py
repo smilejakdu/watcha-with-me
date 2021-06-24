@@ -108,9 +108,8 @@ class SchedulerView(View):
 class AnalysisView(View):
     def get(self, request):
         schedulers = list(Scheduler.
-                       objects.
-                       values('genre'))
-    # labels: ["로멘스", "코믹", "공포", "액션", "드라마", "코믹 로멘스"],
+                            objects.
+                            values('genre'))
         try:
             movie_data = {
                 'action'        : 0,
