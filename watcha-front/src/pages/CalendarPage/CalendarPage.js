@@ -106,6 +106,7 @@ const Calendar = ({today , history}) => {
                     {day} 
                   </span>
                 )}
+                <div style={{overflowY:"auto" , width:"100%"}}>
                 {schedules
                   .filter((schedule) => schedule.date.substr(0, 10) === dateKey)
                   .sort()
@@ -128,6 +129,7 @@ const Calendar = ({today , history}) => {
                       </ScheduleStyle>
                     );
                   })}
+                </div>
               </div>
             );
           })}
