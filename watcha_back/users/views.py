@@ -6,35 +6,35 @@ import bcrypt
 import users.utils
 import requests
 
-from django.views            import View
-from users.models            import User
-from django.http             import JsonResponse , HttpResponse
+from django.views import View
+from users.models import User
+from django.http import JsonResponse, HttpResponse
 from watcha_back.my_settings import SECRET
-from django.core.validators  import validate_email
-from django.core.exceptions  import ValidationError
-from users.utils             import login_check
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from users.utils import login_check
+
 
 class KakaoSignInView(View):
     def post(self, request):
-        data  = json.loads(request.body)
+        data = json.loads(request.body)
         email = data.get('email', None)
 
         try:
             validate_email(email)
 
-            if not User.objects.filter(email = email).exists():
+            if not User.objects.filter(email=email).exists():
                 User.objects.create(
-                    email = email
+                    email=email
                 )
 
-            user      = User.objects.get(email = email)
-            key       = SECRET.get('secret')
+            user = User.objects.get(email=email)
+            key = SECRET.get('secret')
             algorithm = SECRET.get('algorithm')
-            token     = jwt.encode({'user' : user.id},key, algorithm = algorithm).decode('UTF-8')
-
+            token = jwt.encode({'user': user.id}, key, algorithm=algorithm).decode('UTF-8')
 
             return JsonResponse(
-                {"token": token, "message": "SIGNIN_SUCCESS", "email" : user.email}, status=200
+                {"token": token, "message": "SIGNIN_SUCCESS", "email": user.email}, status=200
             )
 
         except KeyError:
@@ -44,44 +44,46 @@ class KakaoSignInView(View):
         except ValueError:
             return JsonResponse({"message": "VALUE_ERROR"}, status=400)
 
+
 class SignUpView(View):
-    def post(self , request):
+    def post(self, request):
         data = json.loads(request.body)
 
         try:
             for d in data:
                 if not data[d]:
-                    return JsonResponse({"message":f"doesnot_{d}"} , status = 400)
+                    return JsonResponse({"message": f"doesnot_{d}"}, status=400)
             # 특수 문자 회원가입 금지 , 띄어쓰기 있는거 금지 
 
             only_BMP_pattern = re.compile("["
-                    u"\U00010000-\U0010FFFF"  #BMP characters 이외
-                                    "]+", flags=re.UNICODE)
+                                          u"\U00010000-\U0010FFFF"  # BMP characters 이외
+                                          "]+", flags=re.UNICODE)
 
             if len(data['nickname']) == 0:
-                return JsonResponse({"message":"DOESNOT_NICKNAME"} , status = 400)
+                return JsonResponse({"message": "DOESNOT_NICKNAME"}, status=400)
 
             if bool(only_BMP_pattern.search(data['nickname'])):
-                return JsonResponse({"message":"EMOJI_CAN_NOT_USED"} , status = 400)
+                return JsonResponse({"message": "EMOJI_CAN_NOT_USED"}, status=400)
 
-            if User.objects.filter(nickname = data['nickname']).exists():
-                return JsonResponse({"message" : "EXISTS_NICKNAME"} , status = 400)
+            if User.objects.filter(nickname=data['nickname']).exists():
+                return JsonResponse({"message": "EXISTS_NICKNAME"}, status=400)
 
             if len(data['password']) < 5:
-                return JsonResponse({"message":"SHORT_PASSWORD"} , status = 400)
+                return JsonResponse({"message": "SHORT_PASSWORD"}, status=400)
 
             User(
-                nickname = data['nickname'],
-                password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                nickname=data['nickname'],
+                password=bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             ).save()
 
-            return JsonResponse({"message" : "SUCCESS_SIGNUP"},status = 200)
+            return JsonResponse({"message": "SUCCESS_SIGNUP"}, status=200)
 
         except KeyError:
-            return JsonResponse({"message" : "INVALID_KEY"},status = 400)
+            return JsonResponse({"message": "INVALID_KEY"}, status=400)
 
         except Exception as e:
-            return JsonResponse({"message" : e},status = 400)
+            return JsonResponse({"message": e}, status=400)
+
 
 class SignInView(View):
     def post(self, request):
@@ -94,13 +96,12 @@ class SignInView(View):
 
                 if bcrypt.checkpw(data['password'].encode('utf-8'),
                                   user.password.encode('utf-8')):
-
                     token = jwt.encode({'nickname': data['nickname']},
-                                           SECRET['secret'],
-                                           algorithm = SECRET['algorithm']).decode()
+                                       SECRET['secret'],
+                                       algorithm=SECRET['algorithm']).decode()
 
-                    return JsonResponse({'access': token ,
-                                         'user'  : user.nickname}, status=200, content_type="application/json")
+                    return JsonResponse({'access': token,
+                                         'user': user.nickname}, status=200, content_type="application/json")
 
                 return HttpResponse(status=401)
 
@@ -110,13 +111,14 @@ class SignInView(View):
             return JsonResponse({"message": "INVALID_KEYS"}, status=400)
 
         except ValidationError:
-            return JsonResponse({"message" : "validation_error"} , status = 400)
+            return JsonResponse({"message": "validation_error"}, status=400)
 
         except User.DoesNotExist:
             return JsonResponse({"message": "INVALID_USER"}, status=400)
 
         except Exception as e:
-            return JsonResponse({"message" : e} , status = 400)
+            return JsonResponse({"message": e}, status=400)
+
 
 class UserLoadView(View):
     @login_check
@@ -125,29 +127,29 @@ class UserLoadView(View):
             user = (User.objects.get(id=request.user.id))
 
             user_data = {
-                'id'       : user.id,
-                'nickname' : user.nickname,
+                'id': user.id,
+                'nickname': user.nickname,
             }
 
-            return JsonResponse({"message" : "SUCCESS",
-                                 "data"    : list(user_data)},status = 200)
+            return JsonResponse({"message": "SUCCESS",
+                                 "data": list(user_data)}, status=200)
 
         except TypeError:
-            return JsonResponse({"message":"INVALID_TYPE"},status = 400)
+            return JsonResponse({"message": "INVALID_TYPE"}, status=400)
         except ValueError:
-            return JsonResponse({"message":"VALUE_ERROR"},status = 400)
+            return JsonResponse({"message": "VALUE_ERROR"}, status=400)
         except Exception as e:
-            return JsonResponse({"message":e},status = 400)
+            return JsonResponse({"message": e}, status=400)
+
 
 # front => token => header 요청
 class TokenCheckView(View):
-    def get(self , request):
-        auth_token   = request.headers.get('Authorization', None)
-        payload      = jwt.decode(auth_token,
-                                  SECRET['secret'],
-                                  algorithms = ALGORITHM)
+    def get(self, request):
+        auth_token = request.headers.get('Authorization', None)
+        payload = jwt.decode(auth_token,
+                             SECRET['secret'],
+                             algorithms=ALGORITHM)
 
-        user         = User.objects.get(id = payload["id"])
+        user = User.objects.get(id=payload["id"])
 
-        return JsonResponse({"data" : f"{user.nickname}" } , status = 200)
-
+        return JsonResponse({"data": f"{user.nickname}"}, status=200)
